@@ -1,7 +1,7 @@
 <template>
   <n-layout class="layout" :position="fixedMenu" has-sider>
     <n-layout-sider v-if="!isMobile && isMixMenuNoneSub && (navMode === 'vertical' || navMode === 'horizontal-mix')
-      " @collapse="collapsed = true" :position="fixedMenu" @expand="collapsed = false" :collapsed="collapsed"
+    " @collapse="collapsed = true" :position="fixedMenu" @expand="collapsed = false" :collapsed="collapsed"
       collapse-mode="width" :collapsed-width="64" :width="leftMenuWidth" :native-scrollbar="false" :inverted="inverted"
       class="layout-sider">
       <Logo :collapsed="collapsed" />
@@ -13,9 +13,9 @@
       <div class="AsideMenuFooter">
 
         <div class="cover"></div>
-        <a class="beian">
+        <a class="vison">
           <span>Flowt</span>
-          <span class="num" :class="{ hidenum: collapsed }">v1.2.1</span>
+          <span class="num" :class="{ hidenum: collapsed }">v1.1.1</span>
         </a>
         <a class="beian" href="https://beian.miit.gov.cn/" target="_blank">
           <span>粤ICP备</span>
@@ -47,13 +47,13 @@
       }" :class="{ 'layout-default-background': getDarkTheme === false }">
 
         <n-watermark content="GZ10548 薛科" cross selectable :font-size="16" :line-height="16" :width="300" :height="300"
-          :x-offset="12" :y-offset="100" :rotate="-15">
+          font-color="rgba(128,128,128,.2)" :x-offset="12" :y-offset="100" :rotate="-15">
 
           <div class="layout-content-main" :class="{
             'layout-content-main-fix': fixedMulti,
             'fluid-header': fixedHeader === 'static',
           }
-            ">
+          ">
             <TabsView v-model:collapsed="collapsed" class="TabViewTabs" :class="{ HideTabViewTabs: !isMultiTabs }" />
 
             <div class="main-view" :class="{
@@ -61,7 +61,7 @@
               noMultiTabs: !isMultiTabs,
               'mt-3': !isMultiTabs,
             }
-              ">
+            ">
 
 
 
@@ -253,13 +253,14 @@ onMounted(() => {
     }
   }
 
-  .beian {
+
+  .beian,.vison {
 
     display: flex;
     opacity: .4;
     justify-content: center;
     font-size: 12px;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     transition: all .3s var(--n-bezier);
     cursor: pointer;
 

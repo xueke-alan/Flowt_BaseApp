@@ -26,7 +26,7 @@ const codeChildren = [
     meta: {
       title: '微信机器人',
       default: true,
-      icon: renderIcon(MailArrowForward20Regular),
+      icon: renderIcon(ChatArrowBack20Regular),
     },
   },
   {
@@ -34,7 +34,7 @@ const codeChildren = [
     name: 'robot-calibration',
     meta: {
       title: '邮件机器人',
-      icon: renderIcon(ChatArrowBack20Regular),
+      icon: renderIcon(MailArrowForward20Regular),
     },
   },
 ];
