@@ -2,7 +2,7 @@
   <div class="logo">
     <div class="logo-box">
       <img :src="websiteConfig.logo" alt="" />
-      <!-- <div class="title" :class="{ 'collapsed': collapsed }">Flowt</div> -->
+      <div class="title" :class="{ 'collapsed': collapsed }">Flowt.</div>
     </div>
 
   </div>
@@ -53,15 +53,18 @@ export default {
   .title {
     // margin-left: 15px;
     margin-left: 15px;
-    font-size: 14px;
-    font-weight: bolder;
-    overflow: hidden;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    // overflow: hidden;
     opacity: 1;
     transition: max-width .5s var(--n-bezier) .3s, opacity .5s var(--n-bezier) .3s, margin-left .5s var(--n-bezier) .3s;
     user-select: none;
-    color: #bbbbbb;
-    max-width: 50px;
-    overflow: hidden;
+    color: #ddd;
+    border-bottom: 1px solid #f60;
+
+    max-width: 70px;
+    // overflow: hidden;
 
 
   }
@@ -69,7 +72,7 @@ export default {
   .collapsed {
     &.title {
       margin-left: 0px;
-      transition: max-width .5s var(--n-bezier), opacity .5s var(--n-bezier), margin-left .2s var(--n-bezier);
+      transition: max-width .3s var(--n-bezier), opacity .3s var(--n-bezier), margin-left .3s var(--n-bezier);
 
 
       max-width: 0px;

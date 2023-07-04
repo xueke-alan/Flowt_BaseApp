@@ -232,7 +232,7 @@ onMounted(() => {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 84px;
+    height: 104px;
     // background-color: #991111;
     padding-bottom: 5px;
     z-index: 28;
@@ -253,14 +253,16 @@ onMounted(() => {
     }
   }
 
-
+  .vison{
+    font-style: italic;
+  }
   .beian,.vison {
 
     display: flex;
     opacity: .4;
     justify-content: center;
     font-size: 12px;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     transition: all .3s var(--n-bezier);
     cursor: pointer;
 
@@ -418,7 +420,7 @@ onMounted(() => {
 .AsideMenuScrollbar {
   margin-right: 3px;
   user-select: none;
-  max-height: calc(100vh - 64px - 64px);
+  max-height: calc(100vh - 64px - 64px - 20px);
   overflow-y: scroll;
   padding-bottom: 25px;
 

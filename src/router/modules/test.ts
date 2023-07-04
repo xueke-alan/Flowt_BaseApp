@@ -20,18 +20,24 @@ import qiankunBox from '@/views/qiankun/index.vue';
 import { WindowWrench24Filled } from '@vicons/fluent';
 const codeChildren = [
   {
-    path: 'home',
-    name: 'Home2',
+    path: 'all',
+    name: 'test-all',
     meta: {
-      title: 'Home',
-      default: true,
+      title: '全部测试',
     },
   },
   {
-    path: 'about',
-    name: 'About2',
+    path: 'my',
+    name: 'test-my',
     meta: {
-      title: 'About',
+      title: '我的测试',
+    },
+  },
+  {
+    path: 'file',
+    name: 'test-file',
+    meta: {
+      title: '培训资料',
     },
   },
 ];
@@ -63,7 +69,7 @@ const routes: Array<RouteRecordRaw> = [
         activeRule: getActiveRule('/code2'),
       },
       sort: 3,
-      group:'测试',
+      group: '测试',
       noKeepAlive: false,
     },
     children: [...test],

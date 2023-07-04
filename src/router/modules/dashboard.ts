@@ -1,10 +1,8 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { BroadActivityFeed24Regular,BoardSplit48Regular } from '@vicons/fluent';
+import { BroadActivityFeed24Regular, BoardSplit48Regular } from '@vicons/fluent';
 import { renderIcon } from '@/utils/index';
 
-const routeName = 'dashboard';
-const group = 'main';
 /**
  * @param name 路由名称, 必须设置,且不能重名
  * @param meta 路由元信息（路由附带扩展信息）
@@ -14,13 +12,16 @@ const group = 'main';
  * @param meta.icon 菜单图标
  * @param meta.keepAlive 缓存该路由
  * @param meta.sort 排序越小越排前
-* */
+ * */
+
+const routeName = 'dashboard';
+const group = 'main';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/dashboard',
+    path: `/${routeName}`,
     name: routeName,
-    redirect: '/dashboard/console',
+    redirect: `/${routeName}/console`,
     component: Layout,
     meta: {
       title: '总览面板',

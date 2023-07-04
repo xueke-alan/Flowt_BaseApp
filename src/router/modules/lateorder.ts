@@ -1,6 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { TableOutlined } from '@vicons/antd';
 import { renderIcon } from '@/utils/index';
 
 import qiankunBox from '@/views/qiankun/index.vue';
