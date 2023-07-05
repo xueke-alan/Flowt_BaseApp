@@ -26,6 +26,23 @@ import {
 
 const codeChildren = [
   {
+    path: 'test',
+    name: 'tools-test',
+    meta: {
+      title: '测试',
+      default: true,
+      icon: renderIcon(Calculator24Regular),
+    },
+  },{
+    path: 'ad',
+    name: 'tools-ad',
+    meta: {
+      title: '行政',
+      default: true,
+      icon: renderIcon(Calculator24Regular),
+    },
+  },
+  {
     path: 'all',
     name: 'tools-all',
     meta: {
@@ -39,6 +56,14 @@ const codeChildren = [
     name: 'tools-calibration',
     meta: {
       title: '每日午餐',
+      icon: renderIcon(BowlChopsticks24Regular),
+    },
+  },
+  {
+    path: 'cal',
+    name: 'tools-cal',
+    meta: {
+      title: '单位换算',
       icon: renderIcon(BowlChopsticks24Regular),
     },
   },

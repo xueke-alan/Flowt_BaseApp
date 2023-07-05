@@ -253,10 +253,12 @@ onMounted(() => {
     }
   }
 
-  .vison{
+  .vison {
     font-style: italic;
   }
-  .beian,.vison {
+
+  .beian,
+  .vison {
 
     display: flex;
     opacity: .4;
@@ -420,7 +422,7 @@ onMounted(() => {
 .AsideMenuScrollbar {
   margin-right: 3px;
   user-select: none;
-  max-height: calc(100vh - 64px - 64px - 20px);
+  height: calc(100vh - 64px - 64px - 20px);
   overflow-y: scroll;
   padding-bottom: 25px;
 
@@ -429,7 +431,8 @@ onMounted(() => {
   &::-webkit-scrollbar {
     width: 5px;
     height: 8px;
-    background-color: transparent;
+    background-color: #57575788;
+    border-radius: 5px;
   }
 
   /*定义滚动条轨道
