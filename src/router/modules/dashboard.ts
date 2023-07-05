@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { BroadActivityFeed24Regular, BoardSplit48Regular } from '@vicons/fluent';
+import {  Gauge24Regular } from '@vicons/fluent';
 import { renderIcon } from '@/utils/index';
 
 /**
@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: '总览面板',
-      icon: renderIcon(BoardSplit48Regular),
+      icon: renderIcon(Gauge24Regular),
       permissions: ['dashboard_console', 'dashboard_console', 'dashboard_workplace'],
       sort: 0,
       group,
@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: '主控台',
           permissions: ['dashboard_console'],
-          icon: renderIcon(BoardSplit48Regular),
+          icon: renderIcon(Gauge24Regular),
 
           affix: true,
           group,

@@ -18,9 +18,8 @@ import qiankunBox from '@/views/qiankun/index.vue';
  * */
 
 import {
-  Production24Regular,
-  TextBulletListSquareEdit24Regular,
-  FlashCheckmark24Regular,
+  TaskListSquareLtr24Regular,
+  TextBulletListTree24Filled,
   AlignTop24Regular,
 } from '@vicons/fluent';
 
@@ -31,7 +30,7 @@ const codeChildren = [
     meta: {
       title: '订单看板',
       default: true,
-      icon: renderIcon(Production24Regular),
+      icon: renderIcon(TaskListSquareLtr24Regular),
     },
   },
   {
@@ -39,7 +38,7 @@ const codeChildren = [
     name: 'kanban-calibration',
     meta: {
       title: '测试看板',
-      icon: renderIcon(FlashCheckmark24Regular),
+      icon: renderIcon(TextBulletListTree24Filled),
     },
   },
 ];

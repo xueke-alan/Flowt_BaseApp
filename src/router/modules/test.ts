@@ -17,13 +17,15 @@ import qiankunBox from '@/views/qiankun/index.vue';
  *
  * */
 
-import { WindowWrench24Filled } from '@vicons/fluent';
+import { WindowWrench24Filled,DoorTag24Regular,ShareScreenPersonOverlayInside24Regular,DocumentTextLink24Regular } from '@vicons/fluent';
 const codeChildren = [
   {
     path: 'all',
     name: 'test-all',
     meta: {
       title: '全部测试',
+      icon: renderIcon(DoorTag24Regular),
+
     },
   },
   {
@@ -31,6 +33,8 @@ const codeChildren = [
     name: 'test-my',
     meta: {
       title: '我的测试',
+      icon: renderIcon(ShareScreenPersonOverlayInside24Regular),
+
     },
   },
   {
@@ -38,6 +42,8 @@ const codeChildren = [
     name: 'test-file',
     meta: {
       title: '培训资料',
+      icon: renderIcon(DocumentTextLink24Regular),
+
     },
   },
 ];

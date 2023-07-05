@@ -18,9 +18,9 @@ import qiankunBox from '@/views/qiankun/index.vue';
  * */
 
 import {
-  Production24Regular,
-  TextBulletListSquareEdit24Regular,
-  FlashCheckmark24Regular,
+  Building24Regular,
+  CalendarLtr24Regular,
+  TapDouble24Regular,
   Connector24Regular,
 } from '@vicons/fluent';
 
@@ -31,7 +31,7 @@ const codeChildren = [
     meta: {
       title: '全部设备',
       default: true,
-      icon: renderIcon(Production24Regular),
+      icon: renderIcon(Building24Regular),
     },
   },
   {
@@ -39,7 +39,7 @@ const codeChildren = [
     name: 'equip-calibration',
     meta: {
       title: '设备校准',
-      icon: renderIcon(FlashCheckmark24Regular),
+      icon: renderIcon(TapDouble24Regular),
     },
   },
   {
@@ -47,7 +47,7 @@ const codeChildren = [
     name: 'equip-schedule',
     meta: {
       title: '设备排期',
-      icon: renderIcon(TextBulletListSquareEdit24Regular),
+      icon: renderIcon(CalendarLtr24Regular),
     },
   },
 ];

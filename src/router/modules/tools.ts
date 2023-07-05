@@ -18,9 +18,9 @@ import qiankunBox from '@/views/qiankun/index.vue';
  * */
 
 import {
-  Production24Regular,
+  Calculator24Regular,
   TextBulletListSquareEdit24Regular,
-  FlashCheckmark24Regular,
+  BowlChopsticks24Regular,
   AlignTop24Regular,
 } from '@vicons/fluent';
 
@@ -29,25 +29,17 @@ const codeChildren = [
     path: 'all',
     name: 'tools-all',
     meta: {
-      title: '全部设备',
+      title: '计算器',
       default: true,
-      icon: renderIcon(Production24Regular),
+      icon: renderIcon(Calculator24Regular),
     },
   },
   {
     path: 'calibration',
     name: 'tools-calibration',
     meta: {
-      title: '设备校准',
-      icon: renderIcon(FlashCheckmark24Regular),
-    },
-  },
-  {
-    path: 'schedule',
-    name: 'tools-schedule',
-    meta: {
-      title: '设备排期',
-      icon: renderIcon(TextBulletListSquareEdit24Regular),
+      title: '每日午餐',
+      icon: renderIcon(BowlChopsticks24Regular),
     },
   },
 ];
