@@ -287,7 +287,9 @@ export default defineComponent({
                   redirect: route.fullPath,
                 },
               })
-              .finally(() => location.reload());
+              // .finally(() => location.reload());
+              // 这里要重置账号密码吗，没有搞懂意义
+
           });
         },
         onNegativeClick: () => { },

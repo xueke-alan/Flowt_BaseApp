@@ -111,6 +111,7 @@ export function createRouterGuards(router: Router) {
     const Loading = window['$loading'] || null;
     Loading && Loading.finish();
     console.log('加载完毕');
+    
     // 关闭首屏加载
   });
 
