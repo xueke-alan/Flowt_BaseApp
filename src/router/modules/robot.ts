@@ -65,7 +65,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [...test],
   },
-  {
+  { 
     path: '/robot/',
     name: 'robot/',
     redirect: '/robot/home',

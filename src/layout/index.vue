@@ -6,7 +6,7 @@
       class="layout-sider">
       <Logo :collapsed="collapsed" />
 
-      <div class="AsideMenuScrollbar">
+      <div class="AsideMenuScrollbar" :class="{ collapsed: collapsed }">
         <AsideMenu v-model:collapsed="collapsed" v-model:location="getMenuLocation" />
       </div>
 
@@ -207,6 +207,12 @@ onMounted(() => {
     position: relative;
     z-index: 13;
     transition: all 0.2s ease-in-out;
+  }
+}
+
+.AsideMenuScrollbar {
+  .n-menu .n-menu-item-content.n-menu-item-content--selected::before {
+    border-radius: 8px !important;
   }
 }
 </style>
@@ -425,6 +431,13 @@ onMounted(() => {
   height: calc(100vh - 64px - 64px - 20px);
   overflow-y: scroll;
   padding-bottom: 25px;
+
+&.collapsed{
+  &::-webkit-scrollbar {
+    width: 3px;
+
+  }
+}
 
   /*定义滚动条高宽及背景
  高宽分别对应横竖滚动条的尺寸*/

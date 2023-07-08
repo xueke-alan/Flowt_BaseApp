@@ -44,7 +44,6 @@
                   :color="activeKey === element.path && tabsList.length > 1 ? tagCur : {}">
 
                   <div>
-                    <!-- <n-avatar src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" /> -->
                     <div v-if="element.meta.icon" style="margin-right: 5px;font-size: 16px;">
                       <component :is="element.meta.icon" />
                     </div>
@@ -307,6 +306,8 @@ export default defineComponent({
     watch(
       () => route.fullPath,
       (to) => {
+        console.log(route.name);
+
         if (whiteList.includes(route.name as string)) return;
         state.activeKey = to;
         tabsViewStore.addTab(getSimpleRoute(route));
@@ -420,11 +421,13 @@ export default defineComponent({
 
     function scrollPrev() {
       const containerWidth = navScroll.value.offsetWidth;
-      const currentScroll = navScroll.value.scrollLeft;
 
+
+      const currentScroll = navScroll.value.scrollLeft;
+      console.log(containerWidth, currentScroll);
       if (!currentScroll) return;
       const scrollLeft = currentScroll > containerWidth ? currentScroll - containerWidth : 0;
-      scrollTo(scrollLeft, (scrollLeft - currentScroll) / 20);
+      scrollTo(scrollLeft / 2, (scrollLeft - currentScroll) / 20);
     }
 
     function scrollNext() {
@@ -541,6 +544,8 @@ export default defineComponent({
 });
 </script>
 
+
+
 <style lang="less" scoped>
 .tabs-view {
   width: 100%;
@@ -581,6 +586,7 @@ export default defineComponent({
 
       .tabs-card-prev {
         left: 0;
+
       }
 
       .tabs-card-next {

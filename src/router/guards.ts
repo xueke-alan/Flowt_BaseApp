@@ -6,13 +6,14 @@ import { ACCESS_TOKEN } from '@/store/mutation-types';
 import { storage } from '@/utils/Storage';
 import { PageEnum } from '@/enums/pageEnum';
 import { ErrorPageRoute } from '@/router/base';
+import { getAppEnvConfig } from '@/utils/env';
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 
 const whitePathList = [LOGIN_PATH]; // no redirect whitelist
 
 export function createRouterGuards(router: Router) {
-
+  const { VITE_GLOB_APP_SHORT_NAME } = getAppEnvConfig();
   const userStore = useUser();
   const asyncRouteStore = useAsyncRoute();
   router.beforeEach(async (to, from, next) => {
@@ -85,7 +86,9 @@ export function createRouterGuards(router: Router) {
   });
 
   router.afterEach((to, _, failure) => {
-    document.title = (to?.meta?.title as string) || document.title;
+    document.title =
+      VITE_GLOB_APP_SHORT_NAME + ' - ' + ((to?.meta?.title as string) || document.title);
+
     if (isNavigationFailure(failure)) {
       //console.log('failed navigation', failure)
     }

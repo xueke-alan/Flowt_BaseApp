@@ -40,14 +40,16 @@
 
       <n-breadcrumb v-if="crumbsSetting.show">
         <template v-for="routeItem in breadcrumbList" :key="routeItem.name === 'Redirect' ? void 0 : routeItem.name">
-          <n-breadcrumb-item v-if="routeItem.meta.title">
-            <n-dropdown v-if="routeItem.children.length" :options="routeItemChildren(routeItem.children)"
+          <n-breadcrumb-item v-if="routeItem.meta.title && !routeItem.meta.hideBreadcrumb">
+            <n-dropdown v-if="routeItem.children.length"
+              :options="routeItemChildren(routeItem.children).length > 1 ? routeItemChildren(routeItem.children) : null"
               @select="dropdownSelect">
               <span class="link-text">
                 <component v-if="crumbsSetting.showIcon && routeItem.meta.icon" :is="routeItem.meta.icon" />
                 {{ routeItem.meta.title }}
               </span>
             </n-dropdown>
+
             <span class="link-text" v-else>
               <component v-if="crumbsSetting.showIcon && routeItem.meta.icon" :is="routeItem.meta.icon" />
               {{ routeItem.meta.title }}
@@ -515,7 +517,7 @@ export default defineComponent({
     height: 100%;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    // transition: all 0.2s ease-in-out;
 
     .n-icon {
       display: flex;
