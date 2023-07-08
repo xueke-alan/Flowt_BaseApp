@@ -1,3 +1,2 @@
-## 简介
+## SGS Flowt. For GZMR
 
-SGS Flowt Admin

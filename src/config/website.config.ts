@@ -1,9 +1,9 @@
 import logoImage from '@/assets/images/sgs.svg';
-import loginImage from '@/assets/images/account-logo.png';
+import loginImage from '@/assets/images/sgs copy.svg';
 
 export const websiteConfig = Object.freeze({
-  title: 'SGS GZMR',
+  title: 'SGS-GZMR',
   logo: logoImage,
   loginImage: loginImage,
-  loginDesc: 'Naive Ui Admin中后台前端/设计解决方案',
+  loginDesc: 'Flowt system for SGS-GZMR',
 });

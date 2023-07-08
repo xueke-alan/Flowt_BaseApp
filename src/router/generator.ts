@@ -112,3 +112,20 @@ export const dynamicImport = (
     return;
   }
 };
+
+/**
+ * 添加/ 重定向
+ * */
+
+export const slashRedirect = (routes: Array<RouteRecordRaw>) => {
+  const slashRouter: RouteRecordRaw = {
+    path: routes[0].path + '/',
+    name: routes[0].name?.toString + '/',
+    redirect: routes[0].redirect,
+    children: [],
+    meta: {
+      hidden: true,
+    },
+  };
+  return routes.push(slashRouter);
+};

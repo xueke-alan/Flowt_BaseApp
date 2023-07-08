@@ -82,6 +82,7 @@ export function createRouterGuards(router: Router) {
     const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect };
     asyncRouteStore.setDynamicRouteAdded(true);
     next(nextData);
+
     Loading && Loading.finish();
   });
 
@@ -109,6 +110,8 @@ export function createRouterGuards(router: Router) {
     asyncRouteStore.setKeepAliveComponents(keepAliveComponents);
     const Loading = window['$loading'] || null;
     Loading && Loading.finish();
+    console.log('加载完毕');
+    // 关闭首屏加载
   });
 
   router.onError((error) => {

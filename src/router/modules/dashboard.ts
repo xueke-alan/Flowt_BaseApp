@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import {  Gauge24Regular,TopSpeed24Filled } from '@vicons/fluent';
+import { Gauge24Regular, TopSpeed24Filled } from '@vicons/fluent';
 import { renderIcon } from '@/utils/index';
 
 /**
@@ -38,7 +38,6 @@ const routes: Array<RouteRecordRaw> = [
           title: '主控台',
           permissions: ['dashboard_console'],
           icon: renderIcon(TopSpeed24Filled),
-
           affix: true,
           group,
         },

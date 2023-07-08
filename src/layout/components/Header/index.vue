@@ -73,72 +73,35 @@
 
     <div class="layout-header-right">
       <!-- 前面的按钮 -->
-      <!-- <div class="layout-header-trigger layout-header-trigger-min" v-for="item in iconList" :key="item.icon">
-        <n-tooltip placement="bottom">
-          <template #trigger>
-            <n-icon size="20">
-              <component :is="item.icon" v-on="item.eventObject || {}" />
-            </n-icon>
-          </template>
-          <span>{{ item.tips }}</span>
-        </n-tooltip>
-      </div> -->
-      <!--切换全屏-->
-      <div class="layout-header-trigger layout-header-trigger-min">
-        <n-tooltip placement="bottom">
-          <template #trigger>
-            <n-icon size="20">
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
-                <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                  <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"></path>
-                  <path d="M9 17v-5"></path>
-                  <path d="M12 17v-1"></path>
-                  <path d="M15 17v-3"></path>
-                </g>
-              </svg>
-            </n-icon>
-          </template>
-          <span>测试单详情</span>
-        </n-tooltip>
-      </div>
-      <div class="layout-header-trigger layout-header-trigger-min">
-        <n-tooltip placement="bottom">
-          <template #trigger>
-            <n-icon size="20">
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
-                <g fill="none">
-                  <path
-                    d="M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11zm-13-2.628v8.378a1.75 1.75 0 0 0 1.607 1.744l.143.006h5.064c.172.534.412 1.038.709 1.501L6.25 21a3.25 3.25 0 0 1-3.245-3.066L3 17.75V9.372a2.247 2.247 0 0 0 1.5 0zm14 10.63h-2l.007.116a1 1 0 0 0 1.993-.116zM17.503 14l-.167.007c-.937.085-1.67.764-1.809 1.635l-.018.155l-.006.204v1.293l-.856.854a.5.5 0 0 0 .267.846l.086.008h5a.5.5 0 0 0 .41-.788l-.056-.066l-.849-.849v-1.352L19.5 15.8C19.422 14.788 18.556 14 17.503 14zm-4.696-.997c-.426.444-.79.95-1.076 1.5H8.748a.75.75 0 0 1-.102-1.493l.102-.007h4.059zM17.75 3a3.25 3.25 0 0 1 3.245 3.066L21 6.25v5.772a6.47 6.47 0 0 0-1.5-.708V6.25a1.75 1.75 0 0 0-1.606-1.744L17.75 4.5H6.25c-.6 0-1.13.302-1.445.763a2.234 2.234 0 0 0-1.581-.201a3.253 3.253 0 0 1 2.842-2.057L6.25 3h11.5zm-2.498 6.496a.75.75 0 0 1 .102 1.493l-.102.007H8.748a.75.75 0 0 1-.102-1.493l.102-.007h6.504zM3.75 6a1.25 1.25 0 1 1 0 2.5a1.25 1.25 0 0 1 0-2.5z"
-                    fill="currentColor"></path>
-                </g>
-              </svg>
-            </n-icon>
-          </template>
-          <span>订阅的测试单</span>
-        </n-tooltip>
-      </div>
+
+      <!--测试单详情-->
 
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-tooltip placement="bottom">
           <template #trigger>
             <n-icon size="20">
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
-                <g fill="none">
-                  <path
-                    d="M13 2.004a2.998 2.998 0 0 1 2.993 2.819l.005.176h2.251c.868 0 1.588.631 1.726 1.46l.019.147l.005.144v3.75L18 10.502a1.5 1.5 0 0 0-1.48 1.239l-.015.132l-.005.129a1.5 1.5 0 0 0 1.239 1.48l.132.015l.129.005h1.997L20 17.252a1.75 1.75 0 0 1-1.606 1.745l-.144.005H16l-.005.172a3.001 3.001 0 0 1-2.638 2.803l-.18.016l-.177.005a3 3 0 0 1-2.995-2.82L10 19.002H7.75a1.75 1.75 0 0 1-1.725-1.458l-.019-.148L6 17.253V15l-.164-.005a3 3 0 0 1-2.802-2.638l-.016-.18L3.012 12a3 3 0 0 1 2.823-2.995l.163-.005L6 6.75c0-.867.631-1.587 1.459-1.726l.148-.019L7.749 5L10 4.999l.005-.171a3 3 0 0 1 2.639-2.803l.18-.016l.176-.005zm0 1.5a1.5 1.5 0 0 0-1.494 1.356l-.007.145l-.001 1.494H7.749a.25.25 0 0 0-.243.193L7.5 6.75v3.75l-1.487.001a1.5 1.5 0 0 0-.145 2.993l.145.007h1.487v3.751a.25.25 0 0 0 .193.244l.057.006h3.749l.001 1.496a1.5 1.5 0 0 0 2.994.145l.006-.144l-.001-1.497h3.751a.25.25 0 0 0 .244-.192l.006-.057V15h-.523l-.18-.006a3.003 3.003 0 0 1-2.79-2.841l-.005-.177l.007-.18a3 3 0 0 1 2.818-2.79l.175-.005h.497L18.5 6.75a.25.25 0 0 0-.13-.22l-.062-.024l-.058-.006l-3.751-.001l.001-1.495a1.5 1.5 0 0 0-1.5-1.5z"
-                    fill="currentColor"></path>
-                </g>
-              </svg>
+              <component :is="PuzzlePiece24Regular" />
             </n-icon>
           </template>
           <span>快捷应用</span>
         </n-tooltip>
       </div>
+
+      <div class="layout-header-trigger layout-header-trigger-min">
+        <n-tooltip placement="bottom">
+          <template #trigger>
+            <n-icon size="20">
+              <TooltipQuote24Regular />
+              <!-- <img src="@vicons/fluent/" /> -->
+            </n-icon>
+          </template>
+          <span>提示</span>
+        </n-tooltip>
+      </div>
+
       <n-icon size="24" class="mr-1" style="pointer-events: none; opacity: .3;">
         <component :is="DividerShort20Filled" />
       </n-icon>
-
 
       <!--切换全屏-->
       <div class="layout-header-trigger layout-header-trigger-min">
@@ -151,9 +114,9 @@
           <span>全屏</span>
         </n-tooltip>
       </div>
-      <!--切换全屏-->
-      <div class="layout-header-trigger layout-header-trigger-min">
 
+      <!--提醒-->
+      <div class="layout-header-trigger layout-header-trigger-min">
         <n-tooltip placement="bottom">
           <template #trigger>
             <div style="display: flex;">
@@ -203,17 +166,16 @@ import components from './components';
 import { NDialogProvider, useDialog, useMessage } from 'naive-ui';
 import { TABS_ROUTES } from '@/store/mutation-types';
 import { useUserStore } from '@/store/modules/user';
-// import { useScreenLockStore } from '@/store/modules/screenLock';
 import ProjectSetting from './ProjectSetting.vue';
 import { AsideMenu } from '@/layout/components/Menu';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { websiteConfig } from '@/config/website.config';
-import { Alert32Regular, Flash20Regular, ExpandUpRight24Regular, Search32Filled, DividerShort20Filled, ArrowClockwise16Filled, PanelRightContract24Regular, PanelLeftContract24Regular } from '@vicons/fluent'
-// import { TranslateOutlined } from '@vicons/material'
+import { Alert32Regular, TooltipQuote24Regular, PuzzlePiece24Regular, Flash20Regular, ExpandUpRight24Regular, Search32Filled, DividerShort20Filled, ArrowClockwise16Filled, PanelRightContract24Regular, PanelLeftContract24Regular } from '@vicons/fluent'
+
 
 export default defineComponent({
   name: 'PageHeader',
-  components: { ...components, NDialogProvider, ProjectSetting, AsideMenu },
+  components: { ...components, NDialogProvider, ProjectSetting, AsideMenu, TooltipQuote24Regular },
   props: {
     collapsed: {
       type: Boolean,
@@ -428,7 +390,7 @@ export default defineComponent({
       ExpandUpRight24Regular,
       Search32Filled,
       searchFocus,
-      ArrowClockwise16Filled, PanelRightContract24Regular, PanelLeftContract24Regular, DividerShort20Filled, Flash20Regular
+      ArrowClockwise16Filled, PuzzlePiece24Regular, PanelRightContract24Regular, PanelLeftContract24Regular, DividerShort20Filled, Flash20Regular, TooltipQuote24Regular
     };
   },
 });

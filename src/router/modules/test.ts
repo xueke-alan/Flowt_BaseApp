@@ -1,23 +1,15 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { TableOutlined } from '@vicons/antd';
 import { renderIcon } from '@/utils/index';
-
+import { getActiveRule } from '@/router/qiankun';
 import qiankunBox from '@/views/qiankun/index.vue';
 
-/**
- * @param name 路由名称, 必须设置,且不能重名
- * @param meta 路由元信息（路由附带扩展信息）
- * @param redirect 重定向地址, 访问这个路由时,自定进行重定向
- * @param meta.disabled 禁用整个菜单
- * @param meta.title 菜单名称
- * @param meta.icon 菜单图标
- * @param meta.keepAlive 缓存该路由
- * @param meta.sort 排序越小越排前
- *
- * */
-
-import { WindowWrench24Filled,DoorTag24Regular,ShareScreenPersonOverlayInside24Regular,DocumentTextLink24Regular } from '@vicons/fluent';
+import {
+  WindowWrench24Filled,
+  DoorTag24Regular,
+  ShareScreenPersonOverlayInside24Regular,
+  DocumentTextLink24Regular,
+} from '@vicons/fluent';
 const codeChildren = [
   {
     path: 'all',
@@ -25,7 +17,6 @@ const codeChildren = [
     meta: {
       title: '全部测试',
       icon: renderIcon(DoorTag24Regular),
-
     },
   },
   {
@@ -34,7 +25,6 @@ const codeChildren = [
     meta: {
       title: '我的测试',
       icon: renderIcon(ShareScreenPersonOverlayInside24Regular),
-
     },
   },
   {
@@ -43,7 +33,6 @@ const codeChildren = [
     meta: {
       title: '培训资料',
       icon: renderIcon(DocumentTextLink24Regular),
-
     },
   },
 ];
@@ -56,9 +45,7 @@ codeChildren.forEach((c) => {
     component: qiankunBox,
   });
 });
-function getActiveRule(routerPrefix: string) {
-  return (location: { pathname: string }) => location.pathname.startsWith(routerPrefix);
-}
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/code2',
@@ -79,14 +66,6 @@ const routes: Array<RouteRecordRaw> = [
       noKeepAlive: false,
     },
     children: [...test],
-  },
-  {
-    path: '/code2/',
-    name: 'code2/',
-    redirect: '/code2/home',
-    meta: {
-      hidden: true,
-    },
   },
 ];
 

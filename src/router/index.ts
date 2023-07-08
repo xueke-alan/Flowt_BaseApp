@@ -4,11 +4,16 @@ import { RedirectRoute } from '@/router/base';
 import { PageEnum } from '@/enums/pageEnum';
 import { createRouterGuards } from './guards';
 import type { IModuleType } from './types';
+import { slashRedirect } from './generator';
 
 const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
 
 const routeModuleList: RouteRecordRaw[] = Object.keys(modules).reduce((list, key) => {
-  const mod = modules[key].default ?? {};
+  let mod = modules[key].default ?? {};
+
+  // 给每一个路由添加斜杠结尾的路由重定向
+  slashRedirect(mod);
+
   const modList = Array.isArray(mod) ? [...mod] : [mod];
   return [...list, ...modList];
 }, []);
