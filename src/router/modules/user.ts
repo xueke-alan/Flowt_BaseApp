@@ -18,7 +18,7 @@ const codeChildren = [
     path: 'home',
     name: 'Home',
     meta: {
-      title: '权限管理2',
+      title: '权限管理',
       default: true,
       icon: renderIcon(ProtocolHandler24Regular),
     },
