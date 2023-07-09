@@ -3,8 +3,10 @@ import { store } from '@/store';
 import { ACCESS_TOKEN, CURRENT_USER, IS_SCREENLOCKED } from '@/store/mutation-types';
 import { ResultEnum } from '@/enums/httpEnum';
 
-import { getUserInfo as getUserInfoApi, login } from '@/api/system/user';
+import { getUserInfo as getUserInfoApi, login, preLogin } from '@/api/system/user';
 import { storage } from '@/utils/Storage';
+
+import { hashPassword } from '@/utils/password/SHA-256';
 
 export type UserInfoType = {
   // TODO: add your own data
@@ -62,8 +64,32 @@ export const useUserStore = defineStore({
       this.info = info;
     },
     // 登录
+
     async login(params: any) {
-      const response = await login(params);
+      // 请求盐值与迭代次数
+      const res = await preLogin({ StaffID: params.username });
+      if (res.code == 400) {
+        return res;
+      }
+      // 先计算出当前密码Hash值
+      const { HashPassword } = hashPassword(
+        params.password,
+        res.result.salt,
+        res.result.saltRounds
+      );
+      console.log(HashPassword);
+
+      // 计算出一个另一个随机hash值发给后端，如果登录成功则替换。
+      const newHashPassword = hashPassword(params.password);
+      console.log(newHashPassword);
+      // 登录
+      const response = await login({
+        StaffID: params.username,
+        HashPasswordFormFront: HashPassword,
+        newHashPassword,
+      });
+      console.log(response);
+
       const { result, code } = response;
       if (code === ResultEnum.SUCCESS) {
         const ex = 7 * 24 * 60 * 60;

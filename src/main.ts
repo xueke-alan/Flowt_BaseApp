@@ -6,7 +6,6 @@ import router, { setupRouter } from './router';
 import { setupStore } from '@/store';
 import { setupQiankun } from '@/qiankun/setupQiankun';
 
-
 async function bootstrap() {
   const app = createApp(App);
 
@@ -27,6 +26,9 @@ async function bootstrap() {
 
   // 注册全局方法，如：app.config.globalProperties.$message = message
   //setupGlobalMethods(app);
+
+  // 使用Browserify进行代码打包
+
 
   // 挂载路由
   setupRouter(app);

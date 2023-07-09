@@ -23,12 +23,28 @@ export function getUserInfo() {
 }
 
 /**
+ * @description: 用户预登录，获取盐值等信息
+ */
+export function preLogin(params) {
+  return http.request<BasicResponseModel>(
+    {
+      url: 'http://127.0.0.1:8810/users/preLogin',
+      method: 'POST',
+      params,
+    },
+    {
+      isTransformResponse: false,
+    }
+  );
+}
+
+/**
  * @description: 用户登录
  */
 export function login(params) {
   return http.request<BasicResponseModel>(
     {
-      url: '/login',
+      url: 'http://127.0.0.1:8810/users/login',
       method: 'POST',
       params,
     },

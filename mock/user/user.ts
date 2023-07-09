@@ -46,6 +46,7 @@ export default [
       return resultSuccess({ token });
     },
   },
+
   {
     url: '/api/admin_info',
     timeout: 1000,

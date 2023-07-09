@@ -6,43 +6,98 @@
         <div class="view-account-top-logo">
           <img :src="websiteConfig.loginImage" alt="" />
         </div>
-        <div class="view-account-top-desc">{{ websiteConfig.loginDesc }}</div>
+        <div class="view-account-top-desc"> {{ websiteConfig.loginDesc }}</div>
+        <span class="view-account-top-desc">{{ route.name }} Page</span>
       </div>
       <div class="view-account-form">
         <n-form ref="formRef" label-placement="left" size="large" :model="formInline" :rules="rules">
-          <n-form-item path="username">
-            <n-input v-model:value="formInline.username" placeholder="请输入用户名">
-              <template #prefix>
-                <n-icon size="18" color="#808695">
-                  <PersonOutline />
-                </n-icon>
-              </template>
-            </n-input>
-          </n-form-item>
-          <n-form-item path="password">
-            <n-input v-model:value="formInline.password" type="password" showPasswordOn="click" placeholder="请输入密码">
-              <template #prefix>
-                <n-icon size="18" color="#808695">
-                  <LockClosedOutline />
-                </n-icon>
-              </template>
-            </n-input>
-          </n-form-item>
-          <n-form-item class="default-color">
+          <template v-if="route.name == LOGIN_NAME">
+            <n-form-item path="username">
+              <n-input v-model:value="formInline.username" placeholder="请输入用户名">
+                <template #prefix>
+                  <n-icon size="20" color="#808695" class="mr-2">
+                    <Person24Regular />
+                  </n-icon>
+                </template>
+              </n-input>
+            </n-form-item>
+            <n-form-item path="password">
+              <n-input v-model:value="formInline.password" type="password" showPasswordOn="click" placeholder="请输入密码">
+                <template #prefix>
+                  <n-icon size="20" color="#808695" class="mr-2">
+                    <LockOpen24Regular />
+                  </n-icon>
+                </template>
+                <template #password-visible-icon>
+                  <n-icon size="18" color="#808695" :component="EyeTrackingOff24Regular" />
+                </template>
+                <template #password-invisible-icon>
+                  <n-icon size="18" color="#808695" :component="EyeTracking24Regular" />
+                </template>
+              </n-input>
+            </n-form-item>
+          </template>
+          <template v-if="route.name == ResetPaw_NAME">
+
+            <n-form-item path="password">
+              <n-input v-model:value="formInline.password" type="password" showPasswordOn="click" placeholder="请输入密码">
+                <template #prefix>
+                  <n-icon size="20" color="#808695" class="mr-2">
+                    <LockOpen24Regular />
+                  </n-icon>
+                </template>
+                <template #password-visible-icon>
+                  <n-icon size="18" color="#808695" :component="EyeTrackingOff24Regular" />
+                </template>
+                <template #password-invisible-icon>
+                  <n-icon size="18" color="#808695" :component="EyeTracking24Regular" />
+                </template>
+              </n-input>
+            </n-form-item>
+
+            <n-form-item path="checkPassword">
+              <n-input v-model:value="formInline.checkPassword" type="password" placeholder="请确认密码">
+                <template #prefix>
+                  <n-icon size="20" color="#808695" class="mr-2">
+                    <CheckmarkCircle24Regular />
+                  </n-icon>
+                </template>
+                <template #password-visible-icon>
+
+                </template>
+                <template #password-invisible-icon>
+                </template>
+              </n-input>
+            </n-form-item>
+          </template>
+
+          <!-- <n-form-item class="default-color" >
             <div class="flex justify-between">
               <div class="flex-initial">
                 <n-checkbox v-model:checked="autoLogin">自动登录</n-checkbox>
               </div>
-              <div class="flex-initial order-last">
+              <div class="flex-initial order-last" @click="forgetPsw">
                 <a href="javascript:">忘记密码</a>
               </div>
             </div>
-          </n-form-item>
-          <n-form-item>
+          </n-form-item> -->
+          <div class="pswLevel" :class="{ exp: route.name !== ResetPaw_NAME }">
+            <n-progress type="line" :show-indicator="false" :percentage="50" :height="10" :border-radius="4"
+              :fill-border-radius="0" color="#ff6600" />
+            <span style="color: #808695;">密码强度：中级</span>
+          </div>
+
+          <n-form-item v-if="route.name == LOGIN_NAME">
             <n-button type="primary" @click="handleSubmit" size="large" :loading="loading" block>
               登录
             </n-button>
           </n-form-item>
+          <n-form-item v-if="route.name == ResetPaw_NAME">
+            <n-button type="primary" @click="resetPsw" size="large" :loading="loading" block>
+              修改密码
+            </n-button>
+          </n-form-item>
+
 
         </n-form>
       </div>
@@ -56,7 +111,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/store/modules/user';
 import { useMessage } from 'naive-ui';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PersonOutline, LockClosedOutline, LogoGithub, LogoFacebook } from '@vicons/ionicons5';
+import { Person24Regular, LockOpen24Regular, CheckmarkCircle24Regular, EyeTracking24Regular, EyeTrackingOff24Regular } from '@vicons/fluent';
 import { PageEnum } from '@/enums/pageEnum';
 import { websiteConfig } from '@/config/website.config';
 interface FormState {
@@ -69,10 +124,12 @@ const message = useMessage();
 const loading = ref(false);
 const autoLogin = ref(true);
 const LOGIN_NAME = PageEnum.BASE_LOGIN_NAME;
+const ResetPaw_NAME = PageEnum.BASE_ResetPaw_NAME;
 
 const formInline = reactive({
-  username: 'admin',
-  password: '123456',
+  username: '',
+  password: '',
+  checkPassword: null,
   isCaptcha: true,
 });
 
@@ -115,10 +172,24 @@ const handleSubmit = (e) => {
         loading.value = false;
       }
     } else {
-      message.error('请填写完整信息，并且进行验证码校验');
+      message.error('请填写完整信息');
     }
   });
 };
+
+const resetPsw = (e) => {
+  e.preventDefault();
+  message.success('修改成功，即将登入系统');
+  setTimeout(() => {
+    router.push('/login');
+  }, 1000);
+
+}
+
+const forgetPsw = (e) => {
+  e.preventDefault();
+  router.push('/resetPsw');
+}
 </script>
 
 <style lang="less" scoped>
@@ -128,6 +199,22 @@ const handleSubmit = (e) => {
   height: 100vh;
   overflow: auto;
 
+
+  .pswLevel {
+    transition: all .3s ease;
+    height: 50px;
+    overflow: hidden;
+    opacity: 1;
+    padding-top: 0px;
+    transform: ;
+
+
+    &.exp {
+      height: 0;
+      opacity: 0;
+      padding-top: 10px;
+    }
+  }
 
   &-container {
     flex: 1;
@@ -160,7 +247,7 @@ const handleSubmit = (e) => {
   }
 
   .view-account-top-logo {
-    width: 200px;
+    width: 120px;
     margin: 40px auto;
   }
 }

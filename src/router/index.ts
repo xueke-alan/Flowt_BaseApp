@@ -47,11 +47,25 @@ export const LoginRoute: RouteRecordRaw = {
   },
 };
 
+export const RestPswRoute: RouteRecordRaw = {
+  path: '/resetPsw',
+  name: 'ResetPsw',
+  component: () => import('@/views/login/index.vue'),
+  meta: {
+    title: '重置密码',
+  },
+};
+
 //需要验证权限
 export const asyncRoutes = [...routeModuleList];
 
 //普通路由 无需验证权限
-export const constantRouter: RouteRecordRaw[] = [LoginRoute, RootRoute, RedirectRoute];
+export const constantRouter: RouteRecordRaw[] = [
+  LoginRoute,
+  RestPswRoute,
+  RootRoute,
+  RedirectRoute,
+];
 
 const router = createRouter({
   history: createWebHistory(),

@@ -9,8 +9,9 @@ import { ErrorPageRoute } from '@/router/base';
 import { getAppEnvConfig } from '@/utils/env';
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
+const ResetPaw_PATH = PageEnum.BASE_ResetPaw;
 
-const whitePathList = [LOGIN_PATH]; // no redirect whitelist
+const whitePathList = [LOGIN_PATH, ResetPaw_PATH]; // no redirect whitelist
 
 export function createRouterGuards(router: Router) {
   const { VITE_GLOB_APP_SHORT_NAME } = getAppEnvConfig();
@@ -27,6 +28,8 @@ export function createRouterGuards(router: Router) {
     }
 
     // Whitelist can be directly entered
+    console.log(whitePathList);
+
     if (whitePathList.includes(to.path as PageEnum)) {
       console.log(to.path);
 
@@ -111,7 +114,7 @@ export function createRouterGuards(router: Router) {
     const Loading = window['$loading'] || null;
     Loading && Loading.finish();
     console.log('加载完毕');
-    
+
     // 关闭首屏加载
   });
 

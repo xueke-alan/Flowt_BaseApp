@@ -9,6 +9,9 @@ import pkg from './package.json';
 import { format } from 'date-fns';
 const { dependencies, devDependencies, name, version } = pkg;
 
+import OptimizationPersist from 'vite-plugin-optimize-persist';
+import PkgConfig from 'vite-plugin-package-config';
+
 const __APP_INFO__ = {
   pkg: { dependencies, devDependencies, name, version },
   lastBuildTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
@@ -42,7 +45,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       ],
       dedupe: ['vue'],
     },
-    plugins: createVitePlugins(viteEnv, isBuild, prodMock),
+    plugins: [...createVitePlugins(viteEnv, isBuild, prodMock), PkgConfig(), OptimizationPersist()],
     define: {
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
