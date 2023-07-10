@@ -13,14 +13,16 @@ import {
   ProtocolHandler24Regular,
 } from '@vicons/fluent';
 
+const routeName = 'account';
+const group = '实验室管理';
+
 const codeChildren = [
   {
-    path: 'home',
-    name: 'Home',
+    path: 'user',
+    name: 'account-user',
     meta: {
-      title: '权限管理',
-      default: true,
-      icon: renderIcon(ProtocolHandler24Regular),
+      title: '用户管理',
+      icon: renderIcon(PersonEdit24Regular),
     },
   },
   {
@@ -32,11 +34,12 @@ const codeChildren = [
     },
   },
   {
-    path: 'about2',
-    name: 'userM',
+    path: 'home',
+    name: 'Home',
     meta: {
-      title: '用户管理',
-      icon: renderIcon(PersonEdit24Regular),
+      title: '权限管理',
+      default: true,
+      icon: renderIcon(ProtocolHandler24Regular),
     },
   },
 ];
@@ -52,9 +55,9 @@ codeChildren.forEach((c) => {
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/order',
-    name: 'order',
-    redirect: '/order/home',
+    path: `/${routeName}`,
+    name: routeName,
+    redirect: `/${routeName}/user`,
     component: Layout,
     meta: {
       title: '账号管理',
@@ -63,10 +66,10 @@ const routes: Array<RouteRecordRaw> = [
         name: 'sub-app-code',
         entry: '//localhost:8085',
         container: '#main-view-qiankun',
-        activeRule: getActiveRule('/order'),
+        activeRule: getActiveRule(`/${routeName}`),
       },
       sort: 1,
-      group: '实验室管理',
+      group,
       noKeepAlive: false,
     },
     children: [...test],

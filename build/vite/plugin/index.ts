@@ -1,4 +1,4 @@
-import type { Plugin,PluginOption } from 'vite';
+import type { Plugin, PluginOption } from 'vite';
 import Components from 'unplugin-vue-components/vite';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 

@@ -17,7 +17,7 @@ export interface BasicPageParams {
  */
 export function getUserInfo() {
   return http.request({
-    url: '/admin_info',
+    url: '/user/admin_info',
     method: 'get',
   });
 }
@@ -29,7 +29,7 @@ export function preLogin(params) {
   return http.request<BasicResponseModel>(
     {
       // url: 'http://127.0.0.1:8810/users/preLogin',
-      url: '/preLogin',
+      url: '/user/preLogin',
       method: 'POST',
       params,
     },
@@ -46,7 +46,7 @@ export function login(params) {
   return http.request<BasicResponseModel>(
     {
       // url: 'http://127.0.0.1:8810/users/login',
-      url: '/login',
+      url: '/user/login',
       method: 'POST',
       params,
     },

@@ -1,7 +1,7 @@
 <template>
   <n-layout class="layout" :position="fixedMenu" has-sider>
     <n-layout-sider v-if="!isMobile && isMixMenuNoneSub && (navMode === 'vertical' || navMode === 'horizontal-mix')
-    " @collapse="collapsed = true" :position="fixedMenu" @expand="collapsed = false" :collapsed="collapsed"
+      " @collapse="collapsed = true" :position="fixedMenu" @expand="collapsed = false" :collapsed="collapsed"
       collapse-mode="width" :collapsed-width="64" :width="leftMenuWidth" :native-scrollbar="false" :inverted="inverted"
       class="layout-sider">
       <Logo :collapsed="collapsed" />
@@ -47,13 +47,13 @@
       }" :class="{ 'layout-default-background': getDarkTheme === false }">
 
         <n-watermark content="GZ10548 薛科" cross selectable :font-size="16" :line-height="16" :width="300" :height="300"
-          font-color="rgba(128,128,128,.2)" :x-offset="12" :y-offset="100" :rotate="-15">
+          font-color="rgba(128,128,128,.2)" :x-offset="12" :y-offset="100" :rotate="-15" style="height: 100%;">
 
           <div class="layout-content-main" :class="{
             'layout-content-main-fix': fixedMulti,
             'fluid-header': fixedHeader === 'static',
           }
-          ">
+            ">
             <TabsView v-model:collapsed="collapsed" class="TabViewTabs" :class="{ HideTabViewTabs: !isMultiTabs }" />
 
             <div class="main-view" :class="{
@@ -61,7 +61,7 @@
               noMultiTabs: !isMultiTabs,
               'mt-3': !isMultiTabs,
             }
-            ">
+              ">
 
 
 
@@ -383,7 +383,8 @@ onMounted(() => {
 
 
 .main-view {
-  height: 100vh;
+  // height: calc(100vh - 104px);
+  flex: 1;
   padding-right: 6px;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -432,12 +433,12 @@ onMounted(() => {
   overflow-y: scroll;
   padding-bottom: 25px;
 
-&.collapsed{
-  &::-webkit-scrollbar {
-    width: 3px;
+  &.collapsed {
+    &::-webkit-scrollbar {
+      width: 3px;
 
+    }
   }
-}
 
   /*定义滚动条高宽及背景
  高宽分别对应横竖滚动条的尺寸*/

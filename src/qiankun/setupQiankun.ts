@@ -33,6 +33,8 @@ export async function setupQiankun() {
 
   Promise.all([promise1, promise2])
     .then((results) => {
+      console.log(qiankunRouter2);
+
       registerMicroApps(qiankunRouter2, {
         beforeLoad: [
           (currentApp) => {
