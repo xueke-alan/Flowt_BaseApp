@@ -39,6 +39,19 @@ const adminInfo = {
 
 export default [
   {
+    url: '/api/preLogin',
+    timeout: 1000,
+    method: 'post',
+    response: () => {
+      return resultSuccess({
+        HashPassword: 'ABCDEFG',
+        Salt: 'ABCDEFG',
+        saltRounds: 1000,
+      });
+    },
+  },
+
+  {
     url: '/api/login',
     timeout: 1000,
     method: 'post',
