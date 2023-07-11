@@ -134,7 +134,7 @@
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
           <div class="avatar">
-            <n-avatar :size="20" src="blob:https://account.microsoft.com/7ec0f03c-02ff-4621-92f0-b70908aa12df"
+            <n-avatar :size="20" src="https://res.cloudinary.com/postman/image/upload/t_team_logo/v1685442616/team/816e81aa01116ed74f82a7d65a5dd84c8f92add9fc3b6e867945873d3dbbf2f9.jpg"
               fallback-src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
 
 
