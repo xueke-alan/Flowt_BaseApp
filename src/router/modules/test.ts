@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { renderIcon } from '@/utils/index';
-import { getActiveRule } from '@/router/qiankun';
+
 import qiankunBox from '@/views/qiankun/index.vue';
 
 import {
@@ -55,12 +55,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '测试相关',
       icon: renderIcon(WindowWrench24Filled),
-      isQiankunRouter: {
-        name: 'sub-app-code2',
-        entry: '//localhost:8086',
-        container: '#main-view-qiankun',
-        activeRule: getActiveRule('/code2'),
-      },
+
       sort: 3,
       group: '测试',
       noKeepAlive: false,

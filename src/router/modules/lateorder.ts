@@ -3,7 +3,7 @@ import { Layout } from '@/router/constant';
 import { renderIcon } from '@/utils/index';
 
 import qiankunBox from '@/views/qiankun/index.vue';
-
+import { getActiveRule } from '@/router/qiankun';
 
 import {
   TextBulletListSquareEdit20Regular,
@@ -50,8 +50,14 @@ const routes: Array<RouteRecordRaw> = [
       title: '迟单管理',
       icon: renderIcon(TextBulletListSquare24Regular),
       sort: 5,
-      group:'测试',
+      group: '测试',
       noKeepAlive: false,
+      isQiankunRouter: {
+        name: 'sub-app-code2',
+        entry: '//localhost:8086',
+        container: '#main-view-qiankun',
+        activeRule: getActiveRule('/lateorder'),
+      },
     },
     children: [...test],
   },
