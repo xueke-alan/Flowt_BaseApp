@@ -1,82 +1,73 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { getActiveRule } from '@/router/qiankun';
-
 import { renderIcon } from '@/utils/index';
 
 import qiankunBox from '@/views/qiankun/index.vue';
-
-import {
-  PeopleSettings24Regular,
-  People24Regular,
-  PersonEdit24Regular,
-  ProtocolHandler24Regular,
-} from '@vicons/fluent';
-
+import { PeopleSettings24Regular } from '@vicons/fluent';
+import * as FluentIcons from '@vicons/fluent';
 const routeName = 'account';
 const group = '实验室管理';
+const qiankun_entry = 'http://localhost:8085';
 
-// 模拟子路由信息
-let codeChildren = [
-  {
-    path: 'user',
-    name: 'account-user',
-    meta: {
-      title: '用户管理',
-      icon: renderIcon(PersonEdit24Regular),
-    },
-  },
-  {
-    path: 'about',
-    name: 'About',
-    meta: {
-      title: '角色管理',
-      icon: renderIcon(People24Regular),
-    },
-  },
-  {
-    path: 'home',
-    name: 'Home',
-    meta: {
-      title: '权限管理',
-      default: true,
-      icon: renderIcon(ProtocolHandler24Regular),
-    },
-  },
-];
+const fetchChildren = async () => {
+  return new Promise(async (resolve) => {
+    const res = await fetch(qiankun_entry + '/qiankun.config.json');
+    const data = await res.json(); // 解析响应数据为 JavaScript 对象
+    for (const d of data) {
+      if (d.meta.iconName) {
+        const name = d.meta.iconName;
+        console.log(name);
 
-codeChildren = [];
+        const module = await import(`@vicons/fluent`).catch((error) => {
+          console.error(`Failed to import module: ${error}`);
+        });
 
-const test: Array<RouteRecordRaw> = [];
+        // const iconnode = module[name];
 
-// codeChildren.forEach((c) => {
-//   test.push({
-//     ...c,
-//     component: qiankunBox,
-//   });
-// });
+        // 直接从已导入的模块中获取图标
+        const iconnode = FluentIcons[name];
 
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: `/${routeName}`,
-    name: routeName,
-    // redirect: `/${routeName}/user`,
-    component: Layout,
-    meta: {
-      title: '账号管理',
-      icon: renderIcon(PeopleSettings24Regular),
-      isQiankunRouter: {
-        name: 'sub-app-code',
-        entry: '//localhost:8085',
-        container: '#main-view-qiankun',
-        activeRule: getActiveRule(`/${routeName}`),
+        if (module) {
+          console.log(module);
+          const a = module.default;
+          d.meta.icon = await renderIcon(iconnode);
+        }
+      }
+    }
+
+    resolve(data);
+  });
+};
+
+const createRoutes = async () => {
+  const codeChildren: any = await fetchChildren();
+  const dynamicRoutes: Array<RouteRecordRaw> = [
+    {
+      path: `/${routeName}`,
+      name: routeName,
+      // redirect: `/${routeName}/user`,
+      component: Layout,
+      meta: {
+        title: '账号管理',
+        icon: renderIcon(PeopleSettings24Regular),
+        isQiankunRouter: {
+          name: 'sub-app-code',
+          entry: qiankun_entry,
+          container: '#main-view-qiankun',
+          activeRule: getActiveRule(`/${routeName}`),
+        },
+        sort: 1,
+        group,
+        noKeepAlive: false,
       },
-      sort: 1,
-      group,
-      noKeepAlive: false,
+      children: codeChildren.map((c) => ({
+        ...c,
+        component: qiankunBox,
+      })),
     },
-    children: [...test],
-  },
-];
+  ];
+  return dynamicRoutes;
+};
 
-export default routes;
+export default createRoutes;

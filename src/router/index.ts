@@ -9,15 +9,33 @@ import { slashRedirect } from './generator';
 // 引入全部modules路由
 const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
 
-const routeModuleList: RouteRecordRaw[] = Object.keys(modules).reduce((list, key) => {
-  let mod = modules[key].default ?? {};
+const routeModuleList: RouteRecordRaw[] = await (async () => {
+  const listPromise = Promise.resolve([]);
+  const keys = Object.keys(modules);
 
-  // 给每一个路由添加斜杠结尾的路由重定向
-  slashRedirect(mod);
+  for (const key of keys) {
+    const list: any = await listPromise;
 
-  const modList = Array.isArray(mod) ? [...mod] : [mod];
-  return [...list, ...modList];
-}, []);
+    console.log(modules[key].default);
+    let mod: any = '';
+    if (typeof modules[key].default === 'function') {
+      console.log('这是一个函数');
+      mod = await modules[key].default();
+      console.log(mod);
+    } else {
+      console.log('这不是一个函数');
+      mod = modules[key].default ?? {};
+    }
+
+    // 给每一个路由添加斜杠结尾的路由重定向
+    slashRedirect(mod);
+
+    const modList = Array.isArray(mod) ? [...mod] : [mod];
+    list.push(...modList);
+  }
+
+  return listPromise;
+})();
 
 // 路由排序
 function sortRoute(a, b) {
@@ -27,7 +45,6 @@ function sortRoute(a, b) {
 routeModuleList.sort(sortRoute);
 
 console.log(routeModuleList);
-
 
 // 根路由
 export const RootRoute: RouteRecordRaw = {
@@ -60,8 +77,6 @@ export const RestPswRoute: RouteRecordRaw = {
 };
 
 //需要验证权限
-
-
 
 export const asyncRoutes = [...routeModuleList];
 
