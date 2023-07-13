@@ -122,7 +122,7 @@ interface FormState {
 const formRef = ref();
 const message = useMessage();
 const loading = ref(false);
-const autoLogin = ref(true);
+// const autoLogin = ref(true);
 const LOGIN_NAME = PageEnum.BASE_LOGIN_NAME;
 const ResetPaw_NAME = PageEnum.BASE_ResetPaw_NAME;
 
@@ -186,10 +186,10 @@ const resetPsw = (e) => {
 
 }
 
-const forgetPsw = (e) => {
-  e.preventDefault();
-  router.push('/resetPsw');
-}
+// const forgetPsw = (e) => {
+//   e.preventDefault();
+//   router.push('/resetPsw');
+// }
 </script>
 
 <style lang="less" scoped>
@@ -206,7 +206,7 @@ const forgetPsw = (e) => {
     overflow: hidden;
     opacity: 1;
     padding-top: 0px;
-    transform: ;
+
 
 
     &.exp {

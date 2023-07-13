@@ -6,6 +6,7 @@ import { createRouterGuards } from './guards';
 import type { IModuleType } from './types';
 import { slashRedirect } from './generator';
 
+// 引入全部modules路由
 const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
 
 const routeModuleList: RouteRecordRaw[] = Object.keys(modules).reduce((list, key) => {
@@ -18,6 +19,7 @@ const routeModuleList: RouteRecordRaw[] = Object.keys(modules).reduce((list, key
   return [...list, ...modList];
 }, []);
 
+// 路由排序
 function sortRoute(a, b) {
   return (a.meta?.sort ?? 0) - (b.meta?.sort ?? 0);
 }
@@ -26,9 +28,8 @@ routeModuleList.sort(sortRoute);
 
 console.log(routeModuleList);
 
-import Testmodules from './modules/test';
-console.log(Testmodules);
 
+// 根路由
 export const RootRoute: RouteRecordRaw = {
   path: '/',
   name: 'Root',
@@ -38,6 +39,7 @@ export const RootRoute: RouteRecordRaw = {
   },
 };
 
+// 登录路由
 export const LoginRoute: RouteRecordRaw = {
   path: '/login',
   name: 'Login',
@@ -47,6 +49,7 @@ export const LoginRoute: RouteRecordRaw = {
   },
 };
 
+// 重置密码路由
 export const RestPswRoute: RouteRecordRaw = {
   path: '/resetPsw',
   name: 'ResetPsw',
@@ -57,6 +60,9 @@ export const RestPswRoute: RouteRecordRaw = {
 };
 
 //需要验证权限
+
+
+
 export const asyncRoutes = [...routeModuleList];
 
 //普通路由 无需验证权限

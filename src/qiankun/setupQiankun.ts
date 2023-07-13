@@ -17,49 +17,33 @@ export async function setupQiankun() {
     });
   });
 
-  const promise1 = new Promise((resolve, reject) => {
-    fetch('http://localhost:8086/qiankun.config.js')
-      .then((response) => response.json())
-      .then((data) => resolve(data))
-      .catch((error) => reject(error));
+  // 这里是获取子路由信息，
+  // TODO 这里需要修改代码，以确保单个微服务宕机后其他微服务仍然可以正常注册
+
+  // TODO 这里需要添加功能，当微服务重新联机后，需要注册应用
+
+  console.log(qiankunRouter2);
+
+  registerMicroApps(qiankunRouter2, {
+    beforeLoad: [
+      (currentApp) => {
+        console.log('before load', currentApp);
+        return Promise.resolve();
+      },
+    ], // 挂载前回调
+    beforeMount: [
+      (currentApp) => {
+        console.log('before mount', currentApp);
+        return Promise.resolve();
+      },
+    ], // 挂载后回调
+    afterUnmount: [
+      (currentApp, a) => {
+        const name = currentApp.name;
+        console.log('after unload', currentApp, a[name]);
+        // a[name].unmount();
+        return Promise.resolve();
+      },
+    ],
   });
-
-  const promise2 = new Promise((resolve, reject) => {
-    fetch('http://localhost:8085/qiankun.config.js')
-      .then((response) => response.json())
-      .then((data) => resolve(data))
-      .catch((error) => reject(error));
-  });
-
-  Promise.all([promise1, promise2])
-    .then((results) => {
-      console.log(qiankunRouter2);
-
-      registerMicroApps(qiankunRouter2, {
-        beforeLoad: [
-          (currentApp) => {
-            console.log('before load', currentApp);
-            return Promise.resolve();
-          },
-        ], // 挂载前回调
-        beforeMount: [
-          (currentApp) => {
-            console.log('before mount', currentApp);
-            return Promise.resolve();
-          },
-        ], // 挂载后回调
-        afterUnmount: [
-          (currentApp, a) => {
-            const name = currentApp.name;
-            console.log('after unload', currentApp, a[name]);
-            // a[name].unmount();
-            return Promise.resolve();
-          },
-        ],
-      });
-    })
-    .catch((error) => {
-      // 处理错误
-      console.log('youwenti1');
-    });
 }

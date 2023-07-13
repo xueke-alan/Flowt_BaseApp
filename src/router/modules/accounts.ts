@@ -16,7 +16,8 @@ import {
 const routeName = 'account';
 const group = '实验室管理';
 
-const codeChildren = [
+// 模拟子路由信息
+let codeChildren = [
   {
     path: 'user',
     name: 'account-user',
@@ -44,20 +45,22 @@ const codeChildren = [
   },
 ];
 
+codeChildren = [];
+
 const test: Array<RouteRecordRaw> = [];
 
-codeChildren.forEach((c) => {
-  test.push({
-    ...c,
-    component: qiankunBox,
-  });
-});
+// codeChildren.forEach((c) => {
+//   test.push({
+//     ...c,
+//     component: qiankunBox,
+//   });
+// });
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: `/${routeName}`,
     name: routeName,
-    redirect: `/${routeName}/user`,
+    // redirect: `/${routeName}/user`,
     component: Layout,
     meta: {
       title: '账号管理',

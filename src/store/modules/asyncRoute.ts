@@ -111,6 +111,17 @@ export const useAsyncRouteStore = defineStore({
           console.log(error);
         }
       }
+      console.log(accessedRouters);
+      // const promise1 = new Promise((resolve, reject) => {
+      //   fetch('http://localhost:8086/qiankun.config.json?')
+      //     .then((response) => response.json())
+      //     .then((data) => resolve(data))
+      //     .catch((error) => reject(error));
+      // });
+
+      // const a = await promise1;
+      // console.log(a);
+
       accessedRouters = accessedRouters.filter(routeFilter);
       this.setRouters(accessedRouters);
       this.setMenus(accessedRouters);
