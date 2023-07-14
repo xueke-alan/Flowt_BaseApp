@@ -37,7 +37,20 @@ const routeModuleList: RouteRecordRaw[] = await (async () => {
   return listPromise;
 })();
 
+console.log(routeModuleList);
+
+// 引入全部qiankun路由
+// TODO 这里应该有一个qiankun路由json配置文件,这个配置文件应该也是放在外部文件夹中
+const qiankunRouter = [
+  {
+    entry: 'http:',
+    title: '',
+    group: '',
+  },
+];
+
 // 路由排序
+// TODO 路由排序是否可以在路由分组后进行，以及是否可以有更好的路由排序方案，如预先排序
 function sortRoute(a, b) {
   return (a.meta?.sort ?? 0) - (b.meta?.sort ?? 0);
 }

@@ -120,7 +120,7 @@ export const dynamicImport = (
 export const slashRedirect = (routes: Array<RouteRecordRaw>) => {
   const slashRouter: RouteRecordRaw = {
     path: routes[0].path + '/',
-    name: routes[0].name?.toString + '/',
+    name: routes[0].path + '_slashRedirect',
     redirect: routes[0].redirect,
     children: [],
     meta: {

@@ -17,9 +17,7 @@ onMounted(() => {
       console.log(123);
       start();
     }, 300);
-    // loadMicroApp('sub-app-code')
   }
-  // console.log(document.querySelector("#main-view-qiankun"));
   setTimeout(() => {
     console.log(1234);
     console.log(document.querySelector("#main-view-qiankun"));
