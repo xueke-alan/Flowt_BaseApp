@@ -2,8 +2,9 @@
   <div class="NMenu" :class="{ NMenuCollapsed: collapsed }">
 
     <NMenu v-if="menus[0]" :options="menus[0].menus" :inverted="inverted" :mode="mode" :collapsed="collapsed"
-      :collapsed-width="64" :collapsed-icon-size="20" :indent="24" :expanded-keys="openKeys" :value="getSelectedKeys"
-      @update:value="clickMenuItem" @update:expanded-keys="menuExpanded" class="mainRouter" />
+      :collapsed-width="64" :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys"
+      :expand-icon="expandIcon" :value="getSelectedKeys" @update:value="clickMenuItem"
+      @update:expanded-keys="menuExpanded" class="mainRouter" />
 
     <n-collapse arrow-placement="right" style="border: 0;" :expanded-names="expandedNames"
       :on-item-header-click="onItemHeaderClick">
@@ -27,8 +28,8 @@
         </template>
 
         <NMenu :options="m.menus" :inverted="inverted" :mode="mode" :collapsed="collapsed" :collapsed-width="64"
-          :collapsed-icon-size="20" :indent="24" :expanded-keys="openKeys" :value="getSelectedKeys"
-          @update:value="clickMenuItem" @update:expanded-keys="menuExpanded" />
+          :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys" :value="getSelectedKeys"
+          @update:value="clickMenuItem" @update:expanded-keys="menuExpanded" :expand-icon="expandIcon" />
       </n-collapse-item>
 
     </n-collapse>
@@ -51,7 +52,9 @@ import { generatorMenu, generatorMenuMix, groupMenu } from '@/utils';
 import { useProjectSettingStore } from '@/store/modules/projectSetting';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { ArrowEject20Filled, ChannelShare28Regular } from '@vicons/fluent';
-
+import { CaretDown20Filled } from '@vicons/fluent';
+import { qiankunRoutersSort } from "@/qiankun/router";
+import { renderIcon } from '@/utils/index';
 export default defineComponent({
   name: 'AppMenu',
   components: {},
@@ -153,20 +156,19 @@ export default defineComponent({
         headerMenuSelectKey.value = (activeMenu ? activeMenu : firstRouteName) || '';
       }
 
-      const groupMenuSort = ['main', '实验室管理', '测试']
-      menus.value = groupMenu(menus.value, groupMenuSort)
+      // const groupMenuSort = ['main', '实验室管理', '测试']
+      menus.value = groupMenu(menus.value, qiankunRoutersSort)
 
 
 
       //
-      console.log(menus);
-      console.log(expandedNames);
+
       updateSelectedKeys();
     }
 
     // 点击分组菜单
     function onItemHeaderClick({ name }) {
-      console.log(name);
+
 
       if (props.collapsed) {
         return
@@ -218,6 +220,8 @@ export default defineComponent({
       updateMenu();
       expandedNames.value = menus.value.map((m) => m.group)
     });
+    const expandIcon = renderIcon(CaretDown20Filled)
+
 
     return {
       ...toRefs(state),
@@ -231,7 +235,8 @@ export default defineComponent({
       menuExpanded,
       onItemHeaderClick,
       ArrowEject20Filled,
-      ChannelShare28Regular
+      ChannelShare28Regular,
+      expandIcon
     };
   },
 });
@@ -259,6 +264,19 @@ export default defineComponent({
 
     .n-menu .n-menu-item-content::before {
       right: 0px;
+    }
+  }
+
+  .n-menu .n-menu-item-content .n-menu-item-content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 2px;
+
+    .n-menu-item-content-header__extra {
+      display: flex;
+      align-items: center;
+      color: #ffffff;
     }
   }
 

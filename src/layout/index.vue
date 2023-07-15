@@ -400,7 +400,7 @@ onMounted(() => {
   /*定义滚动条高宽及背景
  高宽分别对应横竖滚动条的尺寸*/
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
     height: 8px;
     background-color: #F5F5F5;
   }

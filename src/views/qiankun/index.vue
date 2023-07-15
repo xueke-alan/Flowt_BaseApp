@@ -1,5 +1,4 @@
 <template>
-  <!-- <div id="main-view-qiankun"></div> -->
 </template>
 
 <script setup>
@@ -7,8 +6,6 @@ import { start, loadMicroApp } from 'qiankun';
 import { onMounted } from 'vue';
 
 onMounted(() => {
-  console.log("TEST1mounted");
-  console.log(window.qiankunStarted);
   if (!window.qiankunStarted) {
     window.qiankunStarted = true;
     console.log(window.qiankunStarted);

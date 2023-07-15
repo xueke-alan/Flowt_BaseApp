@@ -45,7 +45,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '机器人',
       icon: renderIcon(Bot24Regular),
-      sort: 7,
+      sort: 0,
       group: '实验室管理',
       noKeepAlive: false,
     },

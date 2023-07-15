@@ -1,0 +1,149 @@
+/**
+ * 描述一个 qiankun 路由参数的接口
+ * @interface QiankunRouterItem
+ */
+export interface QiankunRouterItem {
+  /**
+   * qiankun 入口
+   * @type qiankun入口地址
+   * @memberof QiankunRouterItem
+   */
+  entry: string;
+
+  /**
+   * 标题
+   * @type 入口访问失败的时候作为标题使用
+   * @memberof QiankunRouterItem
+   */
+  title: string;
+
+  /**
+   * 路径
+   * @type 入口访问失败的时候作为路径使用
+   * @memberof QiankunRouterItem
+   */
+  path: string;
+
+  /**
+   * 分组
+   * @type 入口访问失败的时候作为分组使用
+   * @memberof QiankunRouterItem
+   */
+  group: string;
+
+  /**
+   * 开发状态
+   * 0 - 未开发
+   * 1 - 开发完毕
+   * 2 - 开发中
+   * 3 - 故障
+   * @type {number}
+   * @memberof QiankunRouterItem
+   */
+  state: 0 | 1 | 2 | 3 | 4 | 5;
+}
+// 路由表
+export const qiankunRouters: QiankunRouterItem[] = [
+  {
+    state: 2,
+    entry: 'http://localhost:0000',
+    title: '总览面板',
+    path: 'dashboard',
+    group: 'main',
+  },
+  {
+    state: 2,
+    entry: 'http://localhost:0000',
+    title: '路由状态',
+    path: 'router',
+    group: '开发者',
+  },
+  {
+    state: 2,
+    entry: 'http://localhost:0000',
+    title: '全局消息',
+    path: 'messageroot',
+    group: '开发者',
+  },
+  {
+    state: 1,
+    entry: 'http://localhost:8085',
+    title: '账号管理',
+    path: 'account',
+    group: '实验室管理',
+  },
+  {
+    state: 0,
+    entry: 'http://localhost:0000',
+    title: '机器人',
+    path: 'roubt',
+    group: '实验室管理',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '设备管理',
+    path: 'equip',
+    group: '测试',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '任务看板',
+    path: 'kanban',
+    group: '测试',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '测试项目',
+    path: 'testline',
+    group: '测试',
+  },
+  {
+    state: 3,
+    entry: 'http://localhost:0000',
+    title: '草稿编辑',
+    path: 'drift',
+    group: '测试',
+  },
+
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '迟单管理',
+    path: 'lateorder',
+    group: '测试',
+  },
+
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '样品管理',
+    path: 'sample',
+    group: '测试',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '图片数据库',
+    path: 'photos',
+    group: '测试',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '本地服务',
+    path: 'local',
+    group: '',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '小工具',
+    path: 'tools',
+    group: '',
+  },
+];
+
+export const qiankunRoutersSort = ['main', '开发者', '实验室管理', '测试'];

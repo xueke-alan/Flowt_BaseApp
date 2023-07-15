@@ -1,40 +1,36 @@
 <template>
-  <div class="flex flex-col justify-center page-container">
-    <div class="text-center">
-      <img src="~@/assets/images/exception/500.svg" alt="" />
-    </div>
-    <div class="text-center">
-      <h1 class="text-base text-gray-500">抱歉，服务器出错了</h1>
-      <n-button type="info" @click="goHome">回到首页</n-button>
-    </div>
-  </div>
+  <Result :status="status" :title="titleCN" :description="description" :emoji="emoji" :footer-text="footerText">
+    <template #emoji>
+
+      <img src="@/components/Twemoji/1f92f.svg" alt="1f92f">
+
+    </template>
+  </Result>
 </template>
 
-<script lang="ts" setup>
-  import { useRouter } from 'vue-router';
-  const router = useRouter();
-  function goHome() {
-    router.push('/');
-  }
+<script lang="ts">
+import Result from './index.vue';
+
+export default {
+  components: {
+    Result,
+  },
+  data() {
+    return {
+      emoji: "🤯",
+      emojiUnicode: 'null',
+      status: "500",
+      title: '500! Internal Server Error',
+      titleCN: '500! 服务器内部错误',
+      description: "当前访问的微服务出现异常",
+      footerText: 'Error Code: C-500-DashBoard',
+    };
+  },
+  mounted() {
+    if (this.emoji) {
+      this.emojiUnicode = this.emoji.codePointAt(0)?.toString(16) || '';
+      console.log(this.emojiUnicode);
+    }
+  },
+};
 </script>
-
-<style lang="less" scoped>
-  .page-container {
-    width: 100%;
-    border-radius: 4px;
-    padding: 50px 0;
-    height: 100vh;
-
-    .text-center {
-      h1 {
-        color: #666;
-        padding: 20px 0;
-      }
-    }
-
-    img {
-      width: 350px;
-      margin: 0 auto;
-    }
-  }
-</style>

@@ -39,10 +39,12 @@
       <!-- 面包屑 -->
 
       <n-breadcrumb v-if="crumbsSetting.show">
-        <template v-for="routeItem in breadcrumbList" :key="routeItem.name === 'Redirect' ? void 0 : routeItem.name">
-          <n-breadcrumb-item v-if="routeItem.meta.title && !routeItem.meta.hideBreadcrumb">
+        <template v-for="(routeItem, index) in breadcrumbList"
+          :key="routeItem.name === 'Redirect' ? void 0 : routeItem.name">
+          <n-breadcrumb-item
+            v-if="routeItem.meta.title && !routeItem.meta.hideBreadcrumb && (index == breadcrumbList.length - 1 || routeItemChildren(routeItem.children).length > 1)">
             <n-dropdown v-if="routeItem.children.length"
-              :options="routeItemChildren(routeItem.children).length > 1 ? routeItemChildren(routeItem.children) : null"
+              :options="routeItemChildren(routeItem.children).length > 1 ? routeItemChildren(routeItem.children) : []"
               @select="dropdownSelect">
               <span class="link-text">
                 <component v-if="crumbsSetting.showIcon && routeItem.meta.icon" :is="routeItem.meta.icon" />
@@ -134,7 +136,8 @@
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
           <div class="avatar">
-            <n-avatar :size="20" src="https://res.cloudinary.com/postman/image/upload/t_team_logo/v1685442616/team/816e81aa01116ed74f82a7d65a5dd84c8f92add9fc3b6e867945873d3dbbf2f9.jpg"
+            <n-avatar :size="20"
+              src="https://res.cloudinary.com/postman/image/upload/t_team_logo/v1685442616/team/816e81aa01116ed74f82a7d65a5dd84c8f92add9fc3b6e867945873d3dbbf2f9.jpg"
               fallback-src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
 
 
@@ -160,7 +163,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, ref, computed, unref } from 'vue';
+import { defineComponent, reactive, toRefs, ref, computed, unref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import components from './components';
 import { NDialogProvider, useDialog, useMessage } from 'naive-ui';
@@ -287,8 +290,8 @@ export default defineComponent({
                   redirect: route.fullPath,
                 },
               })
-              // .finally(() => location.reload());
-              // 这里要重置账号密码吗，没有搞懂意义
+            // .finally(() => location.reload());
+            // 这里要重置账号密码吗，没有搞懂意义
 
           });
         },
@@ -368,6 +371,11 @@ export default defineComponent({
       console.log(params);
 
     }
+
+    onMounted(() => {
+      const imgElement = document.querySelector('.layout-header-trigger .avatar img') as HTMLImageElement;
+      if (imgElement) { imgElement.alt = 'User avatar'; }
+    });
 
     return {
       ...toRefs(state),

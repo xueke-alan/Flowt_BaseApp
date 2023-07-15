@@ -66,14 +66,16 @@ export function createRouterGuards(router: Router) {
     }
 
     const userInfo = await userStore.getInfo();
+    console.log(111);
 
     const routes = await asyncRouteStore.generateRoutes(userInfo);
+
 
     // 动态添加可访问路由表
     routes.forEach((item) => {
       router.addRoute(item as unknown as RouteRecordRaw);
     });
-
+    // console.log(222);
     //添加404
     const isErrorPage = router.getRoutes().findIndex((item) => item.name === ErrorPageRoute.name);
     if (isErrorPage === -1) {

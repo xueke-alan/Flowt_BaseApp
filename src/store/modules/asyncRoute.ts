@@ -2,7 +2,7 @@ import { toRaw, unref } from 'vue';
 import { defineStore } from 'pinia';
 import { RouteRecordRaw } from 'vue-router';
 import { store } from '@/store';
-import { asyncRoutes, constantRouter } from '@/router/index';
+import { constantRouter, getAsyncRoutes } from '@/router/index';
 import { generateDynamicRoutes } from '@/router/generator';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 
@@ -106,13 +106,13 @@ export const useAsyncRouteStore = defineStore({
       } else {
         try {
           //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
-          accessedRouters = filter(asyncRoutes, routeFilter);
+          const micoRouterList = await getAsyncRoutes();
+          accessedRouters = filter(micoRouterList, routeFilter);
         } catch (error) {
           console.log(error);
         }
       }
       console.log(accessedRouters);
-      
 
       accessedRouters = accessedRouters.filter(routeFilter);
       this.setRouters(accessedRouters);

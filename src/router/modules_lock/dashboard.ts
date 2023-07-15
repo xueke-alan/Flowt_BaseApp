@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: `/${routeName}`,
     name: routeName,
-    redirect: `/${routeName}/console`,
+    redirect: `/${routeName}/default`,
     component: Layout,
     meta: {
       title: '总览面板',
@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        path: 'console',
+        path: 'default',
         name: `${routeName}_console`,
         meta: {
           title: '主控台',

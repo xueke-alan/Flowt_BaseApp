@@ -13,8 +13,8 @@ import {
 
 const codeChildren = [
   {
-    path: 'all',
-    name: 'lateorder-all',
+    path: 'engineer',
+    name: 'lateorder-engineer',
     meta: {
       title: '迟单填写',
       default: true,
@@ -22,8 +22,8 @@ const codeChildren = [
     },
   },
   {
-    path: 'calibration',
-    name: 'lateorder-calibration',
+    path: 'admin',
+    name: 'lateorder-admin',
     meta: {
       title: '迟单管理',
       icon: renderIcon(TaskListSquareAdd24Regular),
