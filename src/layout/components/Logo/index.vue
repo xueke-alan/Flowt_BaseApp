@@ -34,6 +34,8 @@ export default {
   line-height: 64px;
   overflow: hidden;
   white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
 
   .logo-box {
     width: 100%;

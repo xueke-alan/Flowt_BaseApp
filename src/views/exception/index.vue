@@ -66,8 +66,7 @@ function goHome() {
   justify-content: center;
   align-items: center;
   position: relative;
-  user-drag: none;
-  /* 禁止图片拖拽 */
+
   user-select: none;
   /* 禁止选择文本 */
 
@@ -88,12 +87,10 @@ function goHome() {
   }
 }
 
-.jello-horizontal {
-  animation: jello-horizontal .9s both
-}
+
 
 .wobble-hor-bottom {
-  animation: wobble-hor-bottom .8s both .15s
+  animation: wobble-hor-bottom .8s both .25s
 }
 
 
@@ -123,36 +120,6 @@ function goHome() {
 
   75% {
     transform: translateX(-6px) rotate(-1.2deg)
-  }
-}
-
-@keyframes jello-horizontal {
-  0% {
-    transform: scale3d(1, 1, 1)
-  }
-
-  30% {
-    transform: scale3d(1.25, .75, 1)
-  }
-
-  40% {
-    transform: scale3d(.75, 1.25, 1)
-  }
-
-  50% {
-    transform: scale3d(1.15, .85, 1)
-  }
-
-  65% {
-    transform: scale3d(.95, 1.05, 1)
-  }
-
-  75% {
-    transform: scale3d(1.05, .95, 1)
-  }
-
-  100% {
-    transform: scale3d(1, 1, 1)
   }
 }
 </style>

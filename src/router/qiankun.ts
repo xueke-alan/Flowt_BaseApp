@@ -195,6 +195,7 @@ export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[]) => {
         // 执行另一个操作的代码
         const config: any = await fetchQiankunConfig(configItem.entry);
         // TODO 得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
+
         config.affix = configItem.affix;
         console.log(config);
 

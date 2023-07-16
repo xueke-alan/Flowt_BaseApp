@@ -1,29 +1,31 @@
 <template>
+  fadeIn
   <RouterView>
 
     <template #default="{ Component, route }">
 
 
-      <div id="main-view-qiankun-contener" class="fadeOut" :key="nowRouter.fullPath" :class="{ show: isQiankunRouter }">
+<!-- TODO 这里的fadeIn动画需要根据路有变化重播，不能用key会导致qiankun容器丢失 -->
+      <div id="main-view-qiankun-contener" class="fadeIn"  :class="{ show: isQiankunRouter }">
+        <!-- TODO 这里有滚动条跳跃的问题 已解决 -->
         <div id="main-view-qiankun">
           <page100 />
         </div>
       </div>
 
 
+      <div class="normalRouter-contener" :class="{ hide: isQiankunRouter }">
 
-      <!-- {{ isQiankunRouter }} -->
-      <transition :name="getTransitionName" mode="out-in" appear>
+        <div class="normalRouter fadeIn" :key="nowRouter.fullPath">
 
+          <keep-alive v-if="keepAliveComponents.length" :include="keepAliveComponents">
+            <component :is="Component" />
+          </keep-alive>
 
-        <keep-alive v-if="keepAliveComponents.length" :include="keepAliveComponents">
-          <component :is="Component" />
-        </keep-alive>
+          <component v-else :is="Component" />
+        </div>
 
-        <component v-else :is="Component" :key="nowRouter.fullPath" />
-
-      </transition>
-
+      </div>
     </template>
   </RouterView>
 </template>
@@ -87,9 +89,12 @@ export default defineComponent({
   height: 100%;
   max-height: 0;
   overflow: hidden;
+  transition: all ease .5s;
 
   &.show {
-    max-height: 10000px;
+    max-height: inherit;
+    overflow: visible;
+
   }
 }
 
@@ -97,28 +102,37 @@ export default defineComponent({
   height: 100%;
 }
 
-.fadeOut {
-  -webkit-animation: fade-out .3s ease reverse both;
-  animation: fade-out .3s ease reverse both;
+.normalRouter-contener {
+  height: 100%;
+
+  .normalRouter {
+    height: 100%;
+  }
+
+  &.hide {
+    height: 0;
+
+    .normalRouter {
+      height: 0;
+    }
+  }
 }
 
-@-webkit-keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
+.fadeIn {
+  animation: fade-out .3s ease-in both .1s;
+}
 
-  100% {
-    opacity: 0;
-  }
+.fadeIn2 {
+  animation: fade-out .3s ease-in both .1s;
 }
 
 @keyframes fade-out {
   0% {
-    opacity: 1;
+    opacity: 0;
   }
 
   100% {
-    opacity: 0;
+    opacity: 1;
   }
 }
 </style>

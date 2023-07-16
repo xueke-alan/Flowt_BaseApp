@@ -17,6 +17,7 @@ onMounted(() => {
   }
   setTimeout(() => {
     console.log(1234);
+    
     console.log(document.querySelector("#main-view-qiankun"));
     start();
   }, 300);

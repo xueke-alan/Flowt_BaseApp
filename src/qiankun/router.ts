@@ -69,7 +69,7 @@ export const qiankunRouters: QiankunRouterItem[] = [
   {
     state: 2,
     entry: 'http://localhost:0000',
-    title: '路由状态',
+    title: '路由管理',
     path: 'router',
     group: '开发者',
   },
@@ -166,6 +166,14 @@ export const qiankunRouters: QiankunRouterItem[] = [
     title: '小工具',
     path: 'tools',
     group: '',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '开发记录',
+    path: 'dev',
+    group: '',
+    hidden: true,
   },
   {
     state: 4,

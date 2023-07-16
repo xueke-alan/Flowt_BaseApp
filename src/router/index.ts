@@ -8,34 +8,34 @@ import { slashRedirect } from './generator';
 import { createMicoRoutes } from '@/router/qiankun';
 
 // 引入全部modules路由
-// const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
+const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
 
-// const routeModuleList: RouteRecordRaw[] = await (async () => {
-//   const listPromise = Promise.resolve([]);
-//   const keys = Object.keys(modules);
+const routeModuleList: RouteRecordRaw[] = await (async () => {
+  const listPromise = Promise.resolve([]);
+  const keys = Object.keys(modules);
 
-//   for (const key of keys) {
-//     const list: any = await listPromise;
+  for (const key of keys) {
+    const list: any = await listPromise;
 
-//     let mod: any = '';
-//     if (typeof modules[key].default === 'function') {
-//       console.log('这是一个函数');
-//       mod = await modules[key].default();
-//     } else {
-//       console.log('这不是一个函数');
-//       mod = modules[key].default ?? {};
-//     }
+    let mod: any = '';
+    if (typeof modules[key].default === 'function') {
+      console.log('这是一个函数');
+      mod = await modules[key].default();
+    } else {
+      console.log('这不是一个函数');
+      mod = modules[key].default ?? {};
+    }
 
-//     // 给每一个路由添加斜杠结尾的路由重定向
-//     slashRedirect(mod);
+    // 给每一个路由添加斜杠结尾的路由重定向
+    slashRedirect(mod);
 
-//     const modList = Array.isArray(mod) ? [...mod] : [mod];
-//     list.push(...modList);
-//   }
+    const modList = Array.isArray(mod) ? [...mod] : [mod];
+    list.push(...modList);
+  }
 
-//   return listPromise;
-// })();
-const routeModuleList: RouteRecordRaw[] = [];
+  return listPromise;
+})();
+// const routeModuleList: RouteRecordRaw[] = [];
 //需要验证权限
 
 // 引入全部qiankun路由

@@ -11,12 +11,13 @@
       </div>
 
       <div class="AsideMenuFooter">
-
+        <!-- <n-badge  dot processing/> -->
+        <n-badge dot processing type="warning" ></n-badge>
         <div class="cover"></div>
-        <a class="vison">
+        <span class="vison" @click="pushdev">
           <span>Flowt</span>
           <span class="num" :class="{ hidenum: collapsed }">v1.1.1</span>
-        </a>
+        </span>
         <a class="beian" href="https://beian.miit.gov.cn/" target="_blank">
           <span>粤ICP备</span>
           <span class="num" :class="{ hidenum: collapsed }">2023003909号</span>
@@ -94,7 +95,7 @@ import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 import { useRoute } from 'vue-router';
 import { useProjectSettingStore } from '@/store/modules/projectSetting';
-// import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
 const { getDarkTheme } = useDesignSetting();
 const {
@@ -106,6 +107,7 @@ const {
   multiTabsSetting,
 } = useProjectSetting();
 
+const router = useRouter();
 // const router = useRouter();
 // const nowRouter = ref(router.currentRoute)
 
@@ -170,6 +172,10 @@ const showSideDrawer = computed({
   get: () => isMobile.value && collapsed.value,
   set: (val) => (collapsed.value = val),
 });
+
+const pushdev = () => {
+  router.push({ name: 'dev' });
+}
 
 //判断是否触发移动端模式
 const checkMobileMode = () => {
@@ -434,6 +440,9 @@ onMounted(() => {
   padding-bottom: 25px;
 
   &.collapsed {
+    padding-right: 3px;
+    margin-right: 3px;
+
     &::-webkit-scrollbar {
       width: 3px;
 

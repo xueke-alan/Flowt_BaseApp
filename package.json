@@ -1,14 +1,13 @@
 {
-  "name": "naive-ui-admin",
-  "version": "1.8.2",
+  "name": "flowt-admin",
+  "version": "1.1.1",
   "author": {
-    "name": "Ahjung",
-    "email": "735878602@qq.com",
-    "url": "https://github.com/jekip/naive-ui-admin"
+    "name": "xue_ke",
+    "email": "xueke.alan@gmail.com"
   },
   "private": true,
   "scripts": {
-    "bootstrap": "yarn install",
+    "bootstrap": "pnpm install",
     "serve": "npm run dev",
     "dev": "vite --open",
     "build": "vite build && esno ./build/script/postBuild.ts",
@@ -123,7 +122,6 @@
   "keywords": [
     "vue",
     "naive-ui",
-    "naive-ui-admin",
     "vue3",
     "ts",
     "tsx",
