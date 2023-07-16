@@ -32,6 +32,20 @@ export interface QiankunRouterItem {
   group: string;
 
   /**
+   * 分组
+   * @type 是否在菜单栏隐藏
+   * @memberof QiankunRouterItem
+   */
+  hidden?: boolean;
+
+  /**
+   * 分组
+   * @type 是否在面包屑中固定
+   * @memberof QiankunRouterItem
+   */
+  affix?: boolean;
+
+  /**
    * 开发状态
    * 0 - 未开发
    * 1 - 开发完毕
@@ -50,6 +64,7 @@ export const qiankunRouters: QiankunRouterItem[] = [
     title: '总览面板',
     path: 'dashboard',
     group: 'main',
+    affix: true,
   },
   {
     state: 2,
@@ -138,10 +153,26 @@ export const qiankunRouters: QiankunRouterItem[] = [
     group: '',
   },
   {
+    state: 2,
+    entry: 'http://localhost:0000',
+    title: '个人中心',
+    path: 'personal',
+    group: 'main',
+    hidden: true,
+  },
+  {
     state: 4,
     entry: 'http://localhost:0000',
     title: '小工具',
     path: 'tools',
+    group: '',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: 'ChatGPT',
+    path: 'chat',
+    hidden: true,
     group: '',
   },
 ];

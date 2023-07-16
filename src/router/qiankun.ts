@@ -54,7 +54,7 @@ const handleQiankunRouter = (config) => {
 };
 
 const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
-  const { state, title, path, group } = baseConfig;
+  const { state, title, path, group, hidden, affix } = baseConfig;
 
   // 如果State为0，直接返回一个503开发中页面
   // 如果State为2，直接返回一个503开发中页面
@@ -94,6 +94,8 @@ const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
         icon: renderIcon(LiveOff24Regular),
         sort: 1,
         group,
+        hidden,
+        noKeepAlive: true,
       },
       children: [
         {
@@ -105,6 +107,8 @@ const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
             icon: renderIcon(LiveOff24Regular),
             sort: 1,
             group,
+            affix,
+            noKeepAlive: true,
           },
         },
       ],
@@ -130,6 +134,8 @@ const qiankunSuccessRouter = (config) => {
   const group: any = config.group;
   const icon: any = config.icon;
   const entry: any = config.entry;
+  const hidden: any = config.hidden;
+  const affix: any = config.affix;
 
   const dynamicRoutes: Array<RouteRecordRaw> = [
     {
@@ -149,6 +155,8 @@ const qiankunSuccessRouter = (config) => {
         sort: 1,
         group,
         noKeepAlive: false,
+        hidden,
+        affix,
         disabled: config ? false : true,
       },
       children: children.map((c) => ({
@@ -186,6 +194,8 @@ export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[]) => {
         // 在状态为1时执行的操作
         // 执行另一个操作的代码
         const config: any = await fetchQiankunConfig(configItem.entry);
+        // TODO 得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
+        config.affix = configItem.affix;
         console.log(config);
 
         if (config) {

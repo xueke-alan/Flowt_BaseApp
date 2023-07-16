@@ -42,22 +42,14 @@
                 @contextmenu="handleContextMenu($event, element)">
                 <n-tag round :closable="!element.meta.affix" @close.stop="closeTabItem(element)" :bordered="true" class=""
                   :color="activeKey === element.path && tabsList.length > 1 ? tagCur : {}">
-
                   <div>
                     <div v-if="element.meta.icon" style="margin-right: 5px;font-size: 16px;">
                       <component :is="element.meta.icon" />
                     </div>
                     <span> {{ element.meta.title }}</span>
                   </div>
-
-
                 </n-tag>
               </div>
-
-
-
-
-
             </template>
           </Draggable>
         </div>
@@ -118,6 +110,7 @@ import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 import { useProjectSettingStore } from '@/store/modules/projectSetting';
 import { useThemeVars } from 'naive-ui';
 import { useGo } from '@/hooks/web/usePage';
+import { ArrowSync24Regular, Backspace24Regular, DismissSquare24Regular, BookmarkOff24Regular } from '@vicons/fluent';
 
 export default defineComponent({
   name: 'TabsView',
@@ -221,25 +214,25 @@ export default defineComponent({
         {
           label: '刷新当前',
           key: '1',
-          icon: renderIcon(ReloadOutlined),
+          icon: renderIcon(ArrowSync24Regular),
         },
         {
           label: `关闭当前`,
           key: '2',
           disabled: isCurrent.value || isDisabled,
-          icon: renderIcon(CloseOutlined),
+          icon: renderIcon(DismissSquare24Regular),
         },
         {
           label: '关闭其他',
           key: '3',
           disabled: isDisabled,
-          icon: renderIcon(ColumnWidthOutlined),
+          icon: renderIcon(Backspace24Regular),
         },
         {
           label: '关闭全部',
           key: '4',
           disabled: isDisabled,
-          icon: renderIcon(MinusOutlined),
+          icon: renderIcon(BookmarkOff24Regular),
         },
       ];
     });

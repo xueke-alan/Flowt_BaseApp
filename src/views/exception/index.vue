@@ -7,7 +7,10 @@
         </n-icon>
       </template>
       <template #footer>
-        <n-button round strong secondary type="primary" @click="goHome">返回主页</n-button>
+        <slot name="button">
+          <n-button round strong secondary type="primary" @click="goHome">返回主页</n-button>
+        </slot>
+
       </template>
     </n-result>
 
@@ -19,6 +22,7 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 const router = useRouter();
+console.log(router.currentRoute.value.fullPath);
 
 // 接收参数
 defineProps({
@@ -89,7 +93,7 @@ function goHome() {
 }
 
 .wobble-hor-bottom {
-  animation: wobble-hor-bottom .8s both
+  animation: wobble-hor-bottom .8s both .15s
 }
 
 

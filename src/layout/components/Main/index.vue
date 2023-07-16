@@ -3,7 +3,15 @@
 
     <template #default="{ Component, route }">
 
-      <div id="main-view-qiankun" :class="{ show: isQiankunRouter }"></div>
+
+      <div id="main-view-qiankun-contener" class="fadeOut" :key="nowRouter.fullPath" :class="{ show: isQiankunRouter }">
+        <div id="main-view-qiankun">
+          <page100 />
+        </div>
+      </div>
+
+
+
       <!-- {{ isQiankunRouter }} -->
       <transition :name="getTransitionName" mode="out-in" appear>
 
@@ -12,7 +20,7 @@
           <component :is="Component" />
         </keep-alive>
 
-        <component v-else :is="Component" />
+        <component v-else :is="Component" :key="nowRouter.fullPath" />
 
       </transition>
 
@@ -25,6 +33,9 @@ import { defineComponent, computed, unref, onMounted, ref } from 'vue';
 import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useRouter } from "vue-router";
+import page100 from "@/views/exception/100.vue";
+const router = useRouter();
+
 export default defineComponent({
   name: 'MainView',
   components: {},
@@ -38,7 +49,9 @@ export default defineComponent({
       default: true,
     },
   },
-
+  components: {
+    page100
+  },
   setup() {
     const { isPageAnimate, pageAnimateType } = useProjectSetting();
     const asyncRouteStore = useAsyncRouteStore();
@@ -62,23 +75,50 @@ export default defineComponent({
       keepAliveComponents,
       getTransitionName,
       isQiankunRouter,
-      nowRouter
+      nowRouter,
+      // router
     };
   },
 });
 </script>
 
 <style lang="less" scoped>
-#main-view-qiankun {
-  opacity: 0;
-  transition: opacity .2s ease;
+#main-view-qiankun-contener {
   height: 100%;
   max-height: 0;
+  overflow: hidden;
 
   &.show {
-    opacity: 1;
     max-height: 10000px;
   }
+}
 
+#main-view-qiankun {
+  height: 100%;
+}
+
+.fadeOut {
+  -webkit-animation: fade-out .3s ease reverse both;
+  animation: fade-out .3s ease reverse both;
+}
+
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 </style>

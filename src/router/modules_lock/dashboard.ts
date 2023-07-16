@@ -35,10 +35,10 @@ const routes: Array<RouteRecordRaw> = [
         path: 'default',
         name: `${routeName}_console`,
         meta: {
-          title: '主控台',
+          title: '主控台2',
           permissions: ['dashboard_console'],
           icon: renderIcon(TopSpeed24Filled),
-          affix: true,
+          // affix: true,
           group,
         },
         component: () => import('@/views/dashboard/console/console.vue'),

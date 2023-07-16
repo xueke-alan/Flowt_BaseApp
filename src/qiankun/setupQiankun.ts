@@ -24,6 +24,14 @@ export async function setupQiankun() {
 
   console.log(qiankunRouter2);
 
+  function sleep(time) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, time);
+    });
+  }
+
+  await sleep(800);
+
   registerMicroApps(qiankunRouter2, {
     beforeLoad: [
       (currentApp) => {
@@ -34,6 +42,7 @@ export async function setupQiankun() {
     beforeMount: [
       (currentApp) => {
         console.log('before mount', currentApp);
+
         return Promise.resolve();
       },
     ], // 挂载后回调

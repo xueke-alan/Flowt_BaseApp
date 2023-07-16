@@ -70,7 +70,6 @@ export function createRouterGuards(router: Router) {
 
     const routes = await asyncRouteStore.generateRoutes(userInfo);
 
-
     // 动态添加可访问路由表
     routes.forEach((item) => {
       router.addRoute(item as unknown as RouteRecordRaw);
@@ -102,11 +101,15 @@ export function createRouterGuards(router: Router) {
     // 在这里设置需要缓存的组件名称
     const keepAliveComponents = asyncRouteStore.keepAliveComponents;
     const currentComName: any = to.matched.find((item) => item.name == to.name)?.name;
+    console.log(currentComName);
+
     if (currentComName && !keepAliveComponents.includes(currentComName) && to.meta?.keepAlive) {
       // 需要缓存的组件
       keepAliveComponents.push(currentComName);
+      console.log('需要缓存：' + currentComName);
     } else if (!to.meta?.keepAlive || to.name == 'Redirect') {
       // 不需要缓存的组件
+      console.log('不需要缓存：' + currentComName);
       const index = asyncRouteStore.keepAliveComponents.findIndex((name) => name == currentComName);
       if (index != -1) {
         keepAliveComponents.splice(index, 1);
