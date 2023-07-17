@@ -13,17 +13,18 @@
       <div class="AsideMenuFooter">
         <!-- <n-badge  dot processing/> -->
 
-        <div class="cover"></div>
+        <div class="cover" :class="{ dark: getDarkTheme, }"></div>
+
         <span class="vison" @click="pushdev">
           <span>Flowt</span>
           <span class="num" :class="{ hidenum: collapsed }">v1.1.1</span>
 
         </span>
+
         <a class="beian" href="https://beian.miit.gov.cn/" target="_blank">
           <span>粤ICP备</span>
           <span class="num" :class="{ hidenum: collapsed }">2023003909号</span>
         </a>
-
 
 
       </div>
@@ -72,9 +73,11 @@
         </n-watermark>
       </n-layout>
 
-      <div style="height: 20px;background-color:red;">123</div>
-    </n-layout>
 
+
+
+
+    </n-layout>
   </n-layout>
 </template>
 
@@ -240,22 +243,29 @@ onMounted(() => {
     width: 100%;
     height: 104px;
     // background-color: #991111;
-    padding-bottom: 5px;
+    // padding-bottom: 5px;
     z-index: 28;
     align-items: center;
     justify-content: flex-end;
     flex-direction: column;
     display: flex;
 
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
 
     .cover {
       width: calc(100% - 8px);
       height: 20px;
       background: linear-gradient(#ffffff00, rgb(0, 20, 40));
+
+      // #18181C
       position: absolute;
       top: 0;
       left: 0;
+
+      &.dark {
+        background: linear-gradient(#ffffff00, #18181C);
+
+      }
     }
 
 
@@ -404,14 +414,14 @@ onMounted(() => {
   &::-webkit-scrollbar {
     width: 5px;
     height: 8px;
-    background-color: #8585851a;
+    background-color: transparent;
     border-radius: 5px;
   }
 
   /*定义滚动条轨道
  内阴影+圆角*/
   &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
     border-radius: 8px;
     background-color: transparent;
   }

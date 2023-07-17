@@ -89,7 +89,7 @@ export default defineComponent({
   height: 100%;
   max-height: 0;
   overflow: hidden;
-  transition: all ease .5s;
+  transition: opacity ease .5s;
   display: none;
 
   &.show {
@@ -124,9 +124,7 @@ export default defineComponent({
   animation: fade-out .3s ease-in both .1s;
 }
 
-.fadeIn2 {
-  animation: fade-out .3s ease-in both .1s;
-}
+
 
 @keyframes fade-out {
   0% {

@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO 右键选择的菜单的this指向 -->
   <div class="box-border tabs-view" :class="{
     'tabs-view-fix': multiTabsSetting.fixed,
     'tabs-view-fixed-header': isMultiHeaderFixed,
@@ -97,10 +98,7 @@ import Draggable from 'vuedraggable';
 import { PageEnum } from '@/enums/pageEnum';
 import {
   DownOutlined,
-  ReloadOutlined,
   CloseOutlined,
-  ColumnWidthOutlined,
-  MinusOutlined,
   LeftOutlined,
   RightOutlined,
 } from '@vicons/antd';
@@ -211,11 +209,7 @@ export default defineComponent({
     const TabsMenuOptions = computed(() => {
       const isDisabled = tabsList.value.length <= 1;
       return [
-        {
-          label: '刷新当前',
-          key: '1',
-          icon: renderIcon(ArrowSync24Regular),
-        },
+
         {
           label: `关闭当前`,
           key: '2',

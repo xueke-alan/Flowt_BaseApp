@@ -58,7 +58,12 @@ export function createRouterGuards(router: Router) {
       next(redirectData);
       return;
     }
+
     if (asyncRouteStore.getIsDynamicRouteAdded) {
+      // 这里没有处理好路由重定向
+
+      console.log(to, from);
+
       next();
       return;
     }

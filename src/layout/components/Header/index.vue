@@ -26,13 +26,13 @@
         </n-icon>
       </div>
       <!-- 刷新 -->
-      <div class="layout-header-trigger layout-header-trigger-min" v-if="headerSetting.isReload" @click="reloadPage">
+      <!-- <div class="layout-header-trigger layout-header-trigger-min" v-if="headerSetting.isReload" @click="reloadPage">
         <n-icon size="20">
-          <!-- <ReloadOutlined /> -->
+
           <component :is="ArrowClockwise16Filled" />
 
         </n-icon>
-      </div>
+      </div> -->
       <n-icon size="24" class="mr-1" style="pointer-events: none; opacity: .3;">
         <component :is="DividerShort20Filled" />
       </n-icon>
@@ -280,11 +280,11 @@ export default defineComponent({
     };
 
     // 刷新页面
-    const reloadPage = () => {
-      router.push({
-        path: '/redirect' + unref(route).fullPath,
-      });
-    };
+    // const reloadPage = () => {
+    //   router.push({
+    //     path: '/redirect' + unref(route).fullPath,
+    //   });
+    // };
 
     // 退出登录
     const doLogout = () => {
@@ -407,7 +407,7 @@ export default defineComponent({
       getChangeStyle,
       avatarSelect,
       breadcrumbList,
-      reloadPage,
+      // reloadPage,
       drawerSetting,
       openSetting,
       getInverted,

@@ -75,4 +75,5 @@ export async function setupQiankun() {
       },
     ],
   });
+
 }
