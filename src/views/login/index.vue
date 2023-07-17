@@ -106,7 +106,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/store/modules/user';
 import { useMessage } from 'naive-ui';
@@ -143,7 +143,8 @@ const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
 
-const handleSubmit = (e) => {
+const handleSubmit = (e: { preventDefault: () => void; }) => {
+  // TODO 表单验证这里有未抓取到的错误
   e.preventDefault();
   formRef.value.validate(async (errors) => {
     if (!errors) {
@@ -190,6 +191,25 @@ const resetPsw = (e) => {
 //   e.preventDefault();
 //   router.push('/resetPsw');
 // }
+
+onMounted(() => {
+  // 绑定监听事件
+  window.addEventListener('keydown', keyDown)
+})
+onUnmounted(() => {
+  // 销毁事件
+  window.removeEventListener('keydown', keyDown, false)
+  console.log('销毁事件');
+
+})
+// 点击回车键登录
+const keyDown = (e) => {
+  if (e.keyCode === 13) {
+    console.log('触发回车事件')
+    handleSubmit(e)
+  }
+}
+
 </script>
 
 <style lang="less" scoped>

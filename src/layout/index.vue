@@ -12,11 +12,12 @@
 
       <div class="AsideMenuFooter">
         <!-- <n-badge  dot processing/> -->
-        <n-badge dot processing type="warning" ></n-badge>
+
         <div class="cover"></div>
         <span class="vison" @click="pushdev">
           <span>Flowt</span>
           <span class="num" :class="{ hidenum: collapsed }">v1.1.1</span>
+
         </span>
         <a class="beian" href="https://beian.miit.gov.cn/" target="_blank">
           <span>粤ICP备</span>
@@ -59,28 +60,21 @@
 
             <div class="main-view" :class="{
               'main-view-fix': fixedMulti,
+              dark: getDarkTheme,
               noMultiTabs: !isMultiTabs,
               'mt-3': !isMultiTabs,
-            }
-              ">
-
-
-
+            }">
               <MainView />
-
-
-
               <n-back-top :right="80" :bottom="40" />
-
-
             </div>
-
-            <div class="scollCover"></div>
+            <div class=" scollCover"></div>
           </div>
         </n-watermark>
       </n-layout>
 
+      <div style="height: 20px;background-color:red;">123</div>
     </n-layout>
+
   </n-layout>
 </template>
 
@@ -263,6 +257,8 @@ onMounted(() => {
       top: 0;
       left: 0;
     }
+
+
   }
 
   .vison {
@@ -406,9 +402,10 @@ onMounted(() => {
   /*定义滚动条高宽及背景
  高宽分别对应横竖滚动条的尺寸*/
   &::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
     height: 8px;
-    background-color: #F5F5F5;
+    background-color: #8585851a;
+    border-radius: 5px;
   }
 
   /*定义滚动条轨道
@@ -416,7 +413,7 @@ onMounted(() => {
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    background-color: #F5F5F5;
+    background-color: transparent;
   }
 
   /*定义滑块
@@ -424,10 +421,22 @@ onMounted(() => {
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .13);
-    background-color: #57575759;
+    background-color: #a1a1a162;
 
   }
 
+  &.dark {
+    &::-webkit-scrollbar {
+
+      background-color: #57575788;
+    }
+
+    /*定义滑块
+ 内阴影+圆角*/
+    &::-webkit-scrollbar-thumb {
+      background-color: #dddddd88;
+    }
+  }
 
 }
 

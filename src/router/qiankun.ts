@@ -187,31 +187,26 @@ export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[]) => {
       case 3:
       case 4:
         // 在状态为0、2或3时执行的操作
-        // 执行某个操作的代码
         qiankunRouterList.push(qiankunOfflineRouter(configItem));
         break;
       case 1:
         // 在状态为1时执行的操作
-        // 执行另一个操作的代码
         const config: any = await fetchQiankunConfig(configItem.entry);
         // TODO 得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
-
-        config.affix = configItem.affix;
+        const configAssign = Object.assign(configItem, config);
+        // config.affix = configItem.affix;
         console.log(config);
 
         if (config) {
           // 完善路由器
-          handleQiankunRouter(config);
-          qiankunRouterList.push(qiankunSuccessRouter(config));
+          handleQiankunRouter(configAssign);
+          qiankunRouterList.push(qiankunSuccessRouter(configAssign));
         } else {
           // 返回offline路由
-          console.log(configItem);
-
-          qiankunRouterList.push(qiankunOfflineRouter(configItem));
+          qiankunRouterList.push(qiankunOfflineRouter(configAssign));
         }
         break;
     }
-    // 如果为1才进行访问
   }
   return qiankunRouterList;
 };

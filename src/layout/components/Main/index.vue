@@ -1,12 +1,12 @@
 <template>
-  fadeIn
   <RouterView>
 
     <template #default="{ Component, route }">
 
 
-<!-- TODO 这里的fadeIn动画需要根据路有变化重播，不能用key会导致qiankun容器丢失 -->
-      <div id="main-view-qiankun-contener" class="fadeIn"  :class="{ show: isQiankunRouter }">
+      <!-- TODO 这里的fadeIn动画需要根据路有变化重播，不能用key会导致qiankun容器丢失 已解决 -->
+
+      <div id="main-view-qiankun-contener" class="fadeIn" :class="{ show: isQiankunRouter }">
         <!-- TODO 这里有滚动条跳跃的问题 已解决 -->
         <div id="main-view-qiankun">
           <page100 />
@@ -30,17 +30,17 @@
   </RouterView>
 </template>
 
-<script>
+<script >
 import { defineComponent, computed, unref, onMounted, ref } from 'vue';
 import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useRouter } from "vue-router";
 import page100 from "@/views/exception/100.vue";
-const router = useRouter();
+// const router = useRouter();
 
 export default defineComponent({
   name: 'MainView',
-  components: {},
+  // components: {},
   props: {
     notNeedKey: {
       type: Boolean,
@@ -90,11 +90,13 @@ export default defineComponent({
   max-height: 0;
   overflow: hidden;
   transition: all ease .5s;
+  display: none;
 
   &.show {
     max-height: inherit;
     overflow: visible;
-
+    display: block;
+    opacity: 0;
   }
 }
 

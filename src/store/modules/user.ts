@@ -104,6 +104,7 @@ export const useUserStore = defineStore({
 
     // 获取用户信息
     async getInfo() {
+      console.log('debug');
       const result = await getUserInfoApi();
       if (result.permissions && result.permissions.length) {
         const permissionsList = result.permissions;
@@ -112,6 +113,7 @@ export const useUserStore = defineStore({
       } else {
         throw new Error('getInfo: permissionsList must be a non-null array !');
       }
+      console.log('debug');
       this.setAvatar(result.avatar);
       return result;
     },

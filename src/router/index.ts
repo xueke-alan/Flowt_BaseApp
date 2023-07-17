@@ -76,12 +76,37 @@ export const RestPswRoute: RouteRecordRaw = {
   },
 };
 
+// tempRoute
+export const tempRoute: RouteRecordRaw = {
+  path: '/:catchAll(.*)',
+  name: 'tempRoute',
+  component: () => import('@/layout/components/Empty/index.vue'),
+  meta: {
+    title: 'tempRoute',
+    hidden: true,
+  },
+};
+
+// const { name } = router.currentRoute.value;
+// if (!name) {
+//   router.addRoute({
+//     path: window.location.pathname,
+//     name: 'TempRoute',
+//     component: () => import('@/components/layouts/emptyLayout.vue'),
+//   });
+// }
+
 //普通路由 无需验证权限
 export const constantRouter: RouteRecordRaw[] = [
   LoginRoute,
   RestPswRoute,
   RootRoute,
   RedirectRoute,
+  {
+    path: window.location.pathname,
+    name: 'TempRoute',
+    component: () => import('@/components/Empty/index.vue'),
+  },
 ];
 
 const router = createRouter({

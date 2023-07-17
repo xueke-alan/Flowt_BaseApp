@@ -17,6 +17,7 @@ export function createRouterGuards(router: Router) {
   const { VITE_GLOB_APP_SHORT_NAME } = getAppEnvConfig();
   const userStore = useUser();
   const asyncRouteStore = useAsyncRoute();
+
   router.beforeEach(async (to, from, next) => {
     console.log(to.path);
 
@@ -32,13 +33,11 @@ export function createRouterGuards(router: Router) {
 
     if (whitePathList.includes(to.path as PageEnum)) {
       console.log(to.path);
-
       next();
       return;
     }
-
     const token = storage.get(ACCESS_TOKEN);
-
+    console.log('debug');
     if (!token) {
       // You can access without permissions. You need to set the routing meta.ignoreAuth to true
       if (to.meta.ignoreAuth) {
@@ -59,13 +58,13 @@ export function createRouterGuards(router: Router) {
       next(redirectData);
       return;
     }
-
     if (asyncRouteStore.getIsDynamicRouteAdded) {
       next();
       return;
     }
-
     const userInfo = await userStore.getInfo();
+    console.log(userInfo);
+
     console.log(111);
 
     const routes = await asyncRouteStore.generateRoutes(userInfo);
@@ -85,8 +84,18 @@ export function createRouterGuards(router: Router) {
     const redirect = decodeURIComponent(redirectPath);
     const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect };
     asyncRouteStore.setDynamicRouteAdded(true);
-    next(nextData);
 
+    // 授权成功执行以下代码
+    // 存在临时路由则先删除临时路由
+    const tempRoute = router.hasRoute('TempRoute');
+    if (tempRoute) router.removeRoute('TempRoute');
+    // 此时已添加了后端返回的动态路由，进行跳转一次
+    if (tempRoute) {
+      // 此处 next 里就不可用 ...to，因为 to 是临时路由
+      next({ path: to.path, query: to.query, replace: true });
+    } else {
+      next(nextData);
+    }
     Loading && Loading.finish();
   });
 

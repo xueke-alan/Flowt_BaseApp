@@ -1,4 +1,4 @@
-import { registerMicroApps, addGlobalUncaughtErrorHandler } from 'qiankun';
+import { registerMicroApps } from 'qiankun';
 
 // import { http } from '@/utils/http/axios';
 
@@ -36,21 +36,41 @@ export async function setupQiankun() {
     beforeLoad: [
       (currentApp) => {
         console.log('before load', currentApp);
+        // const main_view_qiankun_contener_classList = document.querySelector(
+        //   '#main-view-qiankun-contener'
+        // )?.classList;
+
+        // if (main_view_qiankun_contener_classList) {
+        //   main_view_qiankun_contener_classList.remove('fadeIn');
+        // }
+        // console.log(main_view_qiankun_contener_classList);
         return Promise.resolve();
       },
     ], // 挂载前回调
     beforeMount: [
       (currentApp) => {
         console.log('before mount', currentApp);
+        const main_view_qiankun_contener_classList = document.querySelector(
+          '#main-view-qiankun-contener'
+        )?.classList;
+        if (main_view_qiankun_contener_classList) {
+          main_view_qiankun_contener_classList.remove('fadeIn');
+          setTimeout(() => {
+            main_view_qiankun_contener_classList.add('fadeIn');
+            console.log(main_view_qiankun_contener_classList);
+          }, 0);
+        }
 
         return Promise.resolve();
       },
-    ], // 挂载后回调
+    ],
+    // 挂载后回调
     afterUnmount: [
       (currentApp, a) => {
         const name = currentApp.name;
         console.log('after unload', currentApp, a[name]);
         // a[name].unmount();
+
         return Promise.resolve();
       },
     ],
