@@ -55,6 +55,17 @@ export interface QiankunRouterItem {
    * @memberof QiankunRouterItem
    */
   state: 0 | 1 | 2 | 3 | 4 | 5;
+
+  /**
+   * 开发状态
+   * 0 - 未开发
+   * 1 - 开发完毕
+   * 2 - 开发中
+   * 3 - 故障
+   * @type {number}
+   * @memberof QiankunRouterItem
+   */
+  permissions?: any[];
 }
 // 路由表
 export const qiankunRouters: QiankunRouterItem[] = [
@@ -64,7 +75,7 @@ export const qiankunRouters: QiankunRouterItem[] = [
     title: '总览面板',
     path: 'dashboard',
     group: 'main',
-    affix: true,
+    // affix: true,
   },
   {
     state: 2,
@@ -86,6 +97,7 @@ export const qiankunRouters: QiankunRouterItem[] = [
     title: '账号管理',
     path: 'account',
     group: '实验室管理',
+    permissions: ['dashboard_workplace'],
   },
   {
     state: 0,

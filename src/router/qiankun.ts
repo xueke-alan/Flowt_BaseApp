@@ -136,6 +136,7 @@ const qiankunSuccessRouter = (config) => {
   const entry: any = config.entry;
   const hidden: any = config.hidden;
   const affix: any = config.affix;
+  const permissions: any = config.permissions;
 
   const dynamicRoutes: Array<RouteRecordRaw> = [
     {
@@ -158,6 +159,7 @@ const qiankunSuccessRouter = (config) => {
         hidden,
         affix,
         disabled: config ? false : true,
+        permissions,
       },
       children: children.map((c) => ({
         ...c,
@@ -192,18 +194,27 @@ export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[]) => {
       case 1:
         // 在状态为1时执行的操作
         const config: any = await fetchQiankunConfig(configItem.entry);
-        //  得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
-        const configAssign = Object.assign(configItem, config);
-        // config.affix = configItem.affix;
-        console.log(config);
 
         if (config) {
+          //  得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
+
+          // meta也要重叠
+
+          const configAssign = Object.assign(configItem, config);
+
+          // console.log(configItem.permissions);
+          // console.log(configItem.permissions);
+          // configAssign.meta = {}
+          // configAssign.meta.permissions = configItem.permissions || [];
+          // config.affix = configItem.affix;
+          console.log(configAssign);
+
           // 完善路由器
           handleQiankunRouter(configAssign);
           qiankunRouterList.push(qiankunSuccessRouter(configAssign));
         } else {
           // 返回offline路由
-          qiankunRouterList.push(qiankunOfflineRouter(configAssign));
+          qiankunRouterList.push(qiankunOfflineRouter(configItem));
         }
         break;
     }
