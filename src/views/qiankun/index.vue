@@ -5,14 +5,17 @@ import { start, loadMicroApp } from 'qiankun';
 import { onMounted } from 'vue';
 
 onMounted(() => {
-  // if (!window.qiankunStarted) {
-  //   window.qiankunStarted = true;
-  //   console.log(window.qiankunStarted);
-  //   setTimeout(() => {
 
-  //     start();
-  //   }, 2500);
-  // }
+
+
+  if (!window.qiankunStarted) {
+    window.qiankunStarted = true;
+    console.log(window.qiankunStarted);
+    setTimeout(() => {
+
+      start();
+    }, 2500);
+  }
   setTimeout(() => {
     start();
   }, 3000);

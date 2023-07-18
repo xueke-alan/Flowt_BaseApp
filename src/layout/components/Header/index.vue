@@ -381,8 +381,9 @@ export default defineComponent({
     };
 
     function openSetting() {
-      const { openDrawer } = drawerSetting.value;
-      openDrawer();
+      // const { openDrawer } = drawerSetting.value;
+      // openDrawer();
+      router.push({ name: 'setting' });
     }
 
     function searchFocus(params) {

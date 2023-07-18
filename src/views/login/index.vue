@@ -146,7 +146,10 @@ const route = useRoute();
 const handleSubmit = (e: { preventDefault: () => void; }) => {
   // TODO 表单验证这里有未抓取到的错误
   e.preventDefault();
-  formRef.value.validate(async (errors) => {
+
+
+
+  formRef.value.validate(async (errors: any) => {
     if (!errors) {
       const { username, password } = formInline;
       message.loading('登录中...');
@@ -156,6 +159,7 @@ const handleSubmit = (e: { preventDefault: () => void; }) => {
         username,
         password,
       };
+
 
       try {
         const { code, message: msg } = await userStore.login(params);
@@ -169,6 +173,8 @@ const handleSubmit = (e: { preventDefault: () => void; }) => {
         } else {
           message.info(msg || '登录失败');
         }
+      } catch (error) {
+        console.log(error);
       } finally {
         loading.value = false;
       }
@@ -178,7 +184,7 @@ const handleSubmit = (e: { preventDefault: () => void; }) => {
   });
 };
 
-const resetPsw = (e) => {
+const resetPsw = (e: { preventDefault: () => void; }) => {
   e.preventDefault();
   message.success('修改成功，即将登入系统');
   setTimeout(() => {
@@ -203,7 +209,7 @@ onUnmounted(() => {
 
 })
 // 点击回车键登录
-const keyDown = (e) => {
+const keyDown = (e: { keyCode?: any; preventDefault?: () => void; }) => {
   if (e.keyCode === 13) {
     console.log('触发回车事件')
     handleSubmit(e)

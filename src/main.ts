@@ -37,9 +37,9 @@ async function bootstrap() {
   // https://router.vuejs.org/api/interfaces/router.html#isready
   await router.isReady();
 
-  // 启动乾坤服务
-  console.log(router.getRoutes());
-  setupQiankun();
+  // // 启动乾坤服务
+  // console.log(router.getRoutes());
+  // setupQiankun();
 
   // https://www.naiveui.com/en-US/os-theme/docs/style-conflict#About-Tailwind's-Preflight-Style-Override
   const meta = document.createElement('meta');

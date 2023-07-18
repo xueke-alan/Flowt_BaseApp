@@ -4,10 +4,10 @@
     <template #default="{ Component, route }">
 
 
-      <!-- TODO 这里的fadeIn动画需要根据路有变化重播，不能用key会导致qiankun容器丢失 已解决 -->
+
 
       <div id="main-view-qiankun-contener" class="fadeIn" :class="{ show: isQiankunRouter }">
-        <!-- TODO 这里有滚动条跳跃的问题 已解决 -->
+
         <div id="main-view-qiankun">
           <page100 />
         </div>
@@ -35,6 +35,8 @@ import { defineComponent, computed, unref, onMounted, ref } from 'vue';
 import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useRouter } from "vue-router";
+import { setupQiankun } from '@/qiankun/setupQiankun';
+
 import page100 from "@/views/exception/100.vue";
 // const router = useRouter();
 
@@ -68,6 +70,11 @@ export default defineComponent({
 
       console.log('======');
       // console.log('router', router.currentRoute);
+
+      // 启动乾坤服务
+      console.log(router.getRoutes());
+      setupQiankun();
+
       console.log('isQiankunRouter', router.currentRoute.value.meta.isQiankunRouter);
     });
     const isQiankunRouter = computed(() => router.currentRoute.value.meta.isQiankunRouter)
