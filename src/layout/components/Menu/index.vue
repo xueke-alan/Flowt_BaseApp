@@ -1,46 +1,51 @@
 <template>
   <div class="NMenu" :class="{ NMenuCollapsed: collapsed }">
 
-    <NMenu v-if="menus[0]" :options="menus[0].menus" :inverted="inverted" :mode="mode" :collapsed="collapsed"
-      :collapsed-width="64" :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys"
-      :expand-icon="expandIcon" :value="getSelectedKeys" @update:value="clickMenuItem"
-      @update:expanded-keys="menuExpanded" class="mainRouter" />
+    <!-- <div>
+      <n-icon-wrapper :size="24" :border-radius="10">
+        <n-icon size="16">
+          <component :is="ChannelShare28Regular" />
+        </n-icon>
+      </n-icon-wrapper>
+    </div> -->
 
-    <n-collapse arrow-placement="right" style="border: 0;" :expanded-names="expandedNames"
-      :on-item-header-click="onItemHeaderClick">
-      <template #arrow> <span></span> </template>
-      <n-collapse-item v-for="(m) in menus.slice(1)" :name="m.group" style="border: 0;overflow: hidden;cursor: default;">
-        <template #header>
-          <div class="collapse-item-header-slot">
-            <n-divider class="n-divider" />
-            <div class="groupTitle" v-if="m.group !== 'main' && !collapsed">
-              <span class="leftTitle">
-                <n-icon size="16">
-                  <component :is="ChannelShare28Regular" />
+    <!-- TODO 路由跳转的时候需要滚动 -->
+
+
+      <NMenu v-if="menus[0]" :options="menus[0].menus" :inverted="inverted" :mode="mode" :collapsed="collapsed"
+        :collapsed-width="64" :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys"
+        :expand-icon="expandIcon" :value="getSelectedKeys" @update:value="clickMenuItem"
+        @update:expanded-keys="menuExpanded" class="mainRouter" />
+
+      <n-collapse arrow-placement="right" style="border: 0;" :expanded-names="expandedNames"
+        :on-item-header-click="onItemHeaderClick">
+        <template #arrow> <span></span> </template>
+        <n-collapse-item v-for="(m) in menus.slice(1)" :name="m.group"
+          style="border: 0;overflow: hidden;cursor: default;">
+          <template #header>
+            <div class="collapse-item-header-slot">
+              <n-divider class="n-divider" />
+              <div class="groupTitle" v-if="m.group !== 'main' && !collapsed">
+                <span class="leftTitle">
+                  <n-icon size="16">
+                    <component :is="ChannelShare28Regular" />
+                  </n-icon>
+                  <span style="text-wrap: nowrap;">{{ m.group || "其他" }}</span>
+                </span>
+                <n-icon size="16" class="arrow" :class="{ exp: expandedNames.indexOf(m.group) > 0 }">
+                  <component :is="ArrowEject20Filled" />
                 </n-icon>
-                <span style="text-wrap: nowrap;">{{ m.group || "其他" }}</span>
-              </span>
-              <n-icon size="16" class="arrow" :class="{ exp: expandedNames.indexOf(m.group) > 0 }">
-                <component :is="ArrowEject20Filled" />
-              </n-icon>
+              </div>
             </div>
-          </div>
-        </template>
+          </template>
 
-        <NMenu :options="m.menus" :inverted="inverted" :mode="mode" :collapsed="collapsed" :collapsed-width="64"
-          :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys" :value="getSelectedKeys"
-          @update:value="clickMenuItem" @update:expanded-keys="menuExpanded" :expand-icon="expandIcon" />
-      </n-collapse-item>
+          <NMenu :options="m.menus" :inverted="inverted" :mode="mode" :collapsed="collapsed" :collapsed-width="64"
+            :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys" :value="getSelectedKeys"
+            @update:value="clickMenuItem" @update:expanded-keys="menuExpanded" :expand-icon="expandIcon" />
+        </n-collapse-item>
 
-    </n-collapse>
+      </n-collapse>
 
-    <!-- <div v-for="(m, index) in menus">
-    <div class="groupTitle" v-if="m.group !== 'main'">{{ m.group || "其他" }} </div>
-    <NMenu :options="m.menus" :inverted="inverted" :mode="mode" :collapsed="collapsed" :collapsed-width="64"
-      :collapsed-icon-size="20" :indent="24" :expanded-keys="openKeys" :value="getSelectedKeys"
-      @update:value="clickMenuItem" @update:expanded-keys="menuExpanded" />
-    <n-divider v-if="index !== menus.length - 1" style="margin: 20px 0 5px 0 ;padding: 0 10px 0 18px;opacity: .2;" />
-  </div> -->
   </div>
 </template>
 
@@ -286,6 +291,8 @@ export default defineComponent({
 
 <style scoped lang="less">
 .NMenu {
+
+
   &.NMenuCollapsed {
     .groupTitle {
 

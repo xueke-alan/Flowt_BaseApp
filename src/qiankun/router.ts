@@ -75,7 +75,6 @@ export const qiankunRouters: QiankunRouterItem[] = [
     title: '总览面板',
     path: 'dashboard',
     group: 'main',
-    // affix: true,
   },
   {
     state: 2,
@@ -94,7 +93,7 @@ export const qiankunRouters: QiankunRouterItem[] = [
   {
     state: 1,
     entry: 'http://localhost:8085',
-    title: '账号管理',
+    title: '组织架构',
     path: 'account',
     group: '实验室管理',
     permissions: ['dashboard_workplace'],
@@ -102,16 +101,58 @@ export const qiankunRouters: QiankunRouterItem[] = [
   {
     state: 0,
     entry: 'http://localhost:0000',
-    title: '机器人',
+    title: '消息部署',
     path: 'roubt',
     group: '实验室管理',
   },
   {
     state: 4,
     entry: 'http://localhost:0000',
-    title: '设备管理',
-    path: 'equip',
-    group: '测试',
+    title: '文件库',
+    path: 'str',
+    group: '资源',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '设备库',
+    path: 'equipl',
+    group: '资源',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '测试文件',
+    path: 'tline',
+    group: '资源',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '客户信息',
+    path: 'cust',
+    group: '资源',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '检测申请',
+    path: 'orderf',
+    group: '订单',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '测试指派',
+    path: 'ordert',
+    group: '订单',
+  },
+  {
+    state: 4,
+    entry: 'http://localhost:0000',
+    title: '测试详情',
+    path: 'det',
+    group: '订单',
   },
   {
     state: 4,
@@ -197,4 +238,4 @@ export const qiankunRouters: QiankunRouterItem[] = [
   },
 ];
 
-export const qiankunRoutersSort = ['main', '开发者', '实验室管理', '测试'];
+export const qiankunRoutersSort = ['main', '开发者', '实验室管理', '资源', '订单', '测试'];

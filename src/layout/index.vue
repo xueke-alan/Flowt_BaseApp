@@ -17,8 +17,7 @@
 
         <span class="vison" @click="pushdev">
           <span>Flowt</span>
-          <span class="num" :class="{ hidenum: collapsed }">v1.1.1</span>
-
+          <span class="num" :class="{ hidenum: collapsed }"> (LIMS) v0.0.1</span>
         </span>
 
         <a class="beian" href="https://beian.miit.gov.cn/" target="_blank">

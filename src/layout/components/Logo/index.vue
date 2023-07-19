@@ -2,7 +2,7 @@
   <div class="logo">
     <div class="logo-box">
       <img :src="websiteConfig.logo" alt="" />
-      <div class="title" :class="{ 'collapsed': collapsed }">Flowt.</div>
+      <div class="title" :class="{ 'collapsed': collapsed }">Flowt</div>
     </div>
 
   </div>
