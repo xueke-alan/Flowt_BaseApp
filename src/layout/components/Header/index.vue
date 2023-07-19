@@ -152,7 +152,7 @@
         <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
           <div class="avatar">
             <n-avatar :size="20"
-              src="https://res.cloudinary.com/postman/image/upload/t_team_logo/v1685442616/team/816e81aa01116ed74f82a7d65a5dd84c8f92add9fc3b6e867945873d3dbbf2f9.jpg"
+              :src="avatar"
               fallback-src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
 
 
@@ -209,12 +209,13 @@ export default defineComponent({
     const dialog = useDialog();
     const { navMode, navTheme, headerSetting, menuSetting, crumbsSetting } = useProjectSetting();
 
-    const { name } = userStore?.info || {};
+    const { Avatar, Username } = userStore?.info || {};
 
     const drawerSetting = ref();
 
     const state = reactive({
-      username: name ?? '',
+      username: Username ?? '',
+      avatar: Avatar ?? '',
       fullscreenIcon: 'FullscreenOutlined',
       navMode,
       navTheme,

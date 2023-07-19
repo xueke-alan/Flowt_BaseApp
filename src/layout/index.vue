@@ -49,8 +49,9 @@
         height: '100%'
       }" :class="{ 'layout-default-background': getDarkTheme === false }">
 
-        <n-watermark content="GZ10548 薛科" cross selectable :font-size="16" :line-height="16" :width="300" :height="300"
-          font-color="rgba(128,128,128,.2)" :x-offset="12" :y-offset="100" :rotate="-15" style="height: 100%;">
+        <n-watermark :content="watermarkContent" cross selectable :font-size="16" :line-height="16" :width="300"
+          :height="300" font-color="rgba(128,128,128,.2)" :x-offset="12" :y-offset="100" :rotate="-15"
+          style="height: 100%;">
 
           <div class="layout-content-main" :class="{
             'layout-content-main-fix': fixedMulti,
@@ -92,7 +93,13 @@ import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 import { useRoute } from 'vue-router';
 import { useProjectSettingStore } from '@/store/modules/projectSetting';
+import { useUserStore } from '@/store/modules/user';
 import { useRouter } from "vue-router";
+
+// console.log(IUserState);
+const userStore = useUserStore();
+console.log(userStore);
+
 
 const { getDarkTheme } = useDesignSetting();
 const {
@@ -122,6 +129,10 @@ const isMobile = computed<boolean>({
 const fixedHeader = computed(() => {
   const { fixed } = unref(headerSetting);
   return fixed ? 'absolute' : 'static';
+});
+
+const watermarkContent = computed(() => {
+  return userStore.info.StaffID + " " + userStore.info.UsernameCn;
 });
 
 const isMixMenuNoneSub = computed(() => {

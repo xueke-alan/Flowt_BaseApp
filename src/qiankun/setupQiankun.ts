@@ -4,7 +4,6 @@ import { registerMicroApps } from 'qiankun';
 
 //获取主控台信息
 
-
 // 这里需要在乾坤容器所在的vue文件中挂载前执行，否则会因为没有容器而无法成功注册
 export async function setupQiankun() {
   const qiankunRouter2: Array<any> = [];
@@ -33,7 +32,7 @@ export async function setupQiankun() {
   }
 
   await sleep(800);
-  // 
+  //
 
   registerMicroApps(qiankunRouter2, {
     beforeLoad: [
@@ -78,5 +77,4 @@ export async function setupQiankun() {
       },
     ],
   });
-
 }

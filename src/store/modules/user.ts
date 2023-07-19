@@ -9,6 +9,7 @@ import { storage } from '@/utils/Storage';
 import { hashPassword } from '@/utils/password/SHA-256';
 
 export type UserInfoType = {
+[x: string]: any;
   // TODO: add your own data
   name: string;
   email: string;
