@@ -3,12 +3,22 @@
 
     <template #default="{ Component, route }">
 
-
+      <!--
+      <div>
+        {{ qiankunRoutersNameList }}
+      </div>
+      <div>
+        {{ nowRouter.fullPath }}
+      </div>
+      <div>
+        {{ nowRouter.fullPath.indexOf('dashboard') }}
+      </div> -->
 
 
       <div id="main-view-qiankun-contener" class="fadeIn" :class="{ show: isQiankunRouter }">
 
-        <div id="main-view-qiankun">
+        <div :id="'main-view-qiankun-' + r" v-for="r in qiankunRoutersNameList"
+          v-show="nowRouter.fullPath.indexOf(r) > 0">
           <page100 />
         </div>
       </div>
@@ -36,6 +46,7 @@ import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useRouter } from "vue-router";
 import { setupQiankun } from '@/qiankun/setupQiankun';
+import { qiankunRouters } from '@/qiankun/router';
 
 import page100 from "@/views/exception/100.vue";
 // const router = useRouter();
@@ -56,6 +67,7 @@ export default defineComponent({
   components: {
     page100
   },
+
   setup() {
     const { isPageAnimate, pageAnimateType } = useProjectSetting();
     const asyncRouteStore = useAsyncRouteStore();
@@ -66,6 +78,12 @@ export default defineComponent({
       return unref(isPageAnimate) ? unref(pageAnimateType) : '';
     });
     const router = useRouter();
+    const qiankunRoutersNameList = computed(() => {
+      return qiankunRouters.map((r) => {
+        return r.path
+      })
+    })
+
     onMounted(() => {
 
       console.log('======');
@@ -85,6 +103,8 @@ export default defineComponent({
       getTransitionName,
       isQiankunRouter,
       nowRouter,
+      qiankunRouters,
+      qiankunRoutersNameList
       // router
     };
   },

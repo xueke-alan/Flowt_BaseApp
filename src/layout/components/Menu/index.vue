@@ -255,6 +255,8 @@ export default defineComponent({
 
   .n-collapse .n-collapse-item .n-collapse-item__header {
     transition: all .3s ease;
+    padding-top: 0 ;
+
   }
 
   .n-menu .n-menu-item-content::before {
@@ -264,7 +266,7 @@ export default defineComponent({
 
   &.NMenuCollapsed {
     .n-collapse .n-collapse-item .n-collapse-item__header {
-      padding-top: 0 !important;
+      padding-top: 0 ;
     }
 
     .n-menu .n-menu-item-content::before {

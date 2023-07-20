@@ -225,7 +225,8 @@ onMounted(() => {
 
 .AsideMenuScrollbar {
   .n-menu .n-menu-item-content.n-menu-item-content--selected::before {
-    border-radius: 8px !important;
+    border-radius: 5px !important;
+
   }
 }
 </style>
