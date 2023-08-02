@@ -1,5 +1,11 @@
 export function checkStatus(status: number, msg: string): void {
   const $message = window['$message'];
+
+  if (msg) {
+    $message.error(msg);
+    return;
+  }
+
   switch (status) {
     case 400:
       $message.error(msg);
@@ -11,7 +17,7 @@ export function checkStatus(status: number, msg: string): void {
       $message.error('用户没有权限（令牌、用户名、密码错误）!');
       break;
     case 403:
-      $message.error('用户得到授权，但是访问是被禁止的。!');
+      $message.error('用户得到授权，但是访问是被禁止的!');
       break;
     // 404请求不存在
     case 404:

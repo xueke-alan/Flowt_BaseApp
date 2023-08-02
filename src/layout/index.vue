@@ -131,7 +131,7 @@ const fixedHeader = computed(() => {
 });
 
 const watermarkContent = computed(() => {
-  return userStore.info.StaffID + " " + userStore.info.UsernameCn;
+  return userStore.info.staffId + " " + userStore.info.usernameCn;
 });
 
 const isMixMenuNoneSub = computed(() => {

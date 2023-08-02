@@ -17,7 +17,7 @@ export interface BasicPageParams {
  */
 export function getUserInfo() {
   return http.request({
-    url: '/user/admin_info',
+    url: '/user/info',
     method: 'get',
   });
 }
@@ -25,13 +25,12 @@ export function getUserInfo() {
 /**
  * @description: 用户预登录，获取盐值等信息
  */
-export function preLogin(params) {
+export function preLogin(staffId) {
   return http.request<BasicResponseModel>(
     {
       // url: 'http://127.0.0.1:8810/users/preLogin',
-      url: '/user/preLogin',
+      url: `/login/preLogin/${staffId}`,
       method: 'POST',
-      params,
     },
     {
       isTransformResponse: false,
@@ -46,7 +45,7 @@ export function login(params) {
   return http.request<BasicResponseModel>(
     {
       // url: 'http://127.0.0.1:8810/users/login',
-      url: '/user/login',
+      url: '/login',
       method: 'POST',
       params,
     },

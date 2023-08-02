@@ -44,8 +44,8 @@ export default [
     method: 'post',
     response: () => {
       return resultSuccess({
-        HashPassword: 'ABCDEFG',
-        Salt: 'ABCDEFG',
+        hashPassword: 'ABCDEFG',
+        salt: 'ABCDEFG',
         saltRounds: 1000,
       });
     },

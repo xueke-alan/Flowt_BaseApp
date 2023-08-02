@@ -6,15 +6,15 @@ export function generateRandomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function hashPassword(
+export function HashPasswordBySHA256(
   password: string,
-  Salt: string = random(32),
-  SaltRounds: number = generateRandomNumber(4000, 6000)
+  salt: string = random(32),
+  saltRounds: number = generateRandomNumber(4000, 6000)
 ) {
   const startTime = performance.now(); // 记录开始时间
   // const hashedPassword = sha256(password);
-  const HashPassword = crypto
-    .PBKDF2(password, Salt, {
+  const hashPassword = crypto
+    .PBKDF2(password, salt, {
       keySize: 8,
       iterations: 5714,
     })
@@ -23,5 +23,5 @@ export function hashPassword(
   const endTime = performance.now(); // 记录结束时间
   const executionTime = endTime - startTime; // 计算代码执行毫秒数
   console.log(executionTime + 'ms');
-  return { Salt, SaltRounds, HashPassword };
+  return { salt, saltRounds, hashPassword };
 }

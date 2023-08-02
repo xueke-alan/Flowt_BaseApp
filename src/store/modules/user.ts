@@ -6,10 +6,10 @@ import { ResultEnum } from '@/enums/httpEnum';
 import { getUserInfo as getUserInfoApi, login, preLogin } from '@/api/system/user';
 import { storage } from '@/utils/Storage';
 
-import { hashPassword } from '@/utils/password/SHA-256';
+import { HashPasswordBySHA256 } from '@/utils/password/SHA-256';
 
 export type UserInfoType = {
-[x: string]: any;
+  [x: string]: any;
   // TODO: add your own data
   name: string;
   email: string;
@@ -68,28 +68,35 @@ export const useUserStore = defineStore({
 
     async login(params: any) {
       // 请求盐值与迭代次数
-      const res = await preLogin({ StaffID: params.username });
+      const res = await preLogin(params.username);
       if (res.code == 400) {
         return res;
       }
       // 先计算出当前密码Hash值
-      const { HashPassword } = hashPassword(
+      const { hashPassword } = HashPasswordBySHA256(
         params.password,
         res.result.salt,
         res.result.saltRounds
       );
-      console.log(HashPassword);
+      console.log(hashPassword);
 
       // 计算出一个另一个随机hash值发给后端，如果登录成功则替换。
-      const newHashPassword = hashPassword(params.password);
+      const newHashPassword = HashPasswordBySHA256(params.password);
       console.log(newHashPassword);
       // 登录
       const response = await login({
-        StaffID: params.username,
-        HashPasswordFormFront: HashPassword,
-        newHashPassword,
+        staffId: params.username,
+        toVerify: hashPassword,
+        toUpdate: newHashPassword,
       });
       console.log(response);
+
+      // Timestamp
+      // originalUrl
+      // method
+      // params
+      // query
+      // body
 
       const { result, code } = response;
       if (code === ResultEnum.SUCCESS) {
