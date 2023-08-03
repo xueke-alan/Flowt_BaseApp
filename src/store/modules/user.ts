@@ -88,6 +88,7 @@ export const useUserStore = defineStore({
         staffId: params.username,
         toVerify: hashPassword,
         toUpdate: newHashPassword,
+        preToken: res.result.preToken,
       });
       console.log(response);
 
