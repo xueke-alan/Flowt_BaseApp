@@ -92,13 +92,6 @@ export const useUserStore = defineStore({
       });
       console.log(response);
 
-      // Timestamp
-      // originalUrl
-      // method
-      // params
-      // query
-      // body
-
       const { result, code } = response;
       if (code === ResultEnum.SUCCESS) {
         const ex = 7 * 24 * 60 * 60;
@@ -114,7 +107,9 @@ export const useUserStore = defineStore({
     // 获取用户信息
     async getInfo() {
       console.log('debug');
-      const result = await getUserInfoApi();
+      console.log(this.info.staffId);
+
+      const result = await getUserInfoApi(this.info.staffId);
       if (result.permissions && result.permissions.length) {
         const permissionsList = result.permissions;
         this.setPermissions(permissionsList);

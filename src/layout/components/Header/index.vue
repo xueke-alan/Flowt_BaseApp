@@ -209,13 +209,13 @@ export default defineComponent({
     const dialog = useDialog();
     const { navMode, navTheme, headerSetting, menuSetting, crumbsSetting } = useProjectSetting();
 
-    const { Avatar, Username } = userStore?.info || {};
+    const { avatar, Username } = userStore?.info || {};
 
     const drawerSetting = ref();
 
     const state = reactive({
       username: Username ?? '',
-      avatar: Avatar ?? '',
+      avatar: avatar ?? '',
       fullscreenIcon: 'FullscreenOutlined',
       navMode,
       navTheme,

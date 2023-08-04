@@ -15,9 +15,9 @@ export interface BasicPageParams {
 /**
  * @description: 获取用户信息
  */
-export function getUserInfo() {
+export function getUserInfo(staffId) {
   return http.request({
-    url: '/user/info',
+    url: `/user/info/${staffId}`,
     method: 'get',
   });
 }
