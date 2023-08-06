@@ -11,6 +11,17 @@ export function adminMenus() {
 }
 
 /**
+ * @description: 获取微服务组件
+ */
+export function getMicoRouterList(data) {
+  return http.request({
+    url: '/mico-router',
+    method: 'POST',
+    data,
+  });
+}
+
+/**
  * 获取tree菜单列表
  * @param params
  */

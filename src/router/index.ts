@@ -7,6 +7,10 @@ import type { IModuleType } from './types';
 import { slashRedirect } from './generator';
 import { createMicoRoutes } from '@/router/qiankun';
 
+import { useUserStore } from '@/store/modules/user';
+
+// const userStore = useUserStore();
+
 // 引入全部modules路由
 const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
 
@@ -39,11 +43,18 @@ const routeModuleList: RouteRecordRaw[] = await (async () => {
 //需要验证权限
 
 // 引入全部qiankun路由
-import { qiankunRouters } from '@/qiankun/router';
 
-export async function getAsyncRoutes() {
-  const micoRouterList = await createMicoRoutes(qiankunRouters);
-  return [...[].concat(...micoRouterList), ...routeModuleList];
+// 由基本路由向entry发送请求并生成完整的路由，具体实现函数见 createMicoRoutes
+export async function getAsyncRoutes(micoQiankunRouters) {
+  const userStore = useUserStore();
+  console.log(userStore.getUserInfo.role);
+
+
+
+  console.log(micoQiankunRouters);
+
+  const handledQiankunRouterList = await createMicoRoutes(micoQiankunRouters);
+  return [...[].concat(...handledQiankunRouterList), ...routeModuleList];
 }
 
 // 根路由

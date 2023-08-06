@@ -10,7 +10,7 @@ import page404 from '@/views/exception/404.vue';
 import page503 from '@/views/exception/503.vue';
 import page500 from '@/views/exception/500.vue';
 import page403 from '@/views/exception/403.vue';
-import { QiankunRouterItem } from '@/qiankun/router';
+import { QiankunRouterItem } from '@/qiankun/interface';
 const fetchQiankunConfig = async (entry: string) => {
   return new Promise(async (resolve) => {
     let res: any;
@@ -54,7 +54,7 @@ const handleQiankunRouter = (config) => {
 };
 
 const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
-  const { state, title, path, group, hidden, affix } = baseConfig;
+  const { state, title, path, group, hidden, affix, permissions = [] } = baseConfig;
 
   // 如果State为0，直接返回一个503开发中页面
   // 如果State为2，直接返回一个503开发中页面
@@ -95,6 +95,7 @@ const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
         sort: 1,
         group,
         hidden,
+        permissions,
         noKeepAlive: true,
       },
       children: [
@@ -136,7 +137,7 @@ const qiankunSuccessRouter = (config) => {
   const entry: any = config.entry;
   const hidden: any = config.hidden;
   const affix: any = config.affix;
-  const permissions: any = config.permissions;
+  const permissions: any = config.permissions || [];
 
   const dynamicRoutes: Array<RouteRecordRaw> = [
     {
@@ -202,11 +203,6 @@ export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[]) => {
 
           const configAssign = Object.assign(configItem, config);
 
-          // console.log(configItem.permissions);
-          // console.log(configItem.permissions);
-          // configAssign.meta = {}
-          // configAssign.meta.permissions = configItem.permissions || [];
-          // config.affix = configItem.affix;
           console.log(configAssign);
 
           // 完善路由器

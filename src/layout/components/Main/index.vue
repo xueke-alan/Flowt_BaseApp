@@ -3,16 +3,7 @@
 
     <template #default="{ Component, route }">
 
-      <!--
-      <div>
-        {{ qiankunRoutersNameList }}
-      </div>
-      <div>
-        {{ nowRouter.fullPath }}
-      </div>
-      <div>
-        {{ nowRouter.fullPath.indexOf('dashboard') }}
-      </div> -->
+
 
 
       <div id="main-view-qiankun-contener" class="fadeIn" :class="{ show: isQiankunRouter }">
@@ -46,7 +37,8 @@ import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useRouter } from "vue-router";
 import { setupQiankun } from '@/qiankun/setupQiankun';
-import { qiankunRouters } from '@/qiankun/router';
+
+
 
 import page100 from "@/views/exception/100.vue";
 // const router = useRouter();
@@ -78,6 +70,11 @@ export default defineComponent({
       return unref(isPageAnimate) ? unref(pageAnimateType) : '';
     });
     const router = useRouter();
+
+
+
+    const qiankunRouters = asyncRouteStore.micoRouterListOri
+
     const qiankunRoutersNameList = computed(() => {
       return qiankunRouters.map((r) => {
         return r.path
@@ -86,8 +83,7 @@ export default defineComponent({
 
     onMounted(() => {
 
-      console.log('======');
-      // console.log('router', router.currentRoute);
+
 
       // 启动乾坤服务
       console.log(router.getRoutes());

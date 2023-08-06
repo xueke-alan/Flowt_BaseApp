@@ -12,39 +12,38 @@
     <!-- TODO 路由跳转的时候需要滚动 -->
 
 
-      <NMenu v-if="menus[0]" :options="menus[0].menus" :inverted="inverted" :mode="mode" :collapsed="collapsed"
-        :collapsed-width="64" :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys"
-        :expand-icon="expandIcon" :value="getSelectedKeys" @update:value="clickMenuItem"
-        @update:expanded-keys="menuExpanded" class="mainRouter" />
+    <NMenu v-if="menus[0]" :options="menus[0].menus" :inverted="inverted" :mode="mode" :collapsed="collapsed"
+      :collapsed-width="64" :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys"
+      :expand-icon="expandIcon" :value="getSelectedKeys" @update:value="clickMenuItem"
+      @update:expanded-keys="menuExpanded" class="mainRouter" />
 
-      <n-collapse arrow-placement="right" style="border: 0;" :expanded-names="expandedNames"
-        :on-item-header-click="onItemHeaderClick">
-        <template #arrow> <span></span> </template>
-        <n-collapse-item v-for="(m) in menus.slice(1)" :name="m.group"
-          style="border: 0;overflow: hidden;cursor: default;">
-          <template #header>
-            <div class="collapse-item-header-slot">
-              <n-divider class="n-divider" />
-              <div class="groupTitle" v-if="m.group !== 'main' && !collapsed">
-                <span class="leftTitle">
-                  <n-icon size="16">
-                    <component :is="ChannelShare28Regular" />
-                  </n-icon>
-                  <span style="text-wrap: nowrap;">{{ m.group || "其他" }}</span>
-                </span>
-                <n-icon size="16" class="arrow" :class="{ exp: expandedNames.indexOf(m.group) > 0 }">
-                  <component :is="ArrowEject20Filled" />
+    <n-collapse arrow-placement="right" style="border: 0;" :expanded-names="expandedNames"
+      :on-item-header-click="onItemHeaderClick">
+      <template #arrow> <span></span> </template>
+      <n-collapse-item v-for="(m) in menus.slice(1)" :name="m.group" style="border: 0;overflow: hidden;cursor: default;">
+        <template #header>
+          <div class="collapse-item-header-slot">
+            <n-divider class="n-divider" />
+            <div class="groupTitle" v-if="m.group !== 'main' && !collapsed">
+              <span class="leftTitle">
+                <n-icon size="16">
+                  <component :is="ChannelShare28Regular" />
                 </n-icon>
-              </div>
+                <span style="text-wrap: nowrap;">{{ m.group || "其他" }}</span>
+              </span>
+              <n-icon size="16" class="arrow" :class="{ exp: expandedNames.indexOf(m.group) > 0 }">
+                <component :is="ArrowEject20Filled" />
+              </n-icon>
             </div>
-          </template>
+          </div>
+        </template>
 
-          <NMenu :options="m.menus" :inverted="inverted" :mode="mode" :collapsed="collapsed" :collapsed-width="64"
-            :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys" :value="getSelectedKeys"
-            @update:value="clickMenuItem" @update:expanded-keys="menuExpanded" :expand-icon="expandIcon" />
-        </n-collapse-item>
+        <NMenu :options="m.menus" :inverted="inverted" :mode="mode" :collapsed="collapsed" :collapsed-width="64"
+          :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys" :value="getSelectedKeys"
+          @update:value="clickMenuItem" @update:expanded-keys="menuExpanded" :expand-icon="expandIcon" />
+      </n-collapse-item>
 
-      </n-collapse>
+    </n-collapse>
 
   </div>
 </template>
@@ -58,7 +57,6 @@ import { useProjectSettingStore } from '@/store/modules/projectSetting';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { ArrowEject20Filled, ChannelShare28Regular } from '@vicons/fluent';
 import { CaretDown20Filled } from '@vicons/fluent';
-import { qiankunRoutersSort } from "@/qiankun/router";
 import { renderIcon } from '@/utils/index';
 export default defineComponent({
   name: 'AppMenu',
@@ -161,8 +159,15 @@ export default defineComponent({
         headerMenuSelectKey.value = (activeMenu ? activeMenu : firstRouteName) || '';
       }
 
+
       // const groupMenuSort = ['main', '实验室管理', '测试']
-      menus.value = groupMenu(menus.value, qiankunRoutersSort)
+
+      console.log(asyncRouteStore.sortedGroupList);
+
+
+      const sort = asyncRouteStore.sortedGroupList
+
+      menus.value = groupMenu(menus.value, sort)
 
 
 
@@ -255,7 +260,7 @@ export default defineComponent({
 
   .n-collapse .n-collapse-item .n-collapse-item__header {
     transition: all .3s ease;
-    padding-top: 0 ;
+    padding-top: 0;
 
   }
 
@@ -266,7 +271,7 @@ export default defineComponent({
 
   &.NMenuCollapsed {
     .n-collapse .n-collapse-item .n-collapse-item__header {
-      padding-top: 0 ;
+      padding-top: 0;
     }
 
     .n-menu .n-menu-item-content::before {

@@ -81,6 +81,8 @@ export const useUserStore = defineStore({
       console.log(hashPassword);
 
       // 计算出一个另一个随机hash值发给后端，如果登录成功则替换。
+      // TODO 这里还是有安全问题，新的hash可能会被劫持，需要加密传送，但是jwt又比较容易被破解，可以使用动态jwt密码？
+      // 可以使用jwt加一层保护
       const newHashPassword = HashPasswordBySHA256(params.password);
       console.log(newHashPassword);
       // 登录
@@ -106,18 +108,16 @@ export const useUserStore = defineStore({
 
     // 获取用户信息
     async getInfo() {
-      console.log('debug');
       console.log(this.info.staffId);
 
       const result = await getUserInfoApi(this.info.staffId);
-      if (result.permissions && result.permissions.length) {
-        const permissionsList = result.permissions;
-        this.setPermissions(permissionsList);
-        this.setUserInfo(result);
-      } else {
-        throw new Error('getInfo: permissionsList must be a non-null array !');
+      if (!result.permissions || result.permissions.length == 0) {
+        console.warn('permissionsList must be a non-null array !');
       }
-      console.log('debug');
+      const permissionsList = result.permissions || [];
+      this.setPermissions(permissionsList);
+      this.setUserInfo(result);
+
       this.setAvatar(result.avatar);
       return result;
     },
