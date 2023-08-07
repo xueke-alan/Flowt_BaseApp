@@ -56,7 +56,7 @@
         </div>
       </div>
       <div class="tabs-close">
-        <n-dropdown trigger="hover" @select="closeHandleSelect" placement="bottom-end" :options="TabsMenuOptions">
+        <n-dropdown trigger="click" @select="closeHandleSelect" placement="bottom-end" :options="TabsMenuOptions">
           <div class="tabs-close-btn">
             <n-icon size="18" color="#515a6e">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">

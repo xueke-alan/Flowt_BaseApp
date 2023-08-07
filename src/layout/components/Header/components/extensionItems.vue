@@ -1,5 +1,5 @@
 <template>
-  <div class="extensionIcon">
+  <div class="extensionIcon hide">
     <n-tooltip placement="bottom">
       <template #trigger>
         <n-icon size="20" @click="chatgpt">
@@ -26,8 +26,16 @@ const chatgpt = () => {
 
 <style lang="less" scoped>
 .extensionIcon {
-  margin-right: 12px;
+  margin-right: 15px;
   display: flex;
   align-items: center;
+  transition: all ease .3s;
+  overflow: hidden;
+
+  &.hide {
+    width: 0;
+    margin-right: 0px;
+
+  }
 }
 </style>
