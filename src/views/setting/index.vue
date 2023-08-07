@@ -284,11 +284,9 @@ export default defineComponent({
 <style lang="less" scoped>
 .drawer {
 
-  width: 400px;
-  float: right;
-  .n-divider:not(.n-divider--vertical) {
-    margin: 10px 0;
-  }
+  width: 100%;
+  // float: right;
+
 
   &-setting-item {
     display: flex;

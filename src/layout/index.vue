@@ -42,17 +42,17 @@
         <PageHeader v-model:collapsed="collapsed" :inverted="inverted" />
       </n-layout-header>
 
-      <n-layout class="layout-content" :content-style="{
+      <n-layout class="layout-content" id="layout-content-main" :content-style="{
         overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start',
         position: 'relative',
         height: '100%'
-      }" :class="{ 'layout-default-background': getDarkTheme === false }">
+      }"  :class="{ 'layout-default-background': getDarkTheme === false }">
 
         <n-watermark :content="watermarkContent" cross selectable :font-size="16" :line-height="16" :width="300"
           :height="300" font-color="rgba(128,128,128,.2)" :x-offset="12" :y-offset="100" :rotate="-15"
           style="height: 100%;">
 
-          <div class="layout-content-main" :class="{
+          <div class="layout-content-main"  :class="{
             'layout-content-main-fix': fixedMulti,
             'fluid-header': fixedHeader === 'static',
           }
