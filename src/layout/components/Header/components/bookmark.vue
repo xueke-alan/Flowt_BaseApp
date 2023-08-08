@@ -3,20 +3,20 @@
     <n-popover trigger="click" placement="bottom-end" style="width: 320px" content-style="padding: 0">
       <template #trigger>
         <div style="display: flex">
-          <n-badge dot :offset="[16, 0]" processing style="position: absolute" />
-          <n-icon size="23">
-            <component :is="Alert32Regular" />
+          <n-badge dot :offset="[16, 0]" style="position: absolute" />
+          <n-icon size="22">
+            <component :is="BookmarkMultiple24Regular" />
           </n-icon>
         </div>
       </template>
       <template #header>
-        <div style="font-size: 14px;font-weight: bold;margin-left: 5px;"> 通知 </div>
+        <div style="font-size: 14px;font-weight: bold;margin-left: 5px;">收藏栏</div>
       </template>
 
       <div style="padding: 5px 0px 10px 0">
         <n-scrollbar style="max-height: 300px;min-height: 150px; padding: 0 ">
           <n-list hoverable clickable>
-            <n-list-item v-for="i in 0" :key="i">
+            <n-list-item v-for="i in 15" :key="i">
               <n-button text class="button">
                 <span>通知标题</span>
               </n-button>
@@ -28,9 +28,7 @@
 
           </n-list>
 
-          <div style="pointer-events: none;user-select: none;">
-            <n-empty description="暂无通知" style="margin: 40px;" />
-          </div>
+
 
 
         </n-scrollbar>
@@ -51,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Alert32Regular, CommentCheckmark20Regular } from '@vicons/fluent';
+import { BookmarkMultiple24Regular, CommentCheckmark20Regular } from '@vicons/fluent';
 </script>
 
 <style lang="less" scoped>

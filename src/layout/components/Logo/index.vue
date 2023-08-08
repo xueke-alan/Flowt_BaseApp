@@ -1,5 +1,5 @@
 <template>
-  <div class="logo">
+  <div class="logo" :class="{ 'collapsed': collapsed }">
     <div class="logo-box">
       <img :src="websiteConfig.logo" alt="" />
       <div class="title" :class="{ 'collapsed': collapsed }">Flowt</div>
@@ -36,6 +36,14 @@ export default {
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
+  transition: all .3s var(--n-bezier) 0s;
+
+  &.collapsed {
+    height: 50px;
+    line-height: 50px;
+    transition: all .3s var(--n-bezier) .2s;
+
+  }
 
   .logo-box {
     width: 100%;

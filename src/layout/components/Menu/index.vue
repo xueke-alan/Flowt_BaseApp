@@ -1,16 +1,6 @@
 <template>
   <div class="NMenu" :class="{ NMenuCollapsed: collapsed }">
 
-    <!-- <div>
-      <n-icon-wrapper :size="24" :border-radius="10">
-        <n-icon size="16">
-          <component :is="ChannelShare28Regular" />
-        </n-icon>
-      </n-icon-wrapper>
-    </div> -->
-
-    <!-- TODO 路由跳转的时候需要滚动 -->
-
 
     <NMenu v-if="menus[0]" :options="menus[0].menus" :inverted="inverted" :mode="mode" :collapsed="collapsed"
       :collapsed-width="64" :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys"
@@ -58,6 +48,7 @@ import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { ArrowEject20Filled, ChannelShare28Regular } from '@vicons/fluent';
 import { CaretDown20Filled } from '@vicons/fluent';
 import { renderIcon } from '@/utils/index';
+import { queuePostFlushCb } from 'vue';
 export default defineComponent({
   name: 'AppMenu',
   components: {},
@@ -147,7 +138,51 @@ export default defineComponent({
       selectedKeys.value = activeMenu ? (activeMenu as string) : (currentRoute.name as string);
     }
 
+
+    function scrollMenu() {
+      const asideMenuScrollbar = document.querySelector('.AsideMenuScrollbar') as HTMLElement;
+      const selectedElement = asideMenuScrollbar.querySelector('.n-menu-item-content--selected') as HTMLElement;
+
+      if (selectedElement) {
+        const selectedRect = selectedElement.getBoundingClientRect();
+        const scrollbarRect = asideMenuScrollbar.getBoundingClientRect();
+
+        const offsetY = selectedRect.top - scrollbarRect.top;
+        const scrollAmount = asideMenuScrollbar.scrollTop;
+        const elementHeight = asideMenuScrollbar.offsetHeight;
+        const selectedElementHeight = selectedElement.clientHeight;
+
+
+        console.log(`侧边栏已滚动了多少：scrollAmount：${scrollAmount} 像素`);
+        console.log(`侧边栏的总高度：totalHeight：${asideMenuScrollbar.scrollHeight} 像素`);
+        console.log(`侧边栏的视口高度：elementHeight：${elementHeight} 像素`);
+        console.log(`选中路由（top）的位置（相对于视口）：offsetY：${offsetY} 像素`);
+        console.log(`selectedElement元素高度：${selectedElementHeight} 像素`);
+
+        const scrollIfNeeded = (distance: number) => {
+          const targetScroll = Math.max(0, scrollAmount + distance);
+          asideMenuScrollbar.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+          });
+        };
+
+        const margin = 20; // 渐变块的高度
+        const offset = 80; // 希望上面和下面富余的部分
+
+        if (offsetY < 0) {
+          console.log('在视窗上面的外部');
+          scrollIfNeeded(offsetY - offset);
+        } else if (offsetY > elementHeight - selectedElementHeight - margin) {
+          console.log('在视窗下面的外部');
+          scrollIfNeeded(offsetY - (elementHeight - selectedElementHeight - margin) + offset);
+        }
+      }
+    }
+
+
     function updateMenu() {
+
       if (!settingStore.menuSetting.mixMenu) {
         const temp = generatorMenu(asyncRouteStore.getMenus)
         menus.value = temp;
@@ -159,41 +194,37 @@ export default defineComponent({
         headerMenuSelectKey.value = (activeMenu ? activeMenu : firstRouteName) || '';
       }
 
-
-      // const groupMenuSort = ['main', '实验室管理', '测试']
-
-      console.log(asyncRouteStore.sortedGroupList);
-
-
       const sort = asyncRouteStore.sortedGroupList
-
       menus.value = groupMenu(menus.value, sort)
-
-
-
-      //
-
       updateSelectedKeys();
+
+
+
+      // 检查分组的group是否是关闭的。
+      const groupNameNow = currentRoute.meta.group
+      console.log(groupNameNow);
+      if (!expandedNames.value.includes(groupNameNow)) {
+
+
+        expandedNames.value.push(groupNameNow); // 添加字符串"a"
+      }
+
+
+      // 滚动列表，使选中的路由始终再视窗内
+      queuePostFlushCb(() => { scrollMenu() });
     }
 
     // 点击分组菜单
     function onItemHeaderClick({ name }) {
-
-
       if (props.collapsed) {
         return
       }
-
-
-
       if (expandedNames.value.includes(name)) {
         const index = expandedNames.value.indexOf(name);
         expandedNames.value.splice(index, 1); // 删除字符串"a"
       } else {
         expandedNames.value.push(name); // 添加字符串"a"
       }
-
-
     }
 
     // 点击菜单

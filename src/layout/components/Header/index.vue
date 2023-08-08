@@ -26,6 +26,8 @@
       <fullScreen />
       <!--提醒-->
       <notice />
+      <!-- 收藏 -->
+      <bookmark />
       <!-- 个人中心 -->
       <personal />
       <!--设置-->
@@ -48,6 +50,7 @@ import setting from "./components/setting.vue";
 import notice from "./components/notice.vue";
 import fullScreen from "./components/fullScreen.vue";
 import tooltip from "./components/tooltip.vue";
+import bookmark from "./components/bookmark.vue";
 
 import { defineProps } from 'vue';
 const { collapsed } = defineProps(['collapsed']);
@@ -68,8 +71,8 @@ const openSetting = true
   width: 100%;
   z-index: 11;
 
-  &.high-z-index{
-  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  &.high-z-index {
+    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
 
   }
 

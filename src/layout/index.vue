@@ -6,6 +6,7 @@
       class="layout-sider">
       <Logo :collapsed="collapsed" />
 
+
       <div class="AsideMenuScrollbar" :class="{ collapsed: collapsed }">
         <AsideMenu v-model:collapsed="collapsed" v-model:location="getMenuLocation" />
       </div>
@@ -68,7 +69,7 @@
               <MainView />
               <n-back-top :right="80" :bottom="40" />
             </div>
-            <div class=" scollCover"></div>
+            <div class="scollCover"></div>
           </div>
         </n-watermark>
       </n-layout>
@@ -248,6 +249,23 @@ onMounted(() => {
     transition: all 0.2s ease-in-out;
   }
 
+  .cover {
+    width: calc(100% - 8px);
+    height: 20px;
+    background: linear-gradient(#ffffff00, rgb(0, 20, 40));
+
+    // #18181C
+    position: absolute;
+    top: 0;
+    left: 0;
+
+
+    &.dark {
+      background: linear-gradient(#ffffff00, #18181C);
+
+    }
+  }
+
   .AsideMenuFooter {
     position: absolute;
     bottom: 0;
@@ -263,21 +281,7 @@ onMounted(() => {
 
     // padding-bottom: 10px;
 
-    .cover {
-      width: calc(100% - 8px);
-      height: 20px;
-      background: linear-gradient(#ffffff00, rgb(0, 20, 40));
 
-      // #18181C
-      position: absolute;
-      top: 0;
-      left: 0;
-
-      &.dark {
-        background: linear-gradient(#ffffff00, #18181C);
-
-      }
-    }
 
 
   }

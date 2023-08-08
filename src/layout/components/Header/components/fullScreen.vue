@@ -2,8 +2,8 @@
   <div class="rightIcon">
     <n-tooltip placement="bottom">
       <template #trigger>
-        <n-icon size="20">
-          <component :is="ExpandUpRight24Regular" @click="toggleFullScreen" />
+        <n-icon size="22">
+          <component :is="BreakoutRoom24Regular" @click="toggleFullScreen" />
         </n-icon>
       </template>
       <span>全屏</span>
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ExpandUpRight24Regular } from '@vicons/fluent'
+import { BreakoutRoom24Regular } from '@vicons/fluent'
 
 
 
