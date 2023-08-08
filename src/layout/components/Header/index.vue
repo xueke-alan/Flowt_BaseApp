@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-header">
+  <div class="layout-header" :class="{ 'high-z-index': openSetting }">
 
     <!--左侧菜单-->
     <div class="layout-header-left">
@@ -52,6 +52,8 @@ import tooltip from "./components/tooltip.vue";
 import { defineProps } from 'vue';
 const { collapsed } = defineProps(['collapsed']);
 
+const openSetting = true
+
 </script>
 
 <style lang="less" scoped>
@@ -65,6 +67,11 @@ const { collapsed } = defineProps(['collapsed']);
   transition: all 0.2s ease-in-out;
   width: 100%;
   z-index: 11;
+
+  &.high-z-index{
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+
+  }
 
   &-left {
     display: flex;

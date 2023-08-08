@@ -14,6 +14,8 @@
 <script lang="ts" setup>
 import { ExpandUpRight24Regular } from '@vicons/fluent'
 
+
+
 // 全屏切换
 const toggleFullScreen = () => {
   if (!document.fullscreenElement) {

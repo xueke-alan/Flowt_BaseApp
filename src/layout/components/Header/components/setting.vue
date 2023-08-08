@@ -11,7 +11,7 @@
 
 
     <n-drawer v-model:show="active" :width="400" :height="200" placement="right" :trap-focus="false" :block-scroll="false"
-      to="#layout-content-main" >
+      to="#layout-content-main" style="border-top: 2px solid #ddd;">
       <n-drawer-content title="系统设置">
         <setting />
       </n-drawer-content>

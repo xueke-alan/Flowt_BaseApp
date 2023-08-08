@@ -1,6 +1,6 @@
 <template>
   <div class="rightIcon">
-    <n-popover trigger="focus" placement="bottom-end" style="width: 220px">
+    <n-popover trigger="click" placement="bottom-end" style="width: 220px">
       <template #trigger>
         <!-- <div style="display: flex;"> -->
         <n-button text style="display: flex;">
@@ -9,15 +9,15 @@
       </template>
       <template #header>
 
-        <div class="flex-align-items unselect">
+        <div class="flex-align-items unselect" style="padding: 3px 0;">
           <div class="avatar">
             <n-avatar :size="38" :src="avatar" fallback-src="" />
           </div>
           <div class="userInfo">
             <div>{{ username }}</div>
             <div>
-              <span style="color: #666;font-size: 12px;"> 薛科 </span>
-              <span style="color: #999;font-size: 12px;"> GZ10548 </span>
+              <span style="font-size: 12px;"> 薛科 </span>
+              <span style="color: #aaa;font-size: 12px;"> GZ10548 </span>
             </div>
           </div>
         </div>

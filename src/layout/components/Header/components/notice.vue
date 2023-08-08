@@ -10,7 +10,7 @@
         </div>
       </template>
       <template #header>
-        <div> 通知 </div>
+        <div style="font-size: 14px;font-weight: bold;"> 通知 </div>
       </template>
 
       <div style="padding: 5px 0px 10px 0">
