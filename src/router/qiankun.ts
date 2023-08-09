@@ -12,6 +12,8 @@ import page500 from '@/views/exception/500.vue';
 import page403 from '@/views/exception/403.vue';
 import { QiankunRouterItem } from '@/qiankun/interface';
 const fetchQiankunConfig = async (entry: string) => {
+  console.log(entry + '/qiankun.config.json');
+
   return new Promise(async (resolve) => {
     let res: any;
     try {

@@ -7,8 +7,11 @@
         </n-icon>
       </template>
       <template #footer>
-        <slot name="button">
+        <slot name="button" v-if="!inBaseUrl">
           <n-button round strong secondary type="primary" @click="goHome">返回主页</n-button>
+        </slot>
+        <slot name="button" v-else>
+          <n-button round strong secondary @click="refreshPage">刷新页面</n-button>
         </slot>
 
       </template>
@@ -21,8 +24,26 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-const router = useRouter();
-console.log(router.currentRoute.value.fullPath);
+import { PageEnum } from '@/enums/pageEnum';
+import { ref } from 'vue';
+import router from '@/router';
+
+const BASE_HOME = PageEnum.BASE_HOME;
+
+const inBaseUrl = ref(false)
+
+function isCurrentRouteBasePage(): boolean {
+  const { fullPath } = useRouter().currentRoute.value;
+  return fullPath.startsWith(BASE_HOME);
+}
+
+if (isCurrentRouteBasePage()) {
+  console.log('已经在 base 页面');
+  inBaseUrl.value = true
+}
+
+
+// 查看是否已经是主页，如果是，不传入返回主页
 
 // 接收参数
 defineProps({
@@ -50,6 +71,11 @@ defineProps({
 
 
 function goHome() {
+  router.push('/');
+}
+
+// TODO 写出刷新页面方法，调用页面级刷新还是组件级别刷新？
+function refreshPage() {
   router.push('/');
 }
 </script>

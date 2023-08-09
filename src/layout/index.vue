@@ -253,8 +253,7 @@ onMounted(() => {
     width: calc(100% - 8px);
     height: 20px;
     background: linear-gradient(#ffffff00, rgb(0, 20, 40));
-
-    // #18181C
+    transition: all .3s var(--n-bezier);
     position: absolute;
     top: 0;
     left: 0;

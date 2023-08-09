@@ -13,8 +13,9 @@
       <n-collapse-item v-for="(m) in menus.slice(1)" :name="m.group" style="border: 0;overflow: hidden;cursor: default;">
         <template #header>
           <div class="collapse-item-header-slot">
-            <n-divider class="n-divider" />
-            <div class="groupTitle" v-if="m.group !== 'main' && !collapsed">
+            <n-divider class="n-divider" :class="{ dark: getDarkTheme }" />
+            <div class="groupTitle" :class="{ cur: selectedRouterGroup == m.group }"
+              v-if="m.group !== 'main' && !collapsed">
               <span class="leftTitle">
                 <n-icon size="16">
                   <component :is="ChannelShare28Regular" />
@@ -49,6 +50,8 @@ import { ArrowEject20Filled, ChannelShare28Regular } from '@vicons/fluent';
 import { CaretDown20Filled } from '@vicons/fluent';
 import { renderIcon } from '@/utils/index';
 import { queuePostFlushCb } from 'vue';
+import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
+
 export default defineComponent({
   name: 'AppMenu',
   components: {},
@@ -102,6 +105,13 @@ export default defineComponent({
         : unref(headerMenuSelectKey);
     });
 
+    const selectedRouterGroup = computed(() => {
+      return currentRoute.meta.group
+    });
+
+    const { getDarkTheme } = useDesignSetting();
+
+
     // 监听分割菜单
     watch(
       () => settingStore.menuSetting.mixMenu,
@@ -118,8 +128,13 @@ export default defineComponent({
       () => props.collapsed,
       () => {
         if (props.collapsed) {
+          // 关闭的时候，将分组全部展开
           expandedNames.value = menus.value.map((m) => m.group)
         }
+        // 滚动列表，使选中的路由始终再视窗内，需要延迟，因为分组标签还包含了高度
+        setTimeout(() => {
+          scrollMenu()
+        }, 400);
       }
     );
 
@@ -153,11 +168,11 @@ export default defineComponent({
         const selectedElementHeight = selectedElement.clientHeight;
 
 
-        console.log(`侧边栏已滚动了多少：scrollAmount：${scrollAmount} 像素`);
-        console.log(`侧边栏的总高度：totalHeight：${asideMenuScrollbar.scrollHeight} 像素`);
-        console.log(`侧边栏的视口高度：elementHeight：${elementHeight} 像素`);
-        console.log(`选中路由（top）的位置（相对于视口）：offsetY：${offsetY} 像素`);
-        console.log(`selectedElement元素高度：${selectedElementHeight} 像素`);
+        // console.log(`侧边栏已滚动了多少：scrollAmount：${scrollAmount} 像素`);
+        // console.log(`侧边栏的总高度：totalHeight：${asideMenuScrollbar.scrollHeight} 像素`);
+        // console.log(`侧边栏的视口高度：elementHeight：${elementHeight} 像素`);
+        // console.log(`选中路由（top）的位置（相对于视口）：offsetY：${offsetY} 像素`);
+        // console.log(`selectedElement元素高度：${selectedElementHeight} 像素`);
 
         const scrollIfNeeded = (distance: number) => {
           const targetScroll = Math.max(0, scrollAmount + distance);
@@ -171,10 +186,10 @@ export default defineComponent({
         const offset = 80; // 希望上面和下面富余的部分
 
         if (offsetY < 0) {
-          console.log('在视窗上面的外部');
+          // console.log('在视窗上面的外部');
           scrollIfNeeded(offsetY - offset);
         } else if (offsetY > elementHeight - selectedElementHeight - margin) {
-          console.log('在视窗下面的外部');
+          // console.log('在视窗下面的外部');
           scrollIfNeeded(offsetY - (elementHeight - selectedElementHeight - margin) + offset);
         }
       }
@@ -214,6 +229,7 @@ export default defineComponent({
       queuePostFlushCb(() => { scrollMenu() });
     }
 
+    // TODO 高亮当前路由分组
     // 点击分组菜单
     function onItemHeaderClick({ name }) {
       if (props.collapsed) {
@@ -225,6 +241,9 @@ export default defineComponent({
       } else {
         expandedNames.value.push(name); // 添加字符串"a"
       }
+
+      // 滚动列表，使选中的路由始终再视窗内
+      queuePostFlushCb(() => { scrollMenu() });
     }
 
     // 点击菜单
@@ -277,7 +296,9 @@ export default defineComponent({
       onItemHeaderClick,
       ArrowEject20Filled,
       ChannelShare28Regular,
-      expandIcon
+      expandIcon,
+      selectedRouterGroup,
+      getDarkTheme
     };
   },
 });
@@ -346,20 +367,20 @@ export default defineComponent({
 
       height: 8px !important;
 
-      .n-divider {
-        margin: 3px 0 5px 0;
-        padding: 0 5px 0 18px;
-        opacity: .2;
+      // .n-divider {
+      //   margin: 3px 0 5px 0;
+      //   padding: 0 5px 0 18px;
+      //   opacity: 1;
 
-      }
+      // }
     }
-
-
 
     .mainRouter {
       margin-bottom: 0px;
     }
   }
+
+
 }
 
 .mainRouter {
@@ -379,7 +400,13 @@ export default defineComponent({
     margin: 3px 0 5px 0;
     padding: 0 10px 0 18px;
     opacity: .2;
-    transition: .3s var(--n-bezier) all;
+    transition: .3s ease all 0s;
+
+    &.dark {
+      opacity: 1;
+      transition: .3s ease all .3s;
+
+    }
   }
 }
 
@@ -392,6 +419,11 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  &.cur {
+    opacity: .8;
+
+  }
 
   .leftTitle {
     display: flex;
