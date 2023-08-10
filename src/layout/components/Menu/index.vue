@@ -7,6 +7,8 @@
       :expand-icon="expandIcon" :value="getSelectedKeys" @update:value="clickMenuItem"
       @update:expanded-keys="menuExpanded" class="mainRouter" />
 
+<div>OA</div>
+
     <n-collapse arrow-placement="right" style="border: 0;" :expanded-names="expandedNames"
       :on-item-header-click="onItemHeaderClick">
       <template #arrow> <span></span> </template>
