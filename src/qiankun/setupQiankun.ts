@@ -23,6 +23,10 @@ export async function setupQiankun() {
 
   // TODO 这里需要添加功能，当微服务重新联机后，需要注册应用
 
+  qiankunRouter2.forEach((q) => {
+    q.container;
+  });
+
   console.log(qiankunRouter2);
 
   function sleep(time) {

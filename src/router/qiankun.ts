@@ -153,7 +153,8 @@ const qiankunSuccessRouter = (config) => {
         isQiankunRouter: {
           name: micoName,
           entry,
-          container: `#main-view-qiankun-${micoBaseUrl}`,
+          // container: `#main-view-qiankun-${micoBaseUrl}`,
+          container: `#main-view-qiankun-qiankun`,
           activeRule: getActiveRule(`/${micoBaseUrl}`),
         },
         sort: 1,

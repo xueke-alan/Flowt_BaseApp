@@ -13,7 +13,6 @@ export interface ProjectSettingState {
   multiTabsSetting: object;
   //面包屑
   crumbsSetting: object;
-
 }
 
 export interface IBodySetting {
@@ -53,6 +52,8 @@ export interface GlobConfig {
   uploadUrl?: string;
   prodMock: boolean;
   imgUrl?: string;
+  imgUrl?: string;
+  sigleQiankunCONTAINER?: boolean;
 }
 
 export interface GlobEnvConfig {
@@ -70,4 +71,5 @@ export interface GlobEnvConfig {
   VITE_GLOB_IMG_URL?: string;
   //生产环境开启mock
   VITE_GLOB_PROD_MOCK: boolean;
+  VITE_QIANKUN_CONTAINER_SINGLE: boolean;
 }

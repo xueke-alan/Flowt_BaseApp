@@ -2,13 +2,16 @@
   <div class="logo" :class="{ 'collapsed': collapsed }">
     <div class="logo-box">
       <img :src="websiteConfig.logo" alt="" />
-      <div class="title" :class="{ 'collapsed': collapsed }">Flowt</div>
+      <div class="title" :class="{ 'collapsed': collapsed }">
+        <span>Flowt</span>
+      </div>
     </div>
 
   </div>
 </template>
 
 <script lang="ts">
+
 import { websiteConfig } from '@/config/website.config';
 export default {
   name: 'Index',

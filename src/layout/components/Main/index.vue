@@ -9,7 +9,7 @@
       <div id="main-view-qiankun-contener" class="fadeIn" :class="{ show: isQiankunRouter }">
 
         <div :id="'main-view-qiankun-' + r" v-for="r in qiankunRoutersNameList"
-          v-show="nowRouter.fullPath.indexOf(r) > 0">
+          v-show="nowRouter.fullPath.indexOf(r) > 0 || qiankunRoutersNameList[0] == 'qiankun'">
           <page100 />
         </div>
       </div>
@@ -75,11 +75,13 @@ export default defineComponent({
 
     const qiankunRouters = asyncRouteStore.micoRouterListOri
 
-    const qiankunRoutersNameList = computed(() => {
-      return qiankunRouters.map((r) => {
-        return r.path
-      })
-    })
+    // const qiankunRoutersNameList = computed(() => {
+    //   return qiankunRouters.map((r) => {
+    //     return r.path
+    //   })
+    // })
+
+    const qiankunRoutersNameList = ['qiankun']
 
     onMounted(() => {
 
