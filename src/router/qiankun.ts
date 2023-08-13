@@ -11,6 +11,11 @@ import page503 from '@/views/exception/503.vue';
 import page500 from '@/views/exception/500.vue';
 import page403 from '@/views/exception/403.vue';
 import { QiankunRouterItem } from '@/qiankun/interface';
+
+import { useGlobSetting } from '@/hooks/setting';
+const { sigleQiankunContainer } = useGlobSetting();
+console.log([sigleQiankunContainer, false]);
+
 const fetchQiankunConfig = async (entry: string) => {
   console.log(entry + '/qiankun.config.json');
 
@@ -153,8 +158,8 @@ const qiankunSuccessRouter = (config) => {
         isQiankunRouter: {
           name: micoName,
           entry,
-          // container: `#main-view-qiankun-${micoBaseUrl}`,
-          container: `#main-view-qiankun-qiankun`,
+          // 如果是单组件挂载乾坤微服务，则只有一个容器 "qiankun"
+          container: `#main-view-qiankun-${sigleQiankunContainer ? 'qiankun' : micoBaseUrl}`,
           activeRule: getActiveRule(`/${micoBaseUrl}`),
         },
         sort: 1,

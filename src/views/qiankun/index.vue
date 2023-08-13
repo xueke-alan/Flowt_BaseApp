@@ -2,11 +2,9 @@
 
 <script setup>
 import { start, loadMicroApp } from 'qiankun';
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 
 onMounted(() => {
-
-
 
   if (!window.qiankunStarted) {
     window.qiankunStarted = true;
@@ -22,4 +20,5 @@ onMounted(() => {
   // TODO 页面离开前，卸载微应用，解决single-spa minified message #1的报错
   // start();
 });
+
 </script>

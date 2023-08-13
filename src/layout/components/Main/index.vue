@@ -1,7 +1,7 @@
 <template>
   <RouterView>
 
-    <template #default="{ Component, route }">
+    <template #default="{ Component }">
 
 
 
@@ -9,7 +9,7 @@
       <div id="main-view-qiankun-contener" class="fadeIn" :class="{ show: isQiankunRouter }">
 
         <div :id="'main-view-qiankun-' + r" v-for="r in qiankunRoutersNameList"
-          v-show="nowRouter.fullPath.indexOf(r) > 0 || qiankunRoutersNameList[0] == 'qiankun'">
+          v-show="sigleQiankunContainer || nowRouter.fullPath.indexOf(r) > 0" style="height:100%">
           <page100 />
         </div>
       </div>
@@ -31,12 +31,15 @@
   </RouterView>
 </template>
 
-<script >
+<script lang="ts">
 import { defineComponent, computed, unref, onMounted, ref } from 'vue';
 import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useRouter } from "vue-router";
 import { setupQiankun } from '@/qiankun/setupQiankun';
+
+import { useGlobSetting } from '@/hooks/setting';
+const { sigleQiankunContainer } = useGlobSetting();
 
 
 
@@ -75,13 +78,22 @@ export default defineComponent({
 
     const qiankunRouters = asyncRouteStore.micoRouterListOri
 
-    // const qiankunRoutersNameList = computed(() => {
-    //   return qiankunRouters.map((r) => {
-    //     return r.path
-    //   })
-    // })
+    // const qiankunRoutersNameList: string[] = []
 
-    const qiankunRoutersNameList = ['qiankun']
+    // if (sigleQiankunContainer) {
+    //   const qiankunRoutersNameList = ['qiankun']
+    // }
+    const qiankunRoutersNameList = computed(() => {
+      if (sigleQiankunContainer) {
+        return ['qiankun']
+      } else {
+        return qiankunRouters.map((r) => {
+          return r.path
+        })
+      }
+    })
+
+
 
     onMounted(() => {
 
@@ -102,8 +114,8 @@ export default defineComponent({
       isQiankunRouter,
       nowRouter,
       qiankunRouters,
-      qiankunRoutersNameList
-      // router
+      qiankunRoutersNameList,
+      sigleQiankunContainer
     };
   },
 });
@@ -116,6 +128,14 @@ export default defineComponent({
   overflow: hidden;
   transition: opacity ease .5s;
   display: none;
+
+  &>div {
+    height: 100%;
+
+    &>div {
+      height: 100%;
+    }
+  }
 
   &.show {
     max-height: inherit;
@@ -158,6 +178,18 @@ export default defineComponent({
 
   100% {
     opacity: 1;
+  }
+}
+</style>
+
+<style lang="less">
+#main-view-qiankun-contener {
+  &>div {
+    height: 100%;
+
+    &>div {
+      height: 100%;
+    }
   }
 }
 </style>

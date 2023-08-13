@@ -1,3 +1,4 @@
+import { useDesignSettingStore } from '@/store/modules/designSetting';
 import { registerMicroApps } from 'qiankun';
 
 // import { http } from '@/utils/http/axios';
@@ -12,7 +13,6 @@ export async function setupQiankun() {
     routerList.forEach((c) => {
       if (c.meta?.isQiankunRouter) {
         console.log(c.meta.isQiankunRouter['entry']);
-
         qiankunRouter2.push(c.meta.isQiankunRouter);
       }
     });
@@ -22,34 +22,26 @@ export async function setupQiankun() {
   // TODO 这里需要修改代码，以确保单个微服务宕机后其他微服务仍然可以正常注册
 
   // TODO 这里需要添加功能，当微服务重新联机后，需要注册应用
+  const designStore = useDesignSettingStore();
 
   qiankunRouter2.forEach((q) => {
-    q.container;
+    q.props = {
+      globalStateList: { designStore },
+      // TODO 为了尽可能保证页面统一，日后一定会使用其他的UI组件库，这个时候需要考虑模态框，通知，loading等全局的组件样式统一，需要下放这些方法
+    };
   });
 
   console.log(qiankunRouter2);
-
-  function sleep(time) {
-    return new Promise(function (resolve) {
-      setTimeout(resolve, time);
-    });
-  }
-
-  await sleep(800);
-  //
-
+  // function sleep(time) {
+  //   return new Promise(function (resolve) {
+  //     setTimeout(resolve, time);
+  //   });
+  // }
+  // await sleep(800);
   registerMicroApps(qiankunRouter2, {
     beforeLoad: [
       (currentApp) => {
         console.log('before load', currentApp);
-        // const main_view_qiankun_contener_classList = document.querySelector(
-        //   '#main-view-qiankun-contener'
-        // )?.classList;
-
-        // if (main_view_qiankun_contener_classList) {
-        //   main_view_qiankun_contener_classList.remove('fadeIn');
-        // }
-        // console.log(main_view_qiankun_contener_classList);
         return Promise.resolve();
       },
     ], // 挂载前回调
@@ -75,8 +67,6 @@ export async function setupQiankun() {
       (currentApp, a) => {
         const name = currentApp.name;
         console.log('after unload', currentApp, a[name]);
-        // a[name].unmount();
-
         return Promise.resolve();
       },
     ],

@@ -53,7 +53,7 @@ export interface GlobConfig {
   prodMock: boolean;
   imgUrl?: string;
   imgUrl?: string;
-  sigleQiankunCONTAINER?: boolean;
+  sigleQiankunContainer: boolean;
 }
 
 export interface GlobEnvConfig {

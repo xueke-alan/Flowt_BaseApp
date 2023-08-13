@@ -210,12 +210,12 @@ export default defineComponent({
       const isDisabled = tabsList.value.length <= 1;
       return [
 
-        {
-          label: `关闭当前`,
-          key: '2',
-          disabled: isCurrent.value || isDisabled,
-          icon: renderIcon(DismissSquare24Regular),
-        },
+        // {
+        //   label: `关闭当前`,
+        //   key: '2',
+        //   disabled: isCurrent.value || isDisabled,
+        //   icon: renderIcon(DismissSquare24Regular),
+        // },
         {
           label: '关闭其他',
           key: '3',

@@ -4,7 +4,8 @@ import { setupNaiveDiscreteApi, setupNaive, setupDirectives } from '@/plugins';
 import App from './App.vue';
 import router, { setupRouter } from './router';
 import { setupStore } from '@/store';
-import { setupQiankun } from '@/qiankun/setupQiankun';
+// import { setupQiankun } from '@/qiankun/setupQiankun';
+
 
 async function bootstrap() {
   const app = createApp(App);
@@ -29,7 +30,6 @@ async function bootstrap() {
 
   // 使用Browserify进行代码打包
 
-
   // 挂载路由
   setupRouter(app);
 
@@ -37,9 +37,7 @@ async function bootstrap() {
   // https://router.vuejs.org/api/interfaces/router.html#isready
   await router.isReady();
 
-  // // 启动乾坤服务
-  // console.log(router.getRoutes());
-  // setupQiankun();
+
 
   // https://www.naiveui.com/en-US/os-theme/docs/style-conflict#About-Tailwind's-Preflight-Style-Override
   const meta = document.createElement('meta');
