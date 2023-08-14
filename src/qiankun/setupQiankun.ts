@@ -28,6 +28,9 @@ export async function setupQiankun() {
     q.props = {
       globalStateList: { designStore },
       // TODO 为了尽可能保证页面统一，日后一定会使用其他的UI组件库，这个时候需要考虑模态框，通知，loading等全局的组件样式统一，需要下放这些方法
+      message: () => {
+        console.log('base');
+      },
     };
   });
 

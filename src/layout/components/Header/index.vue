@@ -28,6 +28,8 @@
       <notice />
       <!-- 收藏 -->
       <bookmark />
+      <!-- 奖励 -->
+      <reward />
       <!-- 个人中心 -->
       <personal />
       <!--设置-->
@@ -51,6 +53,7 @@ import notice from "./components/notice.vue";
 import fullScreen from "./components/fullScreen.vue";
 import tooltip from "./components/tooltip.vue";
 import bookmark from "./components/bookmark.vue";
+import reward from "./components/reward.vue";
 
 import { defineProps } from 'vue';
 const { collapsed } = defineProps(['collapsed']);
