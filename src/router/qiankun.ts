@@ -170,11 +170,27 @@ const qiankunSuccessRouter = (config) => {
         disabled: config ? false : true,
         permissions,
       },
-      children: children.map((c) => ({
-        ...c,
-        component: qiankunBox,
-      })),
+      children: [
+        ...children.map((c) => {
+          return {
+            ...c,
+            component: qiankunBox,
+            redirect: `/${micoBaseUrl}/${defaultUrl}/list`,
+          };
+        }),
+        {
+          path: `user/:pra(.*)*`,
+          meta: {
+            hidden: true,
+            title: '默认页面',
+            disabled: true,
+            activeMenu: 'account_user',
+          },
+          component: qiankunBox,
+        },
+      ],
     },
+
     {
       path: `/${micoBaseUrl}/offline`,
       name: `/${micoBaseUrl}-offline-redirect`,

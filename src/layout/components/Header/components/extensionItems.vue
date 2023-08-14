@@ -29,7 +29,7 @@ const chatgpt = () => {
   margin-right: 10px;
   display: flex;
   align-items: center;
-  transition: all ease .3s;
+  // transition: all ease .3s;
   overflow: hidden;
   max-width: 25px;
   opacity: 1;

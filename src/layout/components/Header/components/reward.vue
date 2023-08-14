@@ -2,14 +2,15 @@
   <div class="rightIcon">
     <n-tooltip placement="bottom">
       <template #trigger>
-        <div style="width: auto;
-    display: flex;
-    align-items: center;background-color: #eee;height: 26px;padding:0 10px;border-radius: 5px;">
-          <n-icon size="18" class="mr-1">
-            <component :is="Reward20Regular" />
-          </n-icon>
-          <span style="font-size: 12px;margin-right: 3px;font-weight: 600;">123</span>
-        </div>
+        <n-tag :bordered="false" style="padding:0 8px;border-radius: 5px">
+          <template #avatar>
+            <n-icon size="20">
+              <component :is="Reward24Regular" />
+            </n-icon>
+          </template>
+          <span style="font-size: 13px;margin-right: 3px;margin-top: 0.125em;">210</span>
+        </n-tag>
+
 
       </template>
       <span>奖励</span>
@@ -18,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Reward20Regular } from '@vicons/fluent'
+import { Reward24Regular } from '@vicons/fluent'
 
 
 

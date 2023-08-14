@@ -20,18 +20,22 @@
       <extensions />
       <!-- 提示按钮 -->
       <tooltip />
-      <!-- 分割线 -->
-      <divider />
       <!--切换全屏-->
       <fullScreen />
+      <!-- 分割线 -->
+      <divider />
+
       <!--提醒-->
       <notice />
       <!-- 收藏 -->
       <bookmark />
-      <!-- 奖励 -->
-      <reward />
+
       <!-- 个人中心 -->
       <personal />
+      <!-- 奖励 -->
+      <reward />
+      <!-- 分割线 -->
+      <divider />
       <!--设置-->
       <setting />
 
