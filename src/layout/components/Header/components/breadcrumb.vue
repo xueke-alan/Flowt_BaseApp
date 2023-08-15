@@ -51,6 +51,8 @@ const generator: any = (routerMap) => {
 };
 
 const breadcrumbList = computed(() => {
+  console.log(router);
+
   return generator(route.matched);
 });
 

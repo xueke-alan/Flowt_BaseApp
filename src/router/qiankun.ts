@@ -172,22 +172,25 @@ const qiankunSuccessRouter = (config) => {
       },
       children: [
         ...children.map((c) => {
+          console.log(c);
           return {
             ...c,
             component: qiankunBox,
-            redirect: `/${micoBaseUrl}/${defaultUrl}/list`,
           };
         }),
-        {
-          path: `user/:pra(.*)*`,
-          meta: {
-            hidden: true,
-            title: '默认页面',
-            disabled: true,
-            activeMenu: 'account_user',
-          },
-          component: qiankunBox,
-        },
+        // 捕获路由
+        ...children.map((c) => {
+          return {
+            path: `${c.path}/:pra(.*)*`,
+            meta: {
+              hidden: true,
+              title: c.meta.title,
+              disabled: true,
+              activeMenu: c.name,
+            },
+            component: qiankunBox,
+          };
+        }),
       ],
     },
 
