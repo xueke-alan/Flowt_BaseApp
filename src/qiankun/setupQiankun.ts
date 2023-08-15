@@ -31,6 +31,7 @@ export async function setupQiankun() {
       message: () => {
         console.log('base');
       },
+      // TODO 子应用加载完毕后才关闭遮罩
     };
   });
 

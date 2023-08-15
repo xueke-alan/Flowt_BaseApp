@@ -2,7 +2,7 @@
   <div class="rightIcon">
     <n-tooltip placement="bottom">
       <template #trigger>
-        <n-icon size="22">
+        <n-icon size="20">
           <component :is="BreakoutRoom24Regular" @click="toggleFullScreen" />
         </n-icon>
       </template>

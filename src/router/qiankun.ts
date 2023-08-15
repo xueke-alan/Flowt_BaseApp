@@ -172,22 +172,9 @@ const qiankunSuccessRouter = (config) => {
       },
       children: [
         ...children.map((c) => {
-          console.log(c);
           return {
             ...c,
-            component: qiankunBox,
-          };
-        }),
-        // 捕获路由
-        ...children.map((c) => {
-          return {
             path: `${c.path}/:pra(.*)*`,
-            meta: {
-              hidden: true,
-              title: c.meta.title,
-              disabled: true,
-              activeMenu: c.name,
-            },
             component: qiankunBox,
           };
         }),

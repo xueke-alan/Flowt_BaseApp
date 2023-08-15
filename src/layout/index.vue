@@ -478,6 +478,16 @@ onMounted(() => {
 
     &::-webkit-scrollbar {
       width: 3px;
+      background-color: transparent;
+
+    }
+
+    /*定义滑块
+ 内阴影+圆角*/
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .13);
+      background-color: #dddddd60;
 
     }
   }
