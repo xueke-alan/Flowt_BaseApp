@@ -169,13 +169,6 @@ export default defineComponent({
         const elementHeight = asideMenuScrollbar.offsetHeight;
         const selectedElementHeight = selectedElement.clientHeight;
 
-
-        // console.log(`侧边栏已滚动了多少：scrollAmount：${scrollAmount} 像素`);
-        // console.log(`侧边栏的总高度：totalHeight：${asideMenuScrollbar.scrollHeight} 像素`);
-        // console.log(`侧边栏的视口高度：elementHeight：${elementHeight} 像素`);
-        // console.log(`选中路由（top）的位置（相对于视口）：offsetY：${offsetY} 像素`);
-        // console.log(`selectedElement元素高度：${selectedElementHeight} 像素`);
-
         const scrollIfNeeded = (distance: number) => {
           const targetScroll = Math.max(0, scrollAmount + distance);
           asideMenuScrollbar.scrollTo({
@@ -188,10 +181,8 @@ export default defineComponent({
         const offset = 80; // 希望上面和下面富余的部分
 
         if (offsetY < 0) {
-          // console.log('在视窗上面的外部');
           scrollIfNeeded(offsetY - offset);
         } else if (offsetY > elementHeight - selectedElementHeight - margin) {
-          // console.log('在视窗下面的外部');
           scrollIfNeeded(offsetY - (elementHeight - selectedElementHeight - margin) + offset);
         }
       }
@@ -219,10 +210,8 @@ export default defineComponent({
 
       // 检查分组的group是否是关闭的。
       const groupNameNow = currentRoute.meta.group
-      console.log(groupNameNow);
+
       if (!expandedNames.value.includes(groupNameNow)) {
-
-
         expandedNames.value.push(groupNameNow); // 添加字符串"a"
       }
 

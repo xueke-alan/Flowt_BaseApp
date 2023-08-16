@@ -205,13 +205,10 @@ onMounted(() => {
 onUnmounted(() => {
   // 销毁事件
   window.removeEventListener('keydown', keyDown, false)
-  console.log('销毁事件');
-
 })
 // 点击回车键登录
 const keyDown = (e: { keyCode?: any; preventDefault?: () => void; }) => {
   if (e.keyCode === 13) {
-    console.log('触发回车事件')
     handleSubmit(e)
   }
 }

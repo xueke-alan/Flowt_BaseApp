@@ -14,7 +14,6 @@ import { QiankunRouterItem } from '@/qiankun/interface';
 
 import { useGlobSetting } from '@/hooks/setting';
 const { sigleQiankunContainer } = useGlobSetting();
-console.log([sigleQiankunContainer, false]);
 
 const fetchQiankunConfig = async (entry: string) => {
   console.log(entry + '/qiankun.config.json');
@@ -23,10 +22,18 @@ const fetchQiankunConfig = async (entry: string) => {
     let res: any;
     try {
       res = await fetch(entry + '/qiankun.config.json');
-      const config = await res.json(); // 解析响应数据为 JavaScript 对象
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const config = await res.json();
+      console.log(config);
+
       config.entry = entry;
       resolve(config);
     } catch (error) {
+      console.log(error);
+      // 数据库中显示已部署，但是连接失败
+
       resolve(false);
     }
   });
@@ -212,18 +219,14 @@ export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[]) => {
 
         if (config) {
           //  得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
-
           // meta也要重叠
-
           const configAssign = Object.assign(configItem, config);
-
-          console.log(configAssign);
-
           // 完善路由器
           handleQiankunRouter(configAssign);
           qiankunRouterList.push(qiankunSuccessRouter(configAssign));
         } else {
           // 返回offline路由
+          // TODO 逻辑处理
           qiankunRouterList.push(qiankunOfflineRouter(configItem));
         }
         break;

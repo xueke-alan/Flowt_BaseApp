@@ -1,14 +1,11 @@
 <template>
   <div class="rightIcon">
 
-
-    <n-icon size="22" style="font-weight: bold" @click="openSetting">
-
-      <component :is="Settings24Regular" />
-
-    </n-icon>
-
-
+    <n-button text class="spin">
+      <n-icon size="22" style="font-weight: bold" @click="openSetting">
+        <component :is="Settings24Regular" />
+      </n-icon>
+    </n-button>
 
     <n-drawer v-model:show="active" :width="400" :height="200" placement="right" :trap-focus="false" :block-scroll="false"
       to="#layout-content-main" style="border-top: 2px solid #aaaaaa88;">
@@ -38,4 +35,16 @@ function openSetting() {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.spin {
+  transform: rotate(0deg);
+  // transition: transform 3s linear;
+
+
+  &:hover {
+    transform: rotate(3600deg);
+    transition: transform 40s linear;
+    /* 修改过渡效果的持续时间 */
+  }
+}
+</style>

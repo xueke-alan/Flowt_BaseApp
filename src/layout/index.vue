@@ -96,10 +96,7 @@ import { useProjectSettingStore } from '@/store/modules/projectSetting';
 import { useUserStore } from '@/store/modules/user';
 import { useRouter } from "vue-router";
 
-// console.log(IUserState);
 const userStore = useUserStore();
-console.log(userStore);
-
 
 const { getDarkTheme } = useDesignSetting();
 const {

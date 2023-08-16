@@ -1,13 +1,15 @@
 <template>
   <div class="ml-4 mr-1" style="display: flex;">
-    <n-icon size="24" v-if="collapsed">
-      <component :is="PanelRightContract24Regular" />
+    <n-button text>
+      <n-icon size="24" v-if="collapsed">
+        <component :is="PanelRightContract24Regular" />
 
-    </n-icon>
-    <n-icon size="24" v-else>
-      <component :is="PanelLeftContract24Regular" />
+      </n-icon>
+      <n-icon size="24" v-else>
+        <component :is="PanelLeftContract24Regular" />
 
-    </n-icon>
+      </n-icon>
+    </n-button>
   </div>
 </template>
 

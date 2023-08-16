@@ -4,9 +4,11 @@
       <template #trigger>
         <n-tag :bordered="false" style="padding:0 8px;border-radius: 5px">
           <template #avatar>
-            <n-icon size="20">
-              <component :is="Reward24Regular" />
-            </n-icon>
+            <n-button text>
+              <n-icon size="20">
+                <component :is="Reward24Regular" />
+              </n-icon>
+            </n-button>
           </template>
           <span style="font-size: 13px;margin-right: 3px;margin-top: 0.125em;">210</span>
         </n-tag>

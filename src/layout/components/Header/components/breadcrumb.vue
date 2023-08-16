@@ -51,7 +51,6 @@ const generator: any = (routerMap) => {
 };
 
 const breadcrumbList = computed(() => {
-  console.log(router);
 
   return generator(route.matched);
 });
@@ -72,7 +71,6 @@ const dropdownSelect = (key) => {
   if (router.currentRoute.value.name == key) {
     return
   }
-  console.log(key);
   router.push({ name: key });
 };
 </script>

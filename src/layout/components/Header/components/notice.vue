@@ -2,12 +2,14 @@
   <div class="rightIcon">
     <n-popover trigger="click" placement="bottom-end" style="width: 320px" content-style="padding: 0">
       <template #trigger>
-        <div style="display: flex">
-          <n-badge dot :offset="[16, 0]" processing style="position: absolute" />
-          <n-icon size="23">
-            <component :is="Alert32Regular" />
-          </n-icon>
-        </div>
+        <n-button text>
+          <div style="display: flex">
+            <n-badge dot :offset="[16, 0]" processing style="position: absolute" />
+            <n-icon size="23">
+              <component :is="Alert32Regular" />
+            </n-icon>
+          </div>
+        </n-button>
       </template>
       <template #header>
         <div style="font-size: 14px;font-weight: bold;margin-left: 5px;"> 通知 </div>

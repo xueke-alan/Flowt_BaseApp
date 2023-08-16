@@ -4,9 +4,11 @@
 
     <n-popover trigger="click" placement="bottom" style="width: 240px" content-style="padding: 0">
       <template #trigger>
-        <n-icon size="22">
-          <component :is="PuzzlePiece24Regular" />
-        </n-icon>
+        <n-button text>
+          <n-icon size="22">
+            <component :is="PuzzlePiece24Regular" />
+          </n-icon>
+        </n-button>
       </template>
       <template #header>
         <div style="
@@ -56,16 +58,6 @@
           </n-list>
         </n-scrollbar>
       </div>
-      <!-- <template #footer>
-        <div style="display: flex;align-items: center;">
-          <div style="width: 28px;display: flex; align-items: center;">
-            <n-icon size="20" class="mr-2">
-              <component :is="PuzzlePiece24Regular" />
-            </n-icon>
-          </div>
-          <span>管理应用</span>
-        </div>
-      </template> -->
     </n-popover>
   </div>
 </template>
@@ -76,7 +68,6 @@ import {
   TextBulletListSquare20Regular,
   EyeOff24Regular,
   ToggleLeft16Regular,
-  ToggleRight16Filled,
 } from '@vicons/fluent';
 import extensionItems from './extensionItems.vue';
 

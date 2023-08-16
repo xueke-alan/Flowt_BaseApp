@@ -8,7 +8,6 @@ onMounted(() => {
 
   if (!window.qiankunStarted) {
     window.qiankunStarted = true;
-    console.log(window.qiankunStarted);
     setTimeout(() => {
 
       start();

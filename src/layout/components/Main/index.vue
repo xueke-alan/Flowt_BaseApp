@@ -1,35 +1,16 @@
 <template>
   <RouterView>
-
     <template #default="{ Component }">
 
-
-
-
-      <div id="main-view-qiankun-contener" class="fadeIn" :class="{ show: isQiankunRouter }">
-        <page100 style="position: absolute;z-index: 100;" />
-        <div :id="'main-view-qiankun-' + r" v-for="r in qiankunRoutersNameList"
-          v-show="sigleQiankunContainer || nowRouter.fullPath.indexOf(r) > 0" style="height:100%">
-
-          <!-- TODO 乾坤加载完毕之后才卸载遮罩。 -->
-
-          <!-- 数据库显示已开发却没有上限 -->
-        </div>
-
-      </div>
-
+      <qiankunContener />
 
       <div class="normalRouter-contener" :class="{ hide: isQiankunRouter }">
-
-        <div class="normalRouter fadeIn" :key="nowRouter.fullPath">
-
+        <div class="normalRouter" :key="nowRouter.fullPath">
           <keep-alive v-if="keepAliveComponents.length" :include="keepAliveComponents">
             <component :is="Component" />
           </keep-alive>
-
           <component v-else :is="Component" />
         </div>
-
       </div>
     </template>
   </RouterView>
@@ -41,14 +22,12 @@ import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useRouter } from "vue-router";
 import { setupQiankun } from '@/qiankun/setupQiankun';
-
 import { useGlobSetting } from '@/hooks/setting';
-const { sigleQiankunContainer } = useGlobSetting();
-
 
 
 import page100 from "@/views/exception/100.vue";
-// const router = useRouter();
+import qiankunContener from "./components/qiankunContener.vue";
+
 
 export default defineComponent({
   name: 'MainView',
@@ -64,7 +43,8 @@ export default defineComponent({
     },
   },
   components: {
-    page100
+    page100,
+    qiankunContener
   },
 
   setup() {
@@ -72,21 +52,16 @@ export default defineComponent({
     const asyncRouteStore = useAsyncRouteStore();
     // 需要缓存的路由组件
     const keepAliveComponents = computed(() => asyncRouteStore.keepAliveComponents);
+    // 切换动画
 
     const getTransitionName = computed(() => {
       return unref(isPageAnimate) ? unref(pageAnimateType) : '';
     });
+
     const router = useRouter();
 
-
-
     const qiankunRouters = asyncRouteStore.micoRouterListOri
-
-    // const qiankunRoutersNameList: string[] = []
-
-    // if (sigleQiankunContainer) {
-    //   const qiankunRoutersNameList = ['qiankun']
-    // }
+    const { sigleQiankunContainer } = useGlobSetting();
     const qiankunRoutersNameList = computed(() => {
       if (sigleQiankunContainer) {
         return ['qiankun']
@@ -97,21 +72,13 @@ export default defineComponent({
       }
     })
 
-
-
     onMounted(() => {
-
-
-
       // 启动乾坤服务
-      console.log(router.getRoutes());
       setupQiankun();
-
-      console.log('isQiankunRouter', router.currentRoute.value.meta.isQiankunRouter);
     });
     const isQiankunRouter = computed(() => router.currentRoute.value.meta.isQiankunRouter)
     const nowRouter = ref(router.currentRoute)
-    console.log(isQiankunRouter);
+
     return {
       keepAliveComponents,
       getTransitionName,
@@ -120,41 +87,13 @@ export default defineComponent({
       qiankunRouters,
       qiankunRoutersNameList,
       sigleQiankunContainer
+
     };
   },
 });
 </script>
 
 <style lang="less" scoped>
-#main-view-qiankun-contener {
-  height: 100%;
-  max-height: 0;
-  overflow: hidden;
-  transition: opacity ease .5s;
-  display: none;
-  display: flex;
-  align-items: center;
-
-  // &>div {
-  //   height: 100%;
-
-  //   &>div {
-  //     height: 100%;
-  //   }
-  // }
-
-  &.show {
-    max-height: inherit;
-    overflow: visible;
-    display: block;
-    opacity: 0;
-  }
-}
-
-#main-view-qiankun {
-  height: 100%;
-}
-
 .normalRouter-contener {
   height: 100%;
 
@@ -168,38 +107,6 @@ export default defineComponent({
     .normalRouter {
       height: 0;
     }
-  }
-}
-
-.fadeIn {
-  animation: fade-out .3s ease-in both .1s;
-}
-
-
-
-@keyframes fade-out {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-</style>
-
-<style lang="less">
-#main-view-qiankun-contener {
-
-  // &>div {
-  //   height: 100%;
-
-  //   &>div {
-  //     height: 100%;
-  //   }
-  // }
-  [id*="__qiankun_microapp_wrapper"] {
-    height: 100%;
   }
 }
 </style>

@@ -3,10 +3,12 @@
     <n-popover trigger="click" placement="bottom-end" style="width: 320px" content-style="padding: 0">
       <template #trigger>
         <div style="display: flex">
-          <!-- <n-badge dot :offset="[16, 0]" style="position: absolute" /> -->
-          <n-icon size="22">
-            <component :is="BookmarkMultiple24Regular" />
-          </n-icon>
+          <n-button text>
+            <!-- <n-badge dot :offset="[16, 0]" style="position: absolute" /> -->
+            <n-icon size="22">
+              <component :is="BookmarkMultiple24Regular" />
+            </n-icon>
+          </n-button>
         </div>
       </template>
       <template #header>

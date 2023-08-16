@@ -65,13 +65,9 @@ export const useAsyncRouteStore = defineStore({
       this.keepAliveComponents = compNames;
     },
     async generateRoutes(data) {
-      console.log(data);
-
       let accessedRouters: RouteRecordRaw[] = [];
       const permissionsList = data.permissions ?? [];
-      console.log(permissionsList);
       const userStore = useUserStore();
-      console.log(userStore.getUserInfo.role);
       try {
         //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
         const { micoRouterListOri, sortedGroupList } = await getMicoRouterList({
@@ -80,7 +76,6 @@ export const useAsyncRouteStore = defineStore({
         this.setMicoRouterListOri(micoRouterListOri);
         this.setSortedGroupList(sortedGroupList);
         accessedRouters = await getAsyncRoutes(micoRouterListOri);
-        console.log(accessedRouters);
       } catch (error) {
         console.log(error);
       }

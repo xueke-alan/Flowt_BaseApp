@@ -57,7 +57,6 @@ import notice from "./components/notice.vue";
 import fullScreen from "./components/fullScreen.vue";
 import tooltip from "./components/tooltip.vue";
 import bookmark from "./components/bookmark.vue";
-import reward from "./components/reward.vue";
 
 import { defineProps } from 'vue';
 const { collapsed } = defineProps(['collapsed']);
@@ -65,7 +64,7 @@ const { collapsed } = defineProps(['collapsed']);
 const openSetting = true
 
 </script>
-
+<!-- TODO 响应式 -->
 <style lang="less" scoped>
 .layout-header {
   display: flex;
@@ -74,7 +73,7 @@ const openSetting = true
   padding: 0;
   height: 50px;
   box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-  transition: all 0.2s ease-in-out;
+  // transition: all 0.2s ease-in-out;
   width: 100%;
   z-index: 11;
 

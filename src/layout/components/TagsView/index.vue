@@ -148,7 +148,6 @@ export default defineComponent({
     });
 
     const tagCur = computed(() => {
-      console.log('123feverv');
 
       return { color: '#aaaaaa30', borderColor: '#88888888' };
 
@@ -293,7 +292,6 @@ export default defineComponent({
     watch(
       () => route.fullPath,
       (to) => {
-        console.log(route.name);
 
         if (whiteList.includes(route.name as string)) return;
         state.activeKey = to;
@@ -411,7 +409,6 @@ export default defineComponent({
 
 
       const currentScroll = navScroll.value.scrollLeft;
-      console.log(containerWidth, currentScroll);
       if (!currentScroll) return;
       const scrollLeft = currentScroll > containerWidth ? currentScroll - containerWidth : 0;
       scrollTo(scrollLeft / 2, (scrollLeft - currentScroll) / 20);
@@ -477,8 +474,6 @@ export default defineComponent({
     //tags 跳转页面
     function goPage(e) {
       const { fullPath } = e;
-      console.log(fullPath);
-
       if (fullPath === route.fullPath) return;
       state.activeKey = fullPath;
       go(e, true);

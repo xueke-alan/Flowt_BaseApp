@@ -15,7 +15,6 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     VITE_GLOB_IMG_URL,
   } = getAppEnvConfig();
 
-  console.log([VITE_QIANKUN_CONTAINER_SINGLE]);
 
   if (!/[a-zA-Z\_]*/.test(VITE_GLOB_APP_SHORT_NAME)) {
     warn(
@@ -32,7 +31,7 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     uploadUrl: VITE_GLOB_UPLOAD_URL,
     prodMock: VITE_GLOB_PROD_MOCK,
     imgUrl: VITE_GLOB_IMG_URL,
-    sigleQiankunContainer: VITE_QIANKUN_CONTAINER_SINGLE === 'true',
+    sigleQiankunContainer: VITE_QIANKUN_CONTAINER_SINGLE == 'true',
   };
   return glob as Readonly<GlobConfig>;
 };

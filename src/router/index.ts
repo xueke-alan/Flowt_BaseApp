@@ -23,10 +23,8 @@ const routeModuleList: RouteRecordRaw[] = await (async () => {
 
     let mod: any = '';
     if (typeof modules[key].default === 'function') {
-      console.log('这是一个函数');
       mod = await modules[key].default();
     } else {
-      console.log('这不是一个函数');
       mod = modules[key].default ?? {};
     }
 
@@ -46,12 +44,7 @@ const routeModuleList: RouteRecordRaw[] = await (async () => {
 
 // 由基本路由向entry发送请求并生成完整的路由，具体实现函数见 createMicoRoutes
 export async function getAsyncRoutes(micoQiankunRouters) {
-  const userStore = useUserStore();
-  console.log(userStore.getUserInfo.role);
 
-
-
-  console.log(micoQiankunRouters);
 
   const handledQiankunRouterList = await createMicoRoutes(micoQiankunRouters);
   return [...[].concat(...handledQiankunRouterList), ...routeModuleList];

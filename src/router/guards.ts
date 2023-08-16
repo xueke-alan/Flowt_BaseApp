@@ -19,8 +19,6 @@ export function createRouterGuards(router: Router) {
   const asyncRouteStore = useAsyncRoute();
 
   router.beforeEach(async (to, from, next) => {
-    console.log(to.path);
-
     const Loading = window['$loading'] || null;
     Loading && Loading.start();
     if (from.path === LOGIN_PATH && to.name === 'errorPage') {
@@ -28,16 +26,12 @@ export function createRouterGuards(router: Router) {
       return;
     }
 
-    // Whitelist can be directly entered
-    console.log(whitePathList);
 
     if (whitePathList.includes(to.path as PageEnum)) {
-      console.log(to.path);
       next();
       return;
     }
     const token = storage.get(ACCESS_TOKEN);
-    console.log('debug');
     if (!token) {
       // You can access without permissions. You need to set the routing meta.ignoreAuth to true
       if (to.meta.ignoreAuth) {
@@ -61,16 +55,10 @@ export function createRouterGuards(router: Router) {
 
     if (asyncRouteStore.getIsDynamicRouteAdded) {
       // 这里没有处理好路由重定向
-
-      console.log(to, from);
-
       next();
       return;
     }
     const userInfo = await userStore.getInfo();
-    console.log(userInfo);
-
-    console.log(111);
 
     const routes = await asyncRouteStore.generateRoutes(userInfo);
 
@@ -78,7 +66,6 @@ export function createRouterGuards(router: Router) {
     routes.forEach((item) => {
       router.addRoute(item as unknown as RouteRecordRaw);
     });
-    // console.log(222);
     //添加404
     const isErrorPage = router.getRoutes().findIndex((item) => item.name === ErrorPageRoute.name);
     if (isErrorPage === -1) {
@@ -109,13 +96,11 @@ export function createRouterGuards(router: Router) {
       VITE_GLOB_APP_SHORT_NAME + ' - ' + ((to?.meta?.title as string) || document.title);
 
     if (isNavigationFailure(failure)) {
-      //console.log('failed navigation', failure)
     }
     const asyncRouteStore = useAsyncRoute();
     // 在这里设置需要缓存的组件名称
     const keepAliveComponents = asyncRouteStore.keepAliveComponents;
     const currentComName: any = to.matched.find((item) => item.name == to.name)?.name;
-    console.log(currentComName);
 
     if (currentComName && !keepAliveComponents.includes(currentComName) && to.meta?.keepAlive) {
       // 需要缓存的组件
@@ -132,8 +117,6 @@ export function createRouterGuards(router: Router) {
     asyncRouteStore.setKeepAliveComponents(keepAliveComponents);
     const Loading = window['$loading'] || null;
     Loading && Loading.finish();
-    console.log('加载完毕');
-
     // 关闭首屏加载
   });
 

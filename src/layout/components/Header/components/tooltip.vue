@@ -2,10 +2,11 @@
   <div class="rightIcon">
     <n-tooltip placement="bottom">
       <template #trigger>
-        <n-icon size="22">
-          <component :is="TooltipQuote24Regular" />
-
-        </n-icon>
+        <n-button text>
+          <n-icon size="22">
+            <component :is="TooltipQuote24Regular" />
+          </n-icon>
+        </n-button>
       </template>
       <span>提示</span>
     </n-tooltip>

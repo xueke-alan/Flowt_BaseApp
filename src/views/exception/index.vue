@@ -7,12 +7,16 @@
         </n-icon>
       </template>
       <template #footer>
-        <slot name="button" v-if="!inBaseUrl">
-          <n-button round strong secondary type="primary" @click="goHome">返回主页</n-button>
-        </slot>
-        <slot name="button" v-else>
-          <n-button round strong secondary @click="refreshPage">刷新页面</n-button>
-        </slot>
+        <div style="height: 50px;">
+          <slot name="button" v-if="!inBaseUrl">
+            <n-button round strong secondary type="primary" @click="goHome">返回主页</n-button>
+          </slot>
+
+          <slot name="button" v-else>
+            <n-button round strong secondary @click="refreshPage">刷新页面</n-button>
+          </slot>
+        </div>
+
 
       </template>
     </n-result>
@@ -38,7 +42,6 @@ function isCurrentRouteBasePage(): boolean {
 }
 
 if (isCurrentRouteBasePage()) {
-  console.log('已经在 base 页面');
   inBaseUrl.value = true
 }
 

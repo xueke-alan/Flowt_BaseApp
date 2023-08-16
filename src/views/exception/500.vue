@@ -29,7 +29,6 @@ export default {
   mounted() {
     if (this.emoji) {
       this.emojiUnicode = this.emoji.codePointAt(0)?.toString(16) || '';
-      console.log(this.emojiUnicode);
     }
   },
 };

@@ -2,9 +2,11 @@
   <div class="rightIcon">
     <n-tooltip placement="bottom">
       <template #trigger>
-        <n-icon size="20">
-          <component :is="BreakoutRoom24Regular" @click="toggleFullScreen" />
-        </n-icon>
+        <n-button text>
+          <n-icon size="20">
+            <component :is="BreakoutRoom24Regular" @click="toggleFullScreen" />
+          </n-icon>
+        </n-button>
       </template>
       <span>全屏</span>
     </n-tooltip>
