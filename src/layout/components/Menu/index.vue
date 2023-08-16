@@ -31,7 +31,7 @@
         </template>
 
         <!-- 调试代码可以使用 :dropdown-props="{ trigger: 'click' }" -->
-        <NMenu :options="m.menus" :inverted="inverted" :mode="mode" :collapsed="collapsed" :collapsed-width="64"
+        <NMenu   :options="m.menus" :inverted="inverted" :mode="mode" :collapsed="collapsed" :collapsed-width="64"
           :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys" :value="getSelectedKeys"
           @update:value="clickMenuItem" @update:expanded-keys="menuExpanded" :expand-icon="expandIcon" />
       </n-collapse-item>
@@ -363,7 +363,7 @@ export default defineComponent({
   // TODO 这里的弹窗不能如此定义，会影响全局
 
   .n-dropdown-option-body:not(.n-dropdown-option-body--disabled):not(.n-dropdown-option-body--active).n-dropdown-option-body--pending::before {
-    background-color: var(--n-text-color)
+    background-color: #aaaaaa30
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <Result :status="status" :title="titleCN" :description="description" :footer-text="footerText">
+  <Result  :status="status" :title="titleCN" :description="description" :footer-text="footerText">
     <template #emoji>
       <img src="@/components/Twemoji/1f9d0.svg" alt="1f9d0" class="pulsate-bck">
     </template>

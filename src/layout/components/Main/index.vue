@@ -7,11 +7,15 @@
 
 
       <div id="main-view-qiankun-contener" class="fadeIn" :class="{ show: isQiankunRouter }">
-
+        <page100 style="position: absolute;z-index: 100;" />
         <div :id="'main-view-qiankun-' + r" v-for="r in qiankunRoutersNameList"
           v-show="sigleQiankunContainer || nowRouter.fullPath.indexOf(r) > 0" style="height:100%">
-          <page100 />
+
+          <!-- TODO 乾坤加载完毕之后才卸载遮罩。 -->
+
+          <!-- 数据库显示已开发却没有上限 -->
         </div>
+
       </div>
 
 
@@ -128,14 +132,16 @@ export default defineComponent({
   overflow: hidden;
   transition: opacity ease .5s;
   display: none;
+  display: flex;
+  align-items: center;
 
-  &>div {
-    height: 100%;
+  // &>div {
+  //   height: 100%;
 
-    &>div {
-      height: 100%;
-    }
-  }
+  //   &>div {
+  //     height: 100%;
+  //   }
+  // }
 
   &.show {
     max-height: inherit;
@@ -184,12 +190,16 @@ export default defineComponent({
 
 <style lang="less">
 #main-view-qiankun-contener {
-  &>div {
-    height: 100%;
 
-    &>div {
-      height: 100%;
-    }
+  // &>div {
+  //   height: 100%;
+
+  //   &>div {
+  //     height: 100%;
+  //   }
+  // }
+  [id*="__qiankun_microapp_wrapper"] {
+    height: 100%;
   }
 }
 </style>

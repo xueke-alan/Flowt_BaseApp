@@ -57,10 +57,22 @@ const breadcrumbList = computed(() => {
 });
 
 const routeItemChildren = (children) => {
-  children.forEach((i) => { i.icon = i.meta.icon })
-  return children
+  children.forEach((i) => {
+    // i.disabled = i.name == router.currentRoute.value.name;
+    i.icon = i.meta.icon
+  })
+
+  const temp = children.filter((i) => {
+    return i.name != router.currentRoute.value.name
+  })
+  return temp
 };
 const dropdownSelect = (key) => {
+
+  if (router.currentRoute.value.name == key) {
+    return
+  }
+  console.log(key);
   router.push({ name: key });
 };
 </script>
