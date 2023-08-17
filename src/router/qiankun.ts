@@ -79,13 +79,14 @@ const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
     case 0:
       component = page404;
       break;
+    case 1:
+      component = page500;
+      break;
     case 2:
       component = page503;
-
       break;
     case 3:
       component = page500;
-
       break;
     case 4:
       component = page403;
@@ -216,9 +217,10 @@ export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[]) => {
       case 1:
         // 在状态为1时执行的操作
         const config: any = await fetchQiankunConfig(configItem.entry);
+        console.log(config);
 
         if (config) {
-          //  得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
+          // 得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
           // meta也要重叠
           const configAssign = Object.assign(configItem, config);
           // 完善路由器
