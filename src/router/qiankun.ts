@@ -3,7 +3,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { renderIcon } from '@/utils/index';
-import { LiveOff24Regular } from '@vicons/fluent';
+import { LiveOff24Regular, WindowHeaderHorizontalOff20Filled } from '@vicons/fluent';
 import * as FluentIcons from '@vicons/fluent';
 import qiankunBox from '@/views/qiankun/index.vue';
 import page404 from '@/views/exception/404.vue';
@@ -74,22 +74,30 @@ const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
   // 如果State为2，直接返回一个503开发中页面
   // 如果State为3，直接返回一个500开发中页面
   // 如果State为4，直接返回一个403开发中页面
-  let component;
+  let component, icon;
   switch (state) {
     case 0:
       component = page404;
+      icon = renderIcon(LiveOff24Regular);
       break;
     case 1:
       component = page500;
+      icon = renderIcon(WindowHeaderHorizontalOff20Filled);
+
       break;
     case 2:
       component = page503;
+      icon = renderIcon(LiveOff24Regular);
+
       break;
     case 3:
       component = page500;
+      icon = renderIcon(LiveOff24Regular);
+
       break;
     case 4:
       component = page403;
+      icon = renderIcon(LiveOff24Regular);
 
       break;
     default:
@@ -106,7 +114,7 @@ const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
       component: Layout,
       meta: {
         title,
-        icon: renderIcon(LiveOff24Regular),
+        icon,
         sort: 1,
         group,
         hidden,
@@ -120,7 +128,7 @@ const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
           component,
           meta: {
             title,
-            icon: renderIcon(LiveOff24Regular),
+            icon,
             sort: 1,
             group,
             affix,
