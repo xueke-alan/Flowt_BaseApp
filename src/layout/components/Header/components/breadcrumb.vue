@@ -1,10 +1,9 @@
 <template>
   <n-breadcrumb v-if="crumbsSetting.show">
-    <template v-for="(routeItem, index) in breadcrumbList" :key="routeItem.name === 'Redirect' ? void 0 : routeItem.name">
-      <n-breadcrumb-item
-        v-if="routeItem.meta.title && !routeItem.meta.hideBreadcrumb && (index == breadcrumbList.length - 1 || routeItemChildren(routeItem.children).length > 1)">
+    <template v-for="(routeItem) in breadcrumbList" :key="routeItem.name === 'Redirect' ? void 0 : routeItem.name">
+      <n-breadcrumb-item>
         <n-dropdown v-if="routeItem.children.length"
-          :options="routeItemChildren(routeItem.children).length > 1 ? routeItemChildren(routeItem.children) : []"
+          :options="routeItemChildren(routeItem.children).length >= 1 ? routeItemChildren(routeItem.children) : []"
           @select="dropdownSelect">
           <span class="link-text">
             <component v-if="crumbsSetting.showIcon && routeItem.meta.icon" :is="routeItem.meta.icon" />
@@ -51,6 +50,7 @@ const generator: any = (routerMap) => {
 };
 
 const breadcrumbList = computed(() => {
+  console.log(generator(route.matched));
 
   return generator(route.matched);
 });
@@ -62,7 +62,9 @@ const routeItemChildren = (children) => {
   })
 
   const temp = children.filter((i) => {
-    return i.name != router.currentRoute.value.name
+    // return i.name != router.currentRoute.value.name
+    // 有可能子孙路由跳转
+    return i
   })
   return temp
 };
