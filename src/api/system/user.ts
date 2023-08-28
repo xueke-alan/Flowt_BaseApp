@@ -28,7 +28,6 @@ export function getUserInfo(staffId) {
 export function preLogin(staffId) {
   return http.request<BasicResponseModel>(
     {
-      // url: 'http://127.0.0.1:8810/users/preLogin',
       url: `/login/preLogin/${staffId}`,
       method: 'POST',
     },
@@ -44,7 +43,6 @@ export function preLogin(staffId) {
 export function login(params) {
   return http.request<BasicResponseModel>(
     {
-      // url: 'http://127.0.0.1:8810/users/login',
       url: '/login',
       method: 'POST',
       params,
