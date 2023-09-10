@@ -14,7 +14,8 @@ import { useUserStore } from '@/store/modules/user';
 // 引入全部modules路由
 const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
 
-const routeModuleList: RouteRecordRaw[] = await (async () => {
+// 获取基座应用自带的路由，比如开发者使用的路由：路由管理，发布平台
+const getRouteModuleList = async () => {
   const listPromise = Promise.resolve([]);
   const keys = Object.keys(modules);
 
@@ -36,17 +37,18 @@ const routeModuleList: RouteRecordRaw[] = await (async () => {
   }
 
   return listPromise;
-})();
-// const routeModuleList: RouteRecordRaw[] = [];
+};
+
 //需要验证权限
 
 // 引入全部qiankun路由
 
 // 由基本路由向entry发送请求并生成完整的路由，具体实现函数见 createMicoRoutes
 export async function getAsyncRoutes(micoQiankunRouters) {
-
-
   const handledQiankunRouterList = await createMicoRoutes(micoQiankunRouters);
+  const routeModuleList = await getRouteModuleList();
+  console.log(routeModuleList);
+
   return [...[].concat(...handledQiankunRouterList), ...routeModuleList];
 }
 

@@ -15,28 +15,29 @@ import { QiankunRouterItem } from '@/qiankun/interface';
 import { useGlobSetting } from '@/hooks/setting';
 const { sigleQiankunContainer } = useGlobSetting();
 
-const fetchQiankunConfig = async (entry: string) => {
-  console.log(entry + '/qiankun.config.json');
-
-  return new Promise(async (resolve) => {
-    let res: any;
-    try {
-      res = await fetch(entry + '/qiankun.config.json');
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const config = await res.json();
-      console.log(config);
-
-      config.entry = entry;
-      resolve(config);
-    } catch (error) {
-      console.log(error);
-      // 数据库中显示已部署，但是连接失败
-
-      resolve(false);
+const fetchQiankunConfig = async (path: string, entry: string) => {
+  try {
+    const res = await fetch('https://api.flowt.work/mico-router/microConfigList');
+    if (!res.ok) {
+      throw new Error('Network response was not ok');
     }
-  });
+
+    const microConfigList = await res.json();
+    console.log(microConfigList);
+    console.log(path);
+
+    const config = microConfigList.result[path];
+    console.log(config);
+    if (config) {
+      config.entry = `https://microapp.flowt.work/${path}`;
+      // config.entry = entry;
+    }
+    return config;
+  } catch (error) {
+    console.error(error);
+    // 数据库中显示已部署，但是连接失败
+    return false;
+  }
 };
 
 const handleQiankunRouter = (config) => {
@@ -224,7 +225,7 @@ export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[]) => {
         break;
       case 1:
         // 在状态为1时执行的操作
-        const config: any = await fetchQiankunConfig(configItem.entry);
+        const config: any = await fetchQiankunConfig(configItem.path, configItem.entry);
         console.log(config);
 
         if (config) {
