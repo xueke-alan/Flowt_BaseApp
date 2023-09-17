@@ -15,21 +15,66 @@ import { QiankunRouterItem } from '@/qiankun/interface';
 import { useGlobSetting } from '@/hooks/setting';
 const { sigleQiankunContainer } = useGlobSetting();
 
+let microConfigList = [];
+
+export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[], _microConfigList) => {
+  microConfigList = _microConfigList;
+  console.log(microConfigList);
+  
+  const qiankunRouterList: any = [];
+  for (const configItem of qiankunconfig) {
+    switch (configItem.state) {
+      case 0:
+      case 2:
+      case 3:
+      case 4:
+        // 在状态为0、2或3时执行的操作
+        qiankunRouterList.push(qiankunOfflineRouter(configItem));
+        break;
+      case 1:
+        // 在状态为1时执行的操作
+        const config: any = await fetchQiankunConfig(configItem.path, configItem.entry);
+        console.log(config);
+
+        if (config) {
+          // 得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
+          // meta也要重叠
+          const configAssign = Object.assign(configItem, config);
+          // 完善路由器
+          handleQiankunRouter(configAssign);
+          qiankunRouterList.push(qiankunSuccessRouter(configAssign));
+        } else {
+          // 返回offline路由
+          // TODO 逻辑处理
+          qiankunRouterList.push(qiankunOfflineRouter(configItem));
+        }
+        break;
+    }
+  }
+  return qiankunRouterList;
+};
+
 const fetchQiankunConfig = async (path: string, entry: string) => {
   try {
-    const res = await fetch('https://api.flowt.work/mico-router/microConfigList');
-    if (!res.ok) {
-      throw new Error('Network response was not ok');
-    }
+    // const res = await fetch('https://api.flowt.work/mico-router/microConfigList');
+    // if (!res.ok) {
+    //   throw new Error('Network response was not ok');
+    // }
 
-    const microConfigList = await res.json();
-    console.log(microConfigList);
+    // const microConfigList = await res.json();
+    // console.log(microConfigList);
     console.log(path);
 
-    const config = microConfigList.result[path];
+    const config = microConfigList[path];
     console.log(config);
     if (config) {
       config.entry = `https://microapp.flowt.work/${path}`;
+
+      if (config.baseUrl == 'quoto') {
+        config.entry = `http://localhost:5173/quote`;
+        console.log('修改了entry');
+        
+      }
       // config.entry = entry;
     }
     return config;
@@ -210,40 +255,6 @@ const qiankunSuccessRouter = (config) => {
     },
   ];
   return dynamicRoutes;
-};
-
-export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[]) => {
-  const qiankunRouterList: any = [];
-  for (const configItem of qiankunconfig) {
-    switch (configItem.state) {
-      case 0:
-      case 2:
-      case 3:
-      case 4:
-        // 在状态为0、2或3时执行的操作
-        qiankunRouterList.push(qiankunOfflineRouter(configItem));
-        break;
-      case 1:
-        // 在状态为1时执行的操作
-        const config: any = await fetchQiankunConfig(configItem.path, configItem.entry);
-        console.log(config);
-
-        if (config) {
-          // 得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
-          // meta也要重叠
-          const configAssign = Object.assign(configItem, config);
-          // 完善路由器
-          handleQiankunRouter(configAssign);
-          qiankunRouterList.push(qiankunSuccessRouter(configAssign));
-        } else {
-          // 返回offline路由
-          // TODO 逻辑处理
-          qiankunRouterList.push(qiankunOfflineRouter(configItem));
-        }
-        break;
-    }
-  }
-  return qiankunRouterList;
 };
 
 export const getActiveRule = (routerPrefix: string) => {

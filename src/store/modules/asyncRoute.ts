@@ -70,11 +70,13 @@ export const useAsyncRouteStore = defineStore({
       const userStore = useUserStore();
       try {
         //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
+        // 从数据库中拿到全部的路由信息，只包含子应用的根路由，子应用的子路由由子应用维护，在后面获取
         const { micoRouterListOri, sortedGroupList } = await getMicoRouterList({
           role: userStore.getUserInfo.role,
         });
         this.setMicoRouterListOri(micoRouterListOri);
         this.setSortedGroupList(sortedGroupList);
+        // 通过getAsyncRoutes 将原始的路由信息补全
         accessedRouters = await getAsyncRoutes(micoRouterListOri);
       } catch (error) {
         console.log(error);

@@ -7,8 +7,6 @@ import type { IModuleType } from './types';
 import { slashRedirect } from './generator';
 import { createMicoRoutes } from '@/router/qiankun';
 
-import { useUserStore } from '@/store/modules/user';
-
 // const userStore = useUserStore();
 
 // 引入全部modules路由
@@ -45,7 +43,34 @@ const getRouteModuleList = async () => {
 
 // 由基本路由向entry发送请求并生成完整的路由，具体实现函数见 createMicoRoutes
 export async function getAsyncRoutes(micoQiankunRouters) {
-  const handledQiankunRouterList = await createMicoRoutes(micoQiankunRouters);
+  // 从后端获取以及部署的全部的路由信息
+  const res = await fetch('https://api.flowt.work/mico-router/microConfigList');
+  if (!res.ok) {
+    throw new Error('Network response was not ok');
+  }
+  const { result: microConfigList } = await res.json();
+  console.log(microConfigList);
+
+  // 这里还需要加入或者更改正在开发的子应用
+  const devMicroConfig: any[] = [];
+  const devApp = {
+    quote: 'http://localhost:5173/quoto/qiankun.config.json',
+  };
+
+  for (const name of Object.keys(devApp)) {
+    const res = await fetch(devApp[name]);
+    if (!res.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const microConfigList = await res.json();
+    console.log(microConfigList); // 打印 microConfigList
+    devMicroConfig[name] = microConfigList;
+  }
+
+  const handledQiankunRouterList = await createMicoRoutes(micoQiankunRouters, {
+    ...microConfigList,
+    ...devMicroConfig,
+  });
   const routeModuleList = await getRouteModuleList();
   console.log(routeModuleList);
 
