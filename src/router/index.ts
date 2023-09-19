@@ -44,11 +44,18 @@ const getRouteModuleList = async () => {
 // 由基本路由向entry发送请求并生成完整的路由，具体实现函数见 createMicoRoutes
 export async function getAsyncRoutes(micoQiankunRouters) {
   // 从后端获取以及部署的全部的路由信息
-  const res = await fetch('https://api.flowt.work/mico-router/microConfigList');
-  if (!res.ok) {
-    throw new Error('Network response was not ok');
-  }
-  const { result: microConfigList } = await res.json();
+  // let res = ;
+  // try {
+  //   const temp = await fetch('https://api.flowt.work/mico-router/microConfigList');
+  //   res = temp;
+  // } catch (error) {
+  //   res = [];
+  // }
+  // if (!res.ok) {
+  //   throw new Error('Network response was not ok');
+  // }
+  // const { result: microConfigList } = await res.json();
+  const microConfigList = {}
   console.log(microConfigList);
 
   // 这里还需要加入或者更改正在开发的子应用
