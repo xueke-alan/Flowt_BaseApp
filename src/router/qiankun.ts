@@ -70,7 +70,7 @@ const fetchQiankunConfig = async (path: string, entry: string) => {
     if (config) {
       config.entry = `https://microapp.flowt.work/${path}`;
 
-      if (config.baseUrl == 'quoto') {
+      if (config.baseUrl == 'quote') {
         config.entry = `http://localhost:5173/quote`;
         console.log('修改了entry');
         

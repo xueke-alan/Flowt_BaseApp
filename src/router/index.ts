@@ -61,7 +61,7 @@ export async function getAsyncRoutes(micoQiankunRouters) {
   // 这里还需要加入或者更改正在开发的子应用
   const devMicroConfig: any[] = [];
   const devApp = {
-    quote: 'http://localhost:5173/quoto/qiankun.config.json',
+    quote: 'http://localhost:5173/quote/qiankun.config.json',
   };
 
   for (const name of Object.keys(devApp)) {
