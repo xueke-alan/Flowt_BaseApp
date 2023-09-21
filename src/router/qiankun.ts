@@ -11,7 +11,7 @@ import page503 from '@/views/exception/503.vue';
 import page500 from '@/views/exception/500.vue';
 import page403 from '@/views/exception/403.vue';
 import { QiankunRouterItem } from '@/qiankun/interface';
-
+import { devApp } from './devRouter';
 import { useGlobSetting } from '@/hooks/setting';
 const { sigleQiankunContainer } = useGlobSetting();
 
@@ -70,9 +70,8 @@ const fetchQiankunConfig = async (path: string, entry: string) => {
     if (config) {
       config.entry = `https://microapp.flowt.work/${path}`;
 
-      if (config.baseUrl == 'quote') {
-        config.entry = `http://localhost:5173/quote`;
-        console.log('修改了entry');
+      if (devApp[config.baseUrl]) {
+        config.entry = devApp[config.baseUrl].entry;
       }
       // config.entry = entry;
     }
