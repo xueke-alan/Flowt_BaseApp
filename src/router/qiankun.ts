@@ -20,7 +20,7 @@ let microConfigList = [];
 export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[], _microConfigList) => {
   microConfigList = _microConfigList;
   console.log(microConfigList);
-  
+
   const qiankunRouterList: any = [];
   for (const configItem of qiankunconfig) {
     switch (configItem.state) {
@@ -73,7 +73,6 @@ const fetchQiankunConfig = async (path: string, entry: string) => {
       if (config.baseUrl == 'quote') {
         config.entry = `http://localhost:5173/quote`;
         console.log('修改了entry');
-        
       }
       // config.entry = entry;
     }

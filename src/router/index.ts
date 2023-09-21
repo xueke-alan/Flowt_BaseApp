@@ -55,7 +55,7 @@ export async function getAsyncRoutes(micoQiankunRouters) {
   //   throw new Error('Network response was not ok');
   // }
   // const { result: microConfigList } = await res.json();
-  const microConfigList = {}
+  const microConfigList = {};
   console.log(microConfigList);
 
   // 这里还需要加入或者更改正在开发的子应用
