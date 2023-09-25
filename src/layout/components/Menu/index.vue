@@ -31,7 +31,7 @@
         </template>
 
         <!-- 调试代码可以使用 :dropdown-props="{ trigger: 'click' }" -->
-        <NMenu   :options="m.menus" :inverted="inverted" :mode="mode" :collapsed="collapsed" :collapsed-width="64"
+        <NMenu :options="m.menus" :inverted="inverted" :mode="mode" :collapsed="collapsed" :collapsed-width="64"
           :collapsed-icon-size="20" :root-indent="24" :indent="12" :expanded-keys="openKeys" :value="getSelectedKeys"
           @update:value="clickMenuItem" @update:expanded-keys="menuExpanded" :expand-icon="expandIcon" />
       </n-collapse-item>

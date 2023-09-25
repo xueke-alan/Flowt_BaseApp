@@ -1,6 +1,9 @@
+const devAppName = 'quote';
+const port = 5173;
+
 export const devApp = {
-  quote: {
-    entry: 'http://localhost:5173/quote',
-    config: 'http://localhost:5173/quote/qiankun.config.json',
+  [devAppName]: {
+    entry: `http://localhost:${port}/${devAppName}`,
+    config: `http://localhost:${port}/${devAppName}/qiankun.config.json`,
   },
 };

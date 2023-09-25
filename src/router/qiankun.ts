@@ -84,6 +84,7 @@ const fetchQiankunConfig = async (path: string, entry: string) => {
 };
 
 const handleQiankunRouter = (config) => {
+  console.log(config);
   config.defaultUrl = config.children[0].path;
   if (config.iconName) {
     const iconnode = FluentIcons[config.iconName];
