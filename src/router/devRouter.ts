@@ -1,4 +1,4 @@
-const devAppName = 'quote';
+const devAppName = 'fileLibrary';
 const port = 5173;
 
 export const devApp = {
