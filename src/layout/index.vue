@@ -59,6 +59,7 @@
               dark: getDarkTheme,
               noMultiTabs: !isMultiTabs,
               'mt-3': !isMultiTabs,
+              switchHide: switchHide
             }">
               <MainView />
               <n-back-top :right="80" :bottom="40" />
@@ -73,7 +74,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, unref, computed, onMounted } from 'vue';
+import { ref, unref, computed, onMounted, watch } from 'vue';
 import { Logo } from './components/Logo';
 import { TabsView } from './components/TagsView';
 import { MainView } from './components/Main';
@@ -190,7 +191,24 @@ const watchWidth = () => {
 
   checkMobileMode();
 };
+const switchHide = ref(false)
+const nowRouter = ref(router.currentRoute);
+watch(
+  // 只监听大路由变化
+  () => nowRouter.value.name?.toString(),
+  (newVal, oldVal) => {
 
+    console.log(`Full path changed from ${newVal} to ${oldVal} `);
+    console.log(nowRouter);
+    console.log("================");
+    // 在这里执行你想要的操作
+    switchHide.value = true
+    setTimeout(() => {
+      switchHide.value = false
+    }, 0);
+  },
+
+);
 onMounted(() => {
   checkMobileMode();
   window.addEventListener('resize', watchWidth);
@@ -383,7 +401,13 @@ onMounted(() => {
   overflow-x: hidden;
   margin-top: 44px;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all .5s var(--n-bezier);
+  opacity: 1;
+
+  &.switchHide {
+    transition: all 0s ease;
+    opacity: 0;
+  }
 
   &.noMultiTabs {
     margin-top: 10px;
