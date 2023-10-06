@@ -59,7 +59,7 @@
               dark: getDarkTheme,
               noMultiTabs: !isMultiTabs,
               'mt-3': !isMultiTabs,
-              switchHide: switchHide
+              switchHide: mainViewStore.hide
             }">
               <MainView />
               <n-back-top :right="80" :bottom="40" />
@@ -85,9 +85,11 @@ import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 import { useRoute } from 'vue-router';
 import { useProjectSettingStore } from '@/store/modules/projectSetting';
 import { useUserStore } from '@/store/modules/user';
+import { useMainViewStateStore } from '@/store/modules/mainView';
 import { useRouter } from 'vue-router';
 
 const userStore = useUserStore();
+const mainViewStore = useMainViewStateStore();
 
 const { getDarkTheme } = useDesignSetting();
 const {
@@ -191,10 +193,11 @@ const watchWidth = () => {
 
   checkMobileMode();
 };
-const switchHide = ref(false)
+
 const nowRouter = ref(router.currentRoute);
 watch(
   // 只监听大路由变化
+  // BUG 在这里还是有问题：首次加载的子应用会出现闪烁。
   () => nowRouter.value.name?.toString(),
   (newVal, oldVal) => {
 
@@ -202,10 +205,7 @@ watch(
     console.log(nowRouter);
     console.log("================");
     // 在这里执行你想要的操作
-    switchHide.value = true
-    setTimeout(() => {
-      switchHide.value = false
-    }, 0);
+    
   },
 
 );
@@ -401,11 +401,11 @@ onMounted(() => {
   overflow-x: hidden;
   margin-top: 44px;
   position: relative;
-  transition: all .5s var(--n-bezier);
+  transition: all .25s var(--n-bezier);
   opacity: 1;
 
   &.switchHide {
-    transition: all 0s ease;
+    transition: all .25s ease;
     opacity: 0;
   }
 

@@ -273,3 +273,9 @@ export function lighten(color: string, amount: number) {
 export function isUrl(url: string) {
   return /^(http|https):\/\//g.test(url);
 }
+/**
+ * 阻塞代码
+ * */
+export function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

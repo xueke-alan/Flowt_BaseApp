@@ -1,6 +1,7 @@
 <template>
   <div id="main-view-qiankun-contener" :class="{ hide: !isQiankunRouter }">
     <page100 class="cover" :class="{ show: qiankunBus.loading }" />
+    <!-- BUG cover没水印 -->
     <div :id="'main-view-qiankun-' + r" v-for="r in qiankunRoutersNameList" v-show="showContener(r)">
       <!-- TODO 乾坤加载完毕之后才卸载遮罩。 -->
       <!-- 数据库显示已开发却没有上限 -->
@@ -9,6 +10,7 @@
 </template>
 
 <script lang="ts" setup>
+
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useGlobSetting } from '@/hooks/setting';
@@ -80,12 +82,12 @@ const showContener = (r) => {
     z-index: 50;
     background-color: var(--n-color);
     opacity: 0;
-transition: opacity .5s ease .5s;
+    transition: opacity .5s ease .5s;
     pointer-events: none;
 
     &.show {
       opacity: 1;
-      
+
       pointer-events: all;
     }
   }
