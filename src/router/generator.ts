@@ -1,4 +1,4 @@
-import { adminMenus } from '@/api/system/menu';
+
 import { constantRouterIcon } from './icons';
 import { RouteRecordRaw } from 'vue-router';
 import { Layout, ParentLayout } from '@/router/constant';
@@ -49,16 +49,7 @@ export const generateRoutes = (routerMap, parent?): any[] => {
   });
 };
 
-/**
- * 动态生成菜单
- * @returns {Promise<Router>}
- */
-export const generateDynamicRoutes = async (): Promise<RouteRecordRaw[]> => {
-  const result = await adminMenus();
-  const router = generateRoutes(result);
-  asyncImportRoute(router);
-  return router;
-};
+
 
 /**
  * 查找views中对应的组件文件

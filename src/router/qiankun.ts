@@ -15,37 +15,51 @@ import { devApp } from './devRouter';
 import { useGlobSetting } from '@/hooks/setting';
 const { sigleQiankunContainer } = useGlobSetting();
 
-let microConfigList = [];
 
-export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[], _microConfigList) => {
-  microConfigList = _microConfigList;
-  console.log(microConfigList);
+
+/**
+ * 完善微服务路由
+ * @qiankunconfig 从数据库依据权限拿到的全部路由  
+ * @microConfigList 后端拿到的已部署成功的路由、开发中的路由
+ * 
+ */
+export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[], microConfigList) => {
+
 
   const qiankunRouterList: any = [];
+  // 将 从数据库依据权限拿到的路由 全部完善好
   for (const configItem of qiankunconfig) {
     switch (configItem.state) {
       case 0:
       case 2:
       case 3:
       case 4:
-        // 在状态为0、2或3时执行的操作
+        // 在状态为0、2或3时执行的操作 将该路由置为离线
         qiankunRouterList.push(qiankunOfflineRouter(configItem));
         break;
+
       case 1:
-        // 在状态为1时执行的操作
-        const config: any = await fetchQiankunConfig(configItem.path, configItem.entry);
-        console.log(config);
+        // 在状态为1时执行的操作 该路由理应是在线的 
+        // 从后端传回的路表中查找这个路由配置
+        const config = microConfigList[configItem.path];
 
         if (config) {
-          // 得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以await的值为准
-          // meta也要重叠
+          // 添加entry属性，为qiankun提供入口网址
+          // 如果在devApp中显示有这个路由，则添加本地开发模式的路由
+          if (devApp[config.baseUrl]) {
+            config.entry = devApp[config.baseUrl].entry;
+          } else {
+            config.entry = `https://microapp.flowt.work/${configItem.path}`;
+          }
+
+          // 得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以后端返回的的值为准; meta也要重叠
           const configAssign = Object.assign(configItem, config);
           // 完善路由器
           handleQiankunRouter(configAssign);
+          // 以在线路由 push 入 qiankunRouterList 数组中
           qiankunRouterList.push(qiankunSuccessRouter(configAssign));
         } else {
-          // 返回offline路由
-          // TODO 逻辑处理
+          // 数据库显示部署，但是后端显示不在线，返回offline路由
           qiankunRouterList.push(qiankunOfflineRouter(configItem));
         }
         break;
@@ -54,35 +68,11 @@ export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[], _micr
   return qiankunRouterList;
 };
 
-const fetchQiankunConfig = async (path: string, entry: string) => {
-  try {
-    // const res = await fetch('https://api.flowt.work/mico-router/microConfigList');
-    // if (!res.ok) {
-    //   throw new Error('Network response was not ok');
-    // }
 
-    // const microConfigList = await res.json();
-    // console.log(microConfigList);
-    console.log(path);
-
-    const config = microConfigList[path];
-    console.log(config);
-    if (config) {
-      config.entry = `https://microapp.flowt.work/${path}`;
-
-      if (devApp[config.baseUrl]) {
-        config.entry = devApp[config.baseUrl].entry;
-      }
-      // config.entry = entry;
-    }
-    return config;
-  } catch (error) {
-    console.error(error);
-    // 数据库中显示已部署，但是连接失败
-    return false;
-  }
-};
-
+/**
+ * 预渲染微服务路由，包括将iconname转换为icon，自动生成name等。
+ * 
+ */
 const handleQiankunRouter = (config) => {
   console.log(config);
   config.defaultUrl = config.children[0].path;
@@ -221,7 +211,7 @@ const qiankunSuccessRouter = (config) => {
           entry,
           // 如果是单组件挂载乾坤微服务，则只有一个容器 "qiankun"
           container: `#main-view-qiankun-${sigleQiankunContainer ? 'qiankun' : micoBaseUrl}`,
-          activeRule: getActiveRule(`/${micoBaseUrl}`),
+          activeRule: ({ pathname }) => pathname.startsWith(`/${micoBaseUrl}`),
         },
         sort: 1,
         group,
@@ -256,6 +246,3 @@ const qiankunSuccessRouter = (config) => {
   return dynamicRoutes;
 };
 
-export const getActiveRule = (routerPrefix: string) => {
-  return (location: { pathname: string }) => location.pathname.startsWith(routerPrefix);
-};

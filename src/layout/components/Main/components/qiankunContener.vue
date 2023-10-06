@@ -1,7 +1,6 @@
 <template>
   <div id="main-view-qiankun-contener" :class="{ hide: !isQiankunRouter }">
     <page100 class="cover" :class="{ show: qiankunBus.loading }" />
-    <!-- BUG cover没水印 -->
     <div :id="'main-view-qiankun-' + r" v-for="r in qiankunRoutersNameList" v-show="showContener(r)">
       <!-- TODO 乾坤加载完毕之后才卸载遮罩。 -->
       <!-- 数据库显示已开发却没有上限 -->
@@ -43,21 +42,7 @@ const showContener = (r) => {
 </script>
 
 <style lang="less" scoped>
-// @keyframes fadeIn {
-//   0% {
-//     display: none;
-//     opacity: 0;
-//   }
 
-//   50% {
-//     display: none;
-//     opacity: 0;
-//   }
-
-//   100% {
-//     opacity: 1;
-//   }
-// }
 
 #main-view-qiankun-contener {
   height: 100%;
@@ -66,9 +51,7 @@ const showContener = (r) => {
   transition: all ease 0.3s;
   display: flex;
   align-items: center;
-  // transition: all .3s ease;
 
-  // animation: fadeIn 0.6s ease-in-out forwards;
 
   [id*='main-view-qiankun-'] {
     height: 100%;
@@ -79,7 +62,7 @@ const showContener = (r) => {
   .cover {
     position: absolute;
     top: 0;
-    z-index: 50;
+    z-index: 10;
     background-color: var(--n-color);
     opacity: 0;
     transition: opacity .5s ease .5s;

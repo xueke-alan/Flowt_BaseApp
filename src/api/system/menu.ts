@@ -1,14 +1,5 @@
 import { http } from '@/utils/http/axios';
 
-/**
- * @description: 根据用户id获取用户菜单
- */
-export function adminMenus() {
-  return http.request({
-    url: '/menus',
-    method: 'GET',
-  });
-}
 
 /**
  * @description: 获取微服务组件
@@ -22,13 +13,23 @@ export function getMicoRouterList(data) {
 }
 
 /**
- * 获取tree菜单列表
- * @param params
+ * @description: 获取微服务组件
  */
-export function getMenuList(params?) {
+export function getMicroConfigList() {
   return http.request({
-    url: '/menu/list',
+    url: 'https://api.flowt.work/mico-router/microConfigList',
+    // url: '/mico-router/microConfigList',
     method: 'GET',
-    params,
   });
 }
+/**
+ * @description: 获取微服务组件
+ */
+export function getDevMicroConfig(url) {
+  return http.request({
+    url,
+    method: 'GET',
+  });
+}
+
+
