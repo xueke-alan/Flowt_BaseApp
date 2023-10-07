@@ -3,7 +3,7 @@ import { store } from '@/store';
 import { ACCESS_TOKEN, CURRENT_USER, IS_SCREENLOCKED } from '@/store/mutation-types';
 import { ResultEnum } from '@/enums/httpEnum';
 
-import { getUserInfo as getUserInfoApi, login, preLogin } from '@/api/system/user';
+import { getUserInfo as getUserInfoApi, login, preLogin } from '@/api/user';
 import { storage } from '@/utils/Storage';
 
 import { HashPasswordBySHA256 } from '@/utils/password/SHA-256';
@@ -107,7 +107,7 @@ export const useUserStore = defineStore({
     async getInfo() {
       const result = await getUserInfoApi(this.info.staffId);
       if (!result.permissions || result.permissions.length == 0) {
-        console.warn('permissionsList must be a non-null array !');
+        console.log('permissionsList must be a non-null array !');
       }
       const permissionsList = result.permissions || [];
       this.setPermissions(permissionsList);

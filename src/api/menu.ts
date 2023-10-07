@@ -2,7 +2,7 @@ import { http } from '@/utils/http/axios';
 
 
 /**
- * @description: 获取微服务组件
+ * @description: 从数据库获取权限对应的微服务组件
  */
 export function getMicoRouterList(data) {
   return http.request({
@@ -12,24 +12,16 @@ export function getMicoRouterList(data) {
   });
 }
 
+
 /**
- * @description: 获取微服务组件
+ * @description: 从后端9000端口获取已部署的微服务组件
  */
 export function getMicroConfigList() {
   return http.request({
     url: 'https://api.flowt.work/mico-router/microConfigList',
-    // url: '/mico-router/microConfigList',
     method: 'GET',
   });
 }
-/**
- * @description: 获取微服务组件
- */
-export function getDevMicroConfig(url) {
-  return http.request({
-    url,
-    method: 'GET',
-  });
-}
+
 
 

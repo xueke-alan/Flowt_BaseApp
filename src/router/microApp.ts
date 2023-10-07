@@ -5,46 +5,42 @@ import { Layout } from '@/router/constant';
 import { renderIcon } from '@/utils/index';
 import { LiveOff24Regular, WindowHeaderHorizontalOff20Filled } from '@vicons/fluent';
 import * as FluentIcons from '@vicons/fluent';
-import qiankunBox from '@/views/qiankun/index.vue';
+import micoAppBox from '@/views/micoApp/index.vue';
 import page404 from '@/views/exception/404.vue';
 import page503 from '@/views/exception/503.vue';
 import page500 from '@/views/exception/500.vue';
 import page403 from '@/views/exception/403.vue';
-import { QiankunRouterItem } from '@/qiankun/interface';
+import { MicroAppRouterItem } from '@/micoApp/interface';
 import { devApp } from './devRouter';
 import { useGlobSetting } from '@/hooks/setting';
-const { sigleQiankunContainer } = useGlobSetting();
-
-
+const { sigleMicroAppContainer } = useGlobSetting();
 
 /**
  * 完善微服务路由
- * @qiankunconfig 从数据库依据权限拿到的全部路由  
+ * @micoAppconfig 从数据库依据权限拿到的全部路由
  * @microConfigList 后端拿到的已部署成功的路由、开发中的路由
- * 
+ *
  */
-export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[], microConfigList) => {
-
-
-  const qiankunRouterList: any = [];
+export const createMicoRoutes = async (micoAppconfig: MicroAppRouterItem[], microConfigList) => {
+  const micoAppRouterList: any = [];
   // 将 从数据库依据权限拿到的路由 全部完善好
-  for (const configItem of qiankunconfig) {
+  for (const configItem of micoAppconfig) {
     switch (configItem.state) {
       case 0:
       case 2:
       case 3:
       case 4:
         // 在状态为0、2或3时执行的操作 将该路由置为离线
-        qiankunRouterList.push(qiankunOfflineRouter(configItem));
+        micoAppRouterList.push(micoAppOfflineRouter(configItem));
         break;
 
       case 1:
-        // 在状态为1时执行的操作 该路由理应是在线的 
+        // 在状态为1时执行的操作 该路由理应是在线的
         // 从后端传回的路表中查找这个路由配置
         const config = microConfigList[configItem.path];
 
         if (config) {
-          // 添加entry属性，为qiankun提供入口网址
+          // 添加entry属性，为 wujie 提供入口网址
           // 如果在devApp中显示有这个路由，则添加本地开发模式的路由
           if (devApp[config.baseUrl]) {
             config.entry = devApp[config.baseUrl].entry;
@@ -55,25 +51,24 @@ export const createMicoRoutes = async (qiankunconfig: QiankunRouterItem[], micro
           // 得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以后端返回的的值为准; meta也要重叠
           const configAssign = Object.assign(configItem, config);
           // 完善路由器
-          handleQiankunRouter(configAssign);
-          // 以在线路由 push 入 qiankunRouterList 数组中
-          qiankunRouterList.push(qiankunSuccessRouter(configAssign));
+          handleMicoAppRouter(configAssign);
+          // 以在线路由 push 入 micoAppRouterList 数组中
+          micoAppRouterList.push(micoAppSuccessRouter(configAssign));
         } else {
           // 数据库显示部署，但是后端显示不在线，返回offline路由
-          qiankunRouterList.push(qiankunOfflineRouter(configItem));
+          micoAppRouterList.push(micoAppOfflineRouter(configItem));
         }
         break;
     }
   }
-  return qiankunRouterList;
+  return micoAppRouterList;
 };
-
 
 /**
  * 预渲染微服务路由，包括将iconname转换为icon，自动生成name等。
- * 
+ *
  */
-const handleQiankunRouter = (config) => {
+const handleMicoAppRouter = (config) => {
   console.log(config);
   config.defaultUrl = config.children[0].path;
   if (config.iconName) {
@@ -102,7 +97,7 @@ const handleQiankunRouter = (config) => {
   return config;
 };
 
-const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
+const micoAppOfflineRouter = (baseConfig: MicroAppRouterItem) => {
   const { state, title, path, group, hidden, affix, permissions = [] } = baseConfig;
 
   // 如果State为0，直接返回一个503开发中页面
@@ -154,7 +149,6 @@ const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
         group,
         hidden,
         permissions,
-        noKeepAlive: true,
       },
       children: [
         {
@@ -167,7 +161,6 @@ const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
             sort: 1,
             group,
             affix,
-            noKeepAlive: true,
           },
         },
       ],
@@ -184,8 +177,8 @@ const qiankunOfflineRouter = (baseConfig: QiankunRouterItem) => {
   ];
 };
 
-const qiankunSuccessRouter = (config) => {
-  const children: any = config.children;
+const micoAppSuccessRouter = (config) => {
+  // const children: any = config.children;
   const micoName: any = config.name;
   const micoBaseUrl: any = config.baseUrl;
   const defaultUrl: any = config.defaultUrl;
@@ -206,32 +199,22 @@ const qiankunSuccessRouter = (config) => {
       meta: {
         title,
         icon,
-        isQiankunRouter: {
+        isMicoAppRouter: {
           name: micoName,
           entry,
-          // 如果是单组件挂载乾坤微服务，则只有一个容器 "qiankun"
-          container: `#main-view-qiankun-${sigleQiankunContainer ? 'qiankun' : micoBaseUrl}`,
+          // 如果是单组件挂载乾坤微服务，则只有一个容器 "micoApp"
+          container: `#main-view-micoApp-${sigleMicroAppContainer ? 'micoApp' : micoBaseUrl}`,
           activeRule: ({ pathname }) => pathname.startsWith(`/${micoBaseUrl}`),
         },
         sort: 1,
         group,
-        noKeepAlive: false,
         hidden,
         affix,
         disabled: config ? false : true,
         permissions,
       },
-      children: [
-        ...children.map((c) => {
-          return {
-            ...c,
-            path: `${c.path}/:pra(.*)*`,
-            component: qiankunBox,
-          };
-        }),
-      ],
+      children: config.children.map((c) => ({ ...c, component: micoAppBox })),
     },
-
     {
       path: `/${micoBaseUrl}/offline`,
       name: `/${micoBaseUrl}-offline-redirect`,
@@ -245,4 +228,3 @@ const qiankunSuccessRouter = (config) => {
   ];
   return dynamicRoutes;
 };
-

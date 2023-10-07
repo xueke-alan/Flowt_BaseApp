@@ -2,9 +2,8 @@ import { toRaw } from 'vue';
 import { defineStore } from 'pinia';
 import { RouteRecordRaw } from 'vue-router';
 import { store } from '@/store';
-import { constantRouter, getAsyncRoutes } from '@/router/index';
-import { getMicoRouterList } from '@/api/system/menu';
-import { useUserStore } from '@/store/modules/user';
+import { constantRouter } from '@/router/index';
+
 
 export interface IAsyncRouteState {
   menus: RouteRecordRaw[];
@@ -12,7 +11,6 @@ export interface IAsyncRouteState {
   sortedGroupList: any[];
   routers: any[];
   routersAdded: any[];
-  keepAliveComponents: string[];
   isDynamicRouteAdded: boolean;
 }
 
@@ -24,7 +22,6 @@ export const useAsyncRouteStore = defineStore({
     sortedGroupList: [],
     routers: constantRouter,
     routersAdded: [],
-    keepAliveComponents: [],
     // Whether the route has been dynamically added
     isDynamicRouteAdded: false,
   }),
@@ -37,54 +34,11 @@ export const useAsyncRouteStore = defineStore({
     },
   },
   actions: {
-    getRouters() {
-      return toRaw(this.routersAdded);
-    },
-    setDynamicRouteAdded(added: boolean) {
-      this.isDynamicRouteAdded = added;
-    },
-    // 设置动态路由
     setRouters(routers: RouteRecordRaw[]) {
       this.routersAdded = routers;
+      this.menus = routers;
       this.routers = constantRouter.concat(routers);
-    },
-    setMenus(menus: RouteRecordRaw[]) {
-      // 设置动态路由
-      this.menus = menus;
-    },
-    setMicoRouterListOri(micoRouterListOri: any[]) {
-      // 设置动态路由
-      this.micoRouterListOri = micoRouterListOri;
-    },
-    setSortedGroupList(sortedGroupList: any[]) {
-      // 设置动态路由
-      this.sortedGroupList = sortedGroupList;
-    },
-    setKeepAliveComponents(compNames: string[]) {
-      // 设置需要缓存的组件
-      this.keepAliveComponents = compNames;
-    },
-    async generateRoutes(data) {
-      let accessedRouters: RouteRecordRaw[] = [];
-      const permissionsList = data.permissions ?? [];
-      const userStore = useUserStore();
-      try {
-        //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
-        // 从数据库中拿到全部的路由信息，只包含子应用的根路由，子应用的子路由由子应用维护，在后面获取
-        const { micoRouterListOri, sortedGroupList } = await getMicoRouterList({
-          role: userStore.getUserInfo.role,
-        });
-        this.setMicoRouterListOri(micoRouterListOri);
-        this.setSortedGroupList(sortedGroupList);
-        // 通过getAsyncRoutes 将原始的路由信息补全
-        accessedRouters = await getAsyncRoutes(micoRouterListOri);
-      } catch (error) {
-        console.log(error);
-      }
-
-      this.setRouters(accessedRouters);
-      this.setMenus(accessedRouters);
-      return toRaw(accessedRouters);
+      this.isDynamicRouteAdded = true
     },
   },
 });

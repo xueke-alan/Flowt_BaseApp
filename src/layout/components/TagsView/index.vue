@@ -269,17 +269,7 @@ export default defineComponent({
     window.addEventListener('scroll', onScroll, true);
 
     // 移除缓存组件名称
-    const delKeepAliveCompName = () => {
-      if (route.meta.keepAlive) {
-        const name = router.currentRoute.value.matched.find((item) => item.name == route.name)
-          ?.components?.default.name;
-        if (name) {
-          asyncRouteStore.keepAliveComponents = asyncRouteStore.keepAliveComponents.filter(
-            (item) => item != name
-          );
-        }
-      }
-    };
+    
 
     // 标签页列表
     const tabsList: any = computed(() => tabsViewStore.tabsList);
@@ -311,7 +301,7 @@ export default defineComponent({
       if (tabsList.value.length === 1) {
         return message.warning('这已经是最后一页，不能再关闭了！');
       }
-      delKeepAliveCompName();
+    
       tabsViewStore.closeCurrentTab(route);
       // 如果关闭的是当前页
       if (state.activeKey === route.fullPath) {
@@ -324,7 +314,7 @@ export default defineComponent({
 
     // 刷新页面
     const reloadPage = () => {
-      delKeepAliveCompName();
+   
       router.push({
         path: '/redirect' + route.fullPath,
       });

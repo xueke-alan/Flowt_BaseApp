@@ -53,7 +53,7 @@ export interface GlobConfig {
   prodMock: boolean;
   imgUrl?: string;
   imgUrl?: string;
-  sigleQiankunContainer: boolean;
+  sigleMicroAppContainer: boolean;
 }
 
 export interface GlobEnvConfig {
@@ -71,5 +71,5 @@ export interface GlobEnvConfig {
   VITE_GLOB_IMG_URL?: string;
   //生产环境开启mock
   VITE_GLOB_PROD_MOCK: boolean;
-  VITE_QIANKUN_CONTAINER_SINGLE: string;
+  VITE_MICROAPP_CONTAINER_SINGLE: string;
 }

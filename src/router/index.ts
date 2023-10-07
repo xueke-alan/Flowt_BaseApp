@@ -5,49 +5,28 @@ import { PageEnum } from '@/enums/pageEnum';
 import { createRouterGuards } from './guards';
 import type { IModuleType } from './types';
 import { slashRedirect } from './generator';
-import { createMicoRoutes } from '@/router/qiankun';
+import { createMicoRoutes } from '@/router/microApp'
 import { devApp } from './devRouter';
-import { getMicroConfigList } from "@/api/system/menu";
+import { getMicroConfigList } from "@/api/menu";
 // const userStore = useUserStore();
 
-// 引入全部modules路由
-const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
 
 // 获取基座应用自带的路由，比如开发者使用的路由：路由管理，发布平台
-const getRouteModuleList = async () => {
-  const listPromise = Promise.resolve([]);
-  const keys = Object.keys(modules);
+const modules = import.meta.glob<IModuleType>('./base/**/*.ts', { eager: true });
 
-  for (const key of keys) {
-    const list: any = await listPromise;
 
-    let mod: any = '';
-    if (typeof modules[key].default === 'function') {
-      mod = await modules[key].default();
-    } else {
-      mod = modules[key].default ?? {};
-    }
 
-    // 给每一个路由添加斜杠结尾的路由重定向
-    slashRedirect(mod);
+/**
+ * @description: 获取异步路由。包含三个部分，1.基座路由，2.开发模式的路由，3.服务端已部署的路由
+ * @micoAppRouters 从数据库中得到的全部的路由，包含未上线的路由
+ */
+export async function getAsyncRoutes(micoAppRouters) {
 
-    const modList = Array.isArray(mod) ? [...mod] : [mod];
-    list.push(...modList);
-  }
+  // 1.基座路由
+  const baseRouter = Object.values(modules).map((m: any) => slashRedirect(m.default)).flat(2)
 
-  return listPromise;
-};
-
-//需要验证权限
-
-// 引入全部qiankun路由
-export async function getAsyncRoutes(micoQiankunRouters) {
-
-  // 从后端获取以及部署的全部的路由信息
-  const microConfigList = await getMicroConfigList()
+  // 2.开发模式的路由
   const devMicroConfig: any[] = [];
-
-  // 加入或者更改正在开发的子应用
   for (const name of Object.keys(devApp)) {
     const res = await fetch(devApp[name].config);
     if (!res.ok) { throw new Error('Network response was not ok'); }
@@ -56,16 +35,17 @@ export async function getAsyncRoutes(micoQiankunRouters) {
     devMicroConfig[name] = microConfigList;
   }
 
-  // 整合全部的路由
-  const handledQiankunRouterList = await createMicoRoutes(micoQiankunRouters, {
-    ...microConfigList,
+  // 3.服务端已部署的路由
+  const microConfigList = await getMicroConfigList()
+
+  // 生成完整的微服务路由
+  const handledmicoAppRouterList = await createMicoRoutes(micoAppRouters, {
     ...devMicroConfig,
+    ...microConfigList,
   });
 
-  const routeModuleList = await getRouteModuleList();
-  console.log(routeModuleList);
-
-  return [...[].concat(...handledQiankunRouterList), ...routeModuleList];
+  // 整合全部路由
+  return [...[].concat(...handledmicoAppRouterList), ...baseRouter];
 }
 
 // 根路由
@@ -109,20 +89,31 @@ export const tempRoute: RouteRecordRaw = {
   },
 };
 
-// const { name } = router.currentRoute.value;
-// if (!name) {
-//   router.addRoute({
-//     path: window.location.pathname,
-//     name: 'TempRoute',
-//     component: () => import('@/components/layouts/emptyLayout.vue'),
-//   });
-// }
-
 //普通路由 无需验证权限
 export const constantRouter: RouteRecordRaw[] = [
-  LoginRoute,
-  RestPswRoute,
-  RootRoute,
+  {
+    path: '/',
+    name: 'Root',
+    redirect: PageEnum.BASE_HOME,
+    meta: {
+      title: 'Root',
+    },
+  }, {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/index.vue'),
+    meta: {
+      title: '登录',
+    },
+  },
+  {
+    path: '/resetPsw',
+    name: 'ResetPsw',
+    component: () => import('@/views/login/index.vue'),
+    meta: {
+      title: '重置密码',
+    }
+  },
   RedirectRoute,
   {
     path: window.location.pathname,
@@ -144,9 +135,5 @@ export function setupRouter(app: App) {
   createRouterGuards(router);
 }
 
-// const router = createRouter({
-//   history: createWebHistory(process.env.BASE_URL),
-//   routes,
-// })
 
 export default router;

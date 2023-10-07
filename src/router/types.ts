@@ -22,8 +22,6 @@ export interface Meta {
   // 是否忽略权限
   ignoreAuth?: boolean;
   permissions?: string[];
-  // 是否不缓存
-  noKeepAlive?: boolean;
   // 是否固定在tab上
   affix?: boolean;
   // tab上的图标
@@ -57,3 +55,5 @@ export interface Menu {
 export interface IModuleType {
   default: Array<RouteRecordRaw> | RouteRecordRaw;
 }
+
+export interface redirectDataType { path: string; replace: boolean; query?: Recordable<string> }

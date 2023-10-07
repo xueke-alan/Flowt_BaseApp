@@ -1,10 +1,8 @@
 import { ErrorPage, RedirectName, Layout } from '@/router/constant';
 import { RouteRecordRaw } from 'vue-router';
 import { renderIcon } from '@/utils/index';
+import { ErrorCircle24Regular } from '@vicons/fluent';
 
-import {
-  ErrorCircle24Regular
-} from '@vicons/fluent';
 // 404 on a page
 export const ErrorPageRoute: RouteRecordRaw = {
   path: '/:path(.*)*',
@@ -26,7 +24,7 @@ export const ErrorPageRoute: RouteRecordRaw = {
         title: '页面错误',
         hideBreadcrumb: false,
         hideNav: true,
-      icon: renderIcon(ErrorCircle24Regular),
+        icon: renderIcon(ErrorCircle24Regular),
 
       },
     },

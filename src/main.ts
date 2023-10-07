@@ -4,8 +4,8 @@ import { setupNaiveDiscreteApi, setupNaive, setupDirectives } from '@/plugins';
 import App from './App.vue';
 import router, { setupRouter } from './router';
 import { setupStore } from '@/store';
-// import { setupQiankun } from '@/qiankun/setupQiankun';
 
+import WujieVue from "wujie-vue3";
 
 async function bootstrap() {
   const app = createApp(App);
@@ -20,7 +20,7 @@ async function bootstrap() {
   setupNaiveDiscreteApi();
 
   // 注册全局自定义组件
-  //setupCustomComponents();
+  app.use(WujieVue);
 
   // 注册全局自定义指令，如：v-permission权限指令
   setupDirectives(app);

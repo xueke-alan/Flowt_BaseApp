@@ -1,14 +1,7 @@
 
 import { constantRouterIcon } from './icons';
 import { RouteRecordRaw } from 'vue-router';
-import { Layout, ParentLayout } from '@/router/constant';
-import type { AppRouteRecordRaw } from '@/router/types';
 
-const Iframe = () => import('@/views/iframe/index.vue');
-const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>();
-
-LayoutMap.set('LAYOUT', Layout);
-LayoutMap.set('IFRAME', Iframe);
 
 /**
  * 格式化 后端 结构信息并递归生成层级路由表
@@ -52,59 +45,6 @@ export const generateRoutes = (routerMap, parent?): any[] => {
 
 
 /**
- * 查找views中对应的组件文件
- * */
-let viewsModules: Record<string, () => Promise<Recordable>>;
-export const asyncImportRoute = (routes: AppRouteRecordRaw[] | undefined): void => {
-  viewsModules = viewsModules || import.meta.glob('../views/**/*.{vue,tsx}');
-  if (!routes) return;
-  routes.forEach((item) => {
-    if (!item.component && item.meta?.frameSrc) {
-      item.component = 'IFRAME';
-    }
-    const { component, name } = item;
-    const { children } = item;
-    if (component) {
-      const layoutFound = LayoutMap.get(component as string);
-      if (layoutFound) {
-        item.component = layoutFound;
-      } else {
-        item.component = dynamicImport(viewsModules, component as string);
-      }
-    } else if (name) {
-      item.component = ParentLayout;
-    }
-    children && asyncImportRoute(children);
-  });
-};
-
-/**
- * 动态导入
- * */
-export const dynamicImport = (
-  viewsModules: Record<string, () => Promise<Recordable>>,
-  component: string
-) => {
-  const keys = Object.keys(viewsModules);
-  const matchKeys = keys.filter((key) => {
-    let k = key.replace('../views', '');
-    const lastIndex = k.lastIndexOf('.');
-    k = k.substring(0, lastIndex);
-    return k === component;
-  });
-  if (matchKeys?.length === 1) {
-    const matchKey = matchKeys[0];
-    return viewsModules[matchKey];
-  }
-  if (matchKeys?.length > 1) {
-    console.warn(
-      'Please do not create `.vue` and `.TSX` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure'
-    );
-    return;
-  }
-};
-
-/**
  * 添加/ 重定向
  * */
 
@@ -118,5 +58,6 @@ export const slashRedirect = (routes: Array<RouteRecordRaw>) => {
       hidden: true,
     },
   };
-  return routes.push(slashRouter);
+  routes.push(slashRouter)
+  return routes;
 };
