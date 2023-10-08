@@ -18,9 +18,9 @@ const modules = import.meta.glob<IModuleType>('./base/**/*.ts', { eager: true })
 
 /**
  * @description: 获取异步路由。包含三个部分，1.基座路由，2.开发模式的路由，3.服务端已部署的路由
- * @micoAppRouters 从数据库中得到的全部的路由，包含未上线的路由
+ * @micoAppRoutersFromDB 从数据库中得到的全部的路由，包含未上线的路由
  */
-export async function getAsyncRoutes(micoAppRouters) {
+export async function getAsyncRoutes(micoAppRoutersFromDB) {
 
   // 1.基座路由
   const baseRouter = Object.values(modules).map((m: any) => slashRedirect(m.default)).flat(2)
@@ -39,10 +39,8 @@ export async function getAsyncRoutes(micoAppRouters) {
   const microConfigList = await getMicroConfigList()
 
   // 生成完整的微服务路由
-  const handledmicoAppRouterList = await createMicoRoutes(micoAppRouters, {
-    ...devMicroConfig,
-    ...microConfigList,
-  });
+  const handledmicoAppRouterList = await createMicoRoutes(micoAppRoutersFromDB,
+    Object.assign(microConfigList, devMicroConfig));
 
   // 整合全部路由
   return [...[].concat(...handledmicoAppRouterList), ...baseRouter];

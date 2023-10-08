@@ -1,103 +1,32 @@
 <template>
-  <RouterView>
-    <template #default="{ Component }">
-      <microAppContener />
-
-      <div class="normalRouter-contener" :class="{ hide: ismicoAppRouter }">
-        <div class="normalRouter" :key="nowRouter.fullPath">
-
-          <component :is="Component" />
-        </div>
-      </div>
-    </template>
-  </RouterView>
+  <router-view v-slot="{ Component }">
+    <transition name="fade" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, unref, ref } from 'vue';
-import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
-import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
-import { useRouter } from 'vue-router';
-
-import { useGlobSetting } from '@/hooks/setting';
-
-import page100 from '@/views/exception/100.vue';
-import microAppContener from './components/microAppContener.vue';
-
-export default defineComponent({
-  name: 'MainView',
-  // components: {},
-  props: {
-    notNeedKey: {
-      type: Boolean,
-      default: false,
-    },
-    animate: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  components: {
-    page100,
-    microAppContener,
-  },
-
-  setup() {
-    const { isPageAnimate, pageAnimateType } = useProjectSetting();
-    const asyncRouteStore = useAsyncRouteStore();
-    // 需要缓存的路由组件
-
-    // 切换动画
-
-    const getTransitionName = computed(() => {
-      return unref(isPageAnimate) ? unref(pageAnimateType) : '';
-    });
-
-    const router = useRouter();
-
-    const micoAppRouters = asyncRouteStore.micoRouterListOri;
-    const { sigleMicroAppContainer } = useGlobSetting();
-    const micoAppRoutersNameList = computed(() => {
-      if (sigleMicroAppContainer) {
-        return ['micoApp'];
-      } else {
-        return micoAppRouters.map((r) => {
-          return r.path;
-        });
-      }
-    });
+<script lang="ts" setup>
+// TODO keepLive
+// BUG 两个路由同一个组件不会触发 transition
+import router from '@/router';
+console.log(router.currentRoute.value.meta.title);
 
 
-    const ismicoAppRouter = computed(() => router.currentRoute.value.meta.isMicoAppRouter);
-    const nowRouter = ref(router.currentRoute);
-
-    return {
-
-      getTransitionName,
-      ismicoAppRouter,
-      nowRouter,
-      micoAppRouters,
-      micoAppRoutersNameList,
-      sigleMicroAppContainer,
-    };
-  },
-});
 </script>
 
 <style lang="less" scoped>
-.normalRouter-contener {
-  height: 100%;
+// 淡出淡入
+.fade-enter-active {
+  transition: opacity 0.5s ease;
+}
 
-  .normalRouter {
-    height: 100%;
-  }
+.fade-leave-active {
+  transition: opacity 0.25s ease;
+}
 
-  &.hide {
-    height: 0;
-
-    .normalRouter {
-      height: 0;
-    }
-  }
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

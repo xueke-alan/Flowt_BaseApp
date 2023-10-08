@@ -7,7 +7,7 @@
         </n-icon>
       </template>
       <template #footer>
-        <div style="height: 50px;">
+        <div style="height: 50px;" data-cursor="secondary">
           <slot name="button" v-if="!inBaseUrl">
             <n-button round strong secondary type="primary" @click="goHome">返回主页</n-button>
           </slot>

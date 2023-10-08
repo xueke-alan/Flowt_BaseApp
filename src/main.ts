@@ -8,6 +8,12 @@ import { setupStore } from '@/store';
 import WujieVue from "wujie-vue3";
 
 async function bootstrap() {
+
+  // 更改光标
+  // initCurses()
+  console.log('initCurses');
+
+
   const app = createApp(App);
 
   // 挂载状态管理

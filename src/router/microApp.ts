@@ -202,9 +202,6 @@ const micoAppSuccessRouter = (config) => {
         isMicoAppRouter: {
           name: micoName,
           entry,
-          // 如果是单组件挂载乾坤微服务，则只有一个容器 "micoApp"
-          container: `#main-view-micoApp-${sigleMicroAppContainer ? 'micoApp' : micoBaseUrl}`,
-          activeRule: ({ pathname }) => pathname.startsWith(`/${micoBaseUrl}`),
         },
         sort: 1,
         group,
@@ -213,18 +210,14 @@ const micoAppSuccessRouter = (config) => {
         disabled: config ? false : true,
         permissions,
       },
-      children: config.children.map((c) => ({ ...c, component: micoAppBox })),
-    },
-    {
-      path: `/${micoBaseUrl}/offline`,
-      name: `/${micoBaseUrl}-offline-redirect`,
-      redirect: `/${micoBaseUrl}/${defaultUrl}`,
-      component: Layout,
-      meta: {
-        hidden: true,
-      },
-      children: [],
+      children: config.children.map((c) => ({
+        ...c,
+        component: micoAppBox,
+        // 这里的 path 加上 '/:pra(.*)?' 后缀表示往后的'任意'参数都匹配，最后的 '?' 表示没有参数也匹配
+        path: `${c.path}/:pra(.*)?`,
+      })),
     },
   ];
+  console.log(dynamicRoutes);
   return dynamicRoutes;
 };

@@ -12,7 +12,7 @@ import { getAppEnvConfig } from '@/utils/env';
 import { sleep } from '@/utils';
 import { redirectDataType } from './types';
 import { getMicoRouterList } from '@/api/menu';
-import { toRaw } from 'vue';
+import { nextTick, toRaw } from 'vue';
 
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
@@ -27,21 +27,14 @@ export function createRouterGuards(router: Router) {
 
   const asyncRouteStore = useAsyncRoute();
 
-  // BUG 首屏有的时候会加载两次
 
+  // TODO 这里的路由基本搞定了 首屏有的时候会加载两次的BUG已解决，现在是 await sleep(250);不够优雅。想想新方案
+  // TODO 加载页面算是一个SGS的Logo，如果可以续上SGSlogo并且渐变到画面就更好了。50%
   const switchMainView = async (to, from) => {
-    console.log(to, from);
-    if (to?.name?.toString() == from?.name?.toString()) {
-      return
+    if (to?.name?.toString() !== from?.name?.toString()) {
+      // mainViewStore.hide = true
+      // await sleep(250);
     }
-
-    // p判断是不是大路由
-  
-    mainViewStore.hide = true
-    console.log('已经修改了 mainViewStore.hide', mainViewStore.hide);
-    await sleep(250);
-    console.log('这里阻塞了2秒');
-    // debugger
   }
 
   router.beforeEach(async (to, from, next) => {
@@ -49,7 +42,7 @@ export function createRouterGuards(router: Router) {
     console.log(to);
 
     const Loading = window['$loading'] || null;
-    Loading && Loading.start();
+
 
     // 如果要前往
     if (from.path === LOGIN_PATH && to.name === 'errorPage') {
@@ -93,12 +86,12 @@ export function createRouterGuards(router: Router) {
       // console.log(router.getRoutes());
       // console.log(router.hasRoute("fileLibrary"));
 
-      
+
       next();
       return;
     } else {
       console.log('还没有添加动态路由，现在开始添加动态路由');
-
+      Loading && Loading.start();
 
 
       const userInfo = await userStore.getInfo();
@@ -164,23 +157,12 @@ export function createRouterGuards(router: Router) {
     }
   });
 
-  router.afterEach(async (to, _, failure) => {
-    document.title =
-      VITE_GLOB_APP_SHORT_NAME + ' - ' + ((to?.meta?.title as string) || document.title);
-
-    if (isNavigationFailure(failure)) {
-    }
-    const asyncRouteStore = useAsyncRoute();
-
-    const Loading = window['$loading'] || null;
+  router.afterEach(async (to) => {
+    document.title = `${VITE_GLOB_APP_SHORT_NAME} - ${to?.meta?.title || document.title}`
 
     // 将mainview的class置为hide
-    setTimeout(() => {
-      mainViewStore.hide = false
-      Loading && Loading.finish();
-    }, 0);
+    // nextTick(() => { mainViewStore.hide = false });
 
-    // 关闭首屏加载
   });
 
   router.onError((error) => {

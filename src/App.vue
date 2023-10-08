@@ -1,17 +1,17 @@
 <template>
-  
-  <NConfigProvider v-if="!isLock" :locale="zhCN" :theme="getDarkTheme" :theme-overrides="getThemeOverrides"
-    :date-locale="dateZhCN">
+  <div class="app">
+    <NConfigProvider v-if="!isLock" :locale="zhCN" :theme="getDarkTheme" :theme-overrides="getThemeOverrides"
+      :date-locale="dateZhCN">
 
-    <AppProvider>
-      <RouterView />
+      <AppProvider>
+        <RouterView />
+      </AppProvider>
+    </NConfigProvider>
 
-    </AppProvider>
-  </NConfigProvider>
-
-  <transition v-if="isLock && $route.name !== 'login'" name="slide-up">
-    <LockScreen />
-  </transition>
+    <transition v-if="isLock && $route.name !== 'login'" name="slide-up">
+      <LockScreen />
+    </transition>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -82,4 +82,20 @@ onUnmounted(() => {
 
 <style lang="less">
 @import 'styles/index.less';
+</style>
+
+<style scoped lang="less">
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+}
+.app {
+  animation: show .6s ease ;
+}
 </style>
