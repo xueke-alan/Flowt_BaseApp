@@ -30,7 +30,7 @@ onMounted(() => {
 watch(
   () => router.currentRoute.value.fullPath,
   (newVal) => {
-    // 首次emit无效，此刻为空
+    // BUG 首次emit无效，此刻为空
     bus.$emit("baseAppRouterChange", newVal);
   },
   { immediate: true }

@@ -71,16 +71,16 @@
             </n-form-item>
           </template>
 
-          <!-- <n-form-item class="default-color" >
+          <n-form-item class="default-color" >
             <div class="flex justify-between">
-              <div class="flex-initial">
+              <!-- <div class="flex-initial">
                 <n-checkbox v-model:checked="autoLogin">自动登录</n-checkbox>
-              </div>
+              </div> -->
               <div class="flex-initial order-last" @click="forgetPsw">
                 <a href="javascript:">忘记密码</a>
               </div>
             </div>
-          </n-form-item> -->
+          </n-form-item>
           <div class="pswLevel" :class="{ exp: route.name !== ResetPaw_NAME }">
             <n-progress type="line" :show-indicator="false" :percentage="50" :height="10" :border-radius="4"
               :fill-border-radius="0" color="#ff6600" />
@@ -94,7 +94,7 @@
           </n-form-item>
           <n-form-item v-if="route.name == ResetPaw_NAME">
             <n-button type="primary" @click="resetPsw" size="large" :loading="loading" block>
-              修改密码
+              确认密码
             </n-button>
           </n-form-item>
 
@@ -193,10 +193,10 @@ const resetPsw = (e: { preventDefault: () => void; }) => {
 
 }
 
-// const forgetPsw = (e) => {
-//   e.preventDefault();
-//   router.push('/resetPsw');
-// }
+const forgetPsw = (e) => {
+  e.preventDefault();
+  router.push('/resetPsw');
+}
 
 onMounted(() => {
   // 绑定监听事件

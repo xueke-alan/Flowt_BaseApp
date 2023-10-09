@@ -45,7 +45,7 @@ const breadcrumbList = computed(() => {
   const matched = generator(route.matched)
 
   const list = matched.map((r) => {
-    return {
+    const item = {
       label: r.meta.title,
       key: r.name,
       icon: r.meta.icon,
@@ -57,8 +57,14 @@ const breadcrumbList = computed(() => {
         }
       })
     }
+    return item
   })
-  return list
+  console.log(list);
+
+  return list.filter((i) => {
+    // 当option只有一个，说明是一个父路由，并且子路由只有唯一的一个，没有展示该父路由的必要。
+    return i.option.length != 1
+  })
 });
 
 

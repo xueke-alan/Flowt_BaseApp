@@ -57,104 +57,107 @@
         </div>
       </template>
     </n-popover>
+
+    <!-- TODO 退出登录确认框 -->
+    <!-- 登陆成功后除了message和顶部loading，还需要视口内加一个提示，可以对登录按钮进行修改，修改为：资源加载中 -->
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { DoorArrowLeft24Regular, LockClosed24Regular, Person24Regular } from '@vicons/fluent';
-  import { useUserStore } from '@/store/modules/user';
+import { DoorArrowLeft24Regular, LockClosed24Regular, Person24Regular } from '@vicons/fluent';
+import { useUserStore } from '@/store/modules/user';
 
-  const userStore = useUserStore();
-  const { avatar, username, usernameCn } = userStore?.info || {};
-  import { useDialog, useMessage } from 'naive-ui';
-  import { useRouter, useRoute } from 'vue-router';
+const userStore = useUserStore();
+const { avatar, username, usernameCn } = userStore?.info || {};
+import { useDialog, useMessage } from 'naive-ui';
+import { useRouter, useRoute } from 'vue-router';
 
-  const dialog = useDialog();
-  const message = useMessage();
-  const router = useRouter();
-  const route = useRoute();
-  import { TABS_ROUTES } from '@/store/mutation-types';
+const dialog = useDialog();
+const message = useMessage();
+const router = useRouter();
+const route = useRoute();
+import { TABS_ROUTES } from '@/store/mutation-types';
 
-  const toPersonal = () => {
-    router.push({ name: 'personal' });
-  };
+const toPersonal = () => {
+  router.push({ name: 'personal' });
+};
 
-  // 退出登录
-  const doLogout = () => {
-    dialog.info({
-      title: '提示',
-      content: '您确定要退出登录吗',
-      positiveText: '确定',
-      negativeText: '取消',
-      onPositiveClick: () => {
-        userStore.logout().then(() => {
-          message.success('成功退出登录');
-          // 移除标签页
-          localStorage.removeItem(TABS_ROUTES);
-          router.replace({
-            name: 'Login',
-            query: {
-              redirect: route.fullPath,
-            },
-          });
-          // .finally(() => location.reload());
-          // 这里要重置账号密码吗，没有搞懂意义
+// 退出登录
+const doLogout = () => {
+  dialog.info({
+    title: '提示',
+    content: '您确定要退出登录吗',
+    positiveText: '确定',
+    negativeText: '取消',
+    onPositiveClick: () => {
+      userStore.logout().then(() => {
+        // message.success('成功退出登录');
+        // 移除标签页
+        localStorage.removeItem(TABS_ROUTES);
+        router.replace({
+          name: 'Login',
+          query: {
+            redirect: route.fullPath,
+          },
         });
-      },
-      onNegativeClick: () => {},
-    });
-  };
+        // .finally(() => location.reload());
+        // 这里要重置账号密码吗，没有搞懂意义
+      });
+    },
+    onNegativeClick: () => { },
+  });
+};
 </script>
 
 <style lang="less" scoped>
+.avatar {
+  display: flex;
+  align-items: center;
+}
+
+.rightIcon {
+  padding-left: 3px;
+}
+
+.unselect {
+  user-select: none;
+
   .avatar {
+    pointer-events: none;
+  }
+}
+
+.flex-align-items {
+  display: flex;
+  align-items: center;
+  margin: 2px 0;
+
+  .rigth {
+    padding-top: 1px;
     display: flex;
+    justify-content: flex-end;
+    flex: 1;
     align-items: center;
   }
 
-  .rightIcon {
-    padding-left: 3px;
+  .button {
+    margin-top: 0;
+    margin-bottom: 0;
   }
+}
 
-  .unselect {
-    user-select: none;
+.userInfo {
+  margin-left: 10px;
+  line-height: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 38px;
+}
 
-    .avatar {
-      pointer-events: none;
-    }
-  }
-
-  .flex-align-items {
-    display: flex;
-    align-items: center;
-    margin: 2px 0;
-
-    .rigth {
-      padding-top: 1px;
-      display: flex;
-      justify-content: flex-end;
-      flex: 1;
-      align-items: center;
-    }
-
-    .button {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-
-  .userInfo {
-    margin-left: 10px;
-    line-height: 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 38px;
-  }
-
-  .footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 </style>
