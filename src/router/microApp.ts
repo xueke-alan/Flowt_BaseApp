@@ -108,26 +108,26 @@ const micoAppOfflineRouter = (baseConfig: MicroAppRouterItem) => {
   switch (state) {
     case 0:
       component = page404;
-      icon = renderIcon(LiveOff24Regular);
+      icon = renderIcon(WindowHeaderHorizontalOff20Filled);
       break;
     case 1:
       component = page500;
-      icon = renderIcon(WindowHeaderHorizontalOff20Filled);
+      icon = renderIcon(LiveOff24Regular);
 
       break;
     case 2:
       component = page503;
-      icon = renderIcon(LiveOff24Regular);
+      icon = renderIcon(WindowHeaderHorizontalOff20Filled);
 
       break;
     case 3:
       component = page500;
-      icon = renderIcon(LiveOff24Regular);
+      icon = renderIcon(WindowHeaderHorizontalOff20Filled);
 
       break;
     case 4:
       component = page403;
-      icon = renderIcon(LiveOff24Regular);
+      icon = renderIcon(WindowHeaderHorizontalOff20Filled);
 
       break;
     default:

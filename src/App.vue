@@ -4,7 +4,11 @@
       :date-locale="dateZhCN">
 
       <AppProvider>
-        <RouterView />
+        <router-view v-slot="{ Component }">
+          <transition name="fade" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </AppProvider>
     </NConfigProvider>
 
@@ -95,7 +99,24 @@ onUnmounted(() => {
   }
 
 }
+
 .app {
-  animation: show .6s ease ;
+  animation: show .6s ease;
+}
+</style>
+
+<style lang="less" scoped>
+// 淡出淡入
+.fade-enter-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

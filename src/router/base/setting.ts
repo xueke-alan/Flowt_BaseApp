@@ -32,6 +32,7 @@ const routes: Array<RouteRecordRaw> = [
           title: '系统设置',
           default: true,
           icon: renderIcon(TableEdit24Regular),
+          group,
         },
       },
     ],

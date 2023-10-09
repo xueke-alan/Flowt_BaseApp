@@ -269,6 +269,8 @@ export default defineComponent({
 
     onMounted(() => {
       updateMenu();
+      console.log(menus);
+      
       expandedNames.value = menus.value.map((m) => m.group)
     });
     const expandIcon = renderIcon(CaretDown20Filled)
