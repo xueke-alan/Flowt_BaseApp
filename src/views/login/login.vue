@@ -1,7 +1,10 @@
 <template>
   <div class="formCon">
     <div class="title">
-      <div class="sysName">SGS Flowt. System</div>
+      <div class="sysName">
+        <span class="highLine">Flowt.</span>
+        <span class="noraml">System</span>
+      </div>
       <!-- <div class="pageName">Login .</div> -->
     </div>
 
@@ -59,7 +62,6 @@
           <n-button type="primary" secondary size="small">Host 登录</n-button>
         </n-space>
       </div>
-
     </n-form>
   </div>
 </template>
@@ -265,11 +267,23 @@ const keyDown = (e: { keyCode?: any; preventDefault?: () => void; }) => {
     .sysName {
       font-size: 34px;
       font-weight: 600;
-      color: #696969;
+      display: flex;
+      gap: 10px;
       font-family: Tahoma, Verdana, STHeiTi, simsun, sans-serif;
-      background-image: -webkit-linear-gradient(13deg, rgb(75, 75, 75), #696969);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      align-items: flex-end;
+
+      .noraml {
+        background-image: -webkit-linear-gradient(13deg, rgb(75, 75, 75), #696969);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .highLine {
+        font-size: 42px;
+        background-image: -webkit-linear-gradient(315deg, #d38842 25%, #ffa264);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
 
     .pageName {

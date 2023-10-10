@@ -11,19 +11,22 @@
       <div class="left">
         <login />
         <n-space class="copyright">
-          <a>2023 Copyright</a>
-          <a>Our Police</a>
-          <a>备案 20220913</a>
+          <n-button text class="btn"> 2023 Copyright </n-button>
+          <n-button text class="btn"> Our Police </n-button>
+          <n-button text class="btn"> 备案20220913 </n-button>
         </n-space>
 
       </div>
-      <div class="right"></div>
+      <div class="right">
+        <rightSwip />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import login from "./login.vue";
+import rightSwip from "./rightSwip.vue";
 </script>
 
 <style lang="less" scoped>
@@ -57,11 +60,11 @@ import login from "./login.vue";
       transition: all .3s ease;
 
       .bg {
-        background: url(https://sgs.gzmr.team/static/img/sgsBG.c1f9a0aa.jpg);
+        background: url(https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1);
         background-position: center;
         width: 100%;
         height: 100%;
-        filter: blur(20px);
+        filter: blur(50px);
         overflow: hidden;
         transform: scale(1.1);
         background-size: cover
@@ -91,19 +94,28 @@ import login from "./login.vue";
 
       .copyright {
         font-size: 14px;
-        color: #aaa;
+
         // position: absolute;
         // bottom: 30px;
         margin-bottom: 30px;
+        cursor: pointer;
+        user-select: none;
+
+        .btn {
+          color: #aaa;
+
+          &:hover {
+            color: var(--n-text-color-hover);
+          }
+        }
+
       }
     }
 
     .right {
       // background-color: rgba(1, 1, 70, 0.425);
-      background: url(https://sgs.gzmr.team/static/img/sgsBG.c1f9a0aa.jpg);
       width: calc(100vw / 2.5);
-      background-position: center;
-      background-size: cover;
+      overflow: hidden;
       transition: all .3s ease;
       filter: blur(0px);
     }
