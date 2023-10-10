@@ -197,7 +197,6 @@ const watchWidth = () => {
 const nowRouter = ref(router.currentRoute);
 watch(
   // 只监听大路由变化
-  // BUG 在这里还是有问题：首次加载的子应用会出现闪烁。
   () => nowRouter.value.name?.toString(),
   (newVal, oldVal) => {
 

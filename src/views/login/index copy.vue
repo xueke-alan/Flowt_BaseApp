@@ -144,11 +144,7 @@ const router = useRouter();
 const route = useRoute();
 
 const handleSubmit = (e: { preventDefault: () => void; }) => {
-  // TODO 表单验证这里有未抓取到的错误
   e.preventDefault();
-
-
-
   formRef.value.validate(async (errors: any) => {
     if (!errors) {
       const { username, password } = formInline;

@@ -1,6 +1,6 @@
 <template>
   <div class="rightIcon">
-    <n-popover trigger="click" placement="bottom-end" style="width: 220px">
+    <n-popover trigger="hover" placement="bottom-end" style="width: 220px">
       <template #trigger>
         <!-- <div style="display: flex;"> -->
         <n-button text style="display: flex">
@@ -59,7 +59,6 @@
     </n-popover>
 
     <!-- TODO 退出登录确认框 -->
-    <!-- 登陆成功后除了message和顶部loading，还需要视口内加一个提示，可以对登录按钮进行修改，修改为：资源加载中 -->
   </div>
 </template>
 

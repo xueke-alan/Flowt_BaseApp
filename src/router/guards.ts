@@ -27,23 +27,8 @@ export function createRouterGuards(router: Router) {
 
   const asyncRouteStore = useAsyncRoute();
 
-
-  // TODO 这里的路由基本搞定了 首屏有的时候会加载两次的BUG已解决，现在是 await sleep(250);不够优雅。想想新方案
-  // TODO 加载页面算是一个SGS的Logo，如果可以续上SGSlogo并且渐变到画面就更好了。50%
-  const switchMainView = async (to, from) => {
-    if (to?.name?.toString() !== from?.name?.toString()) {
-      // mainViewStore.hide = true
-      // await sleep(250);
-    }
-  }
-
   router.beforeEach(async (to, from, next) => {
-    // TODO 找到真正有用的   await switchMainView(to, from)
-    console.log(to);
-
     const Loading = window['$loading'] || null;
-
-
     // 如果要前往
     if (from.path === LOGIN_PATH && to.name === 'errorPage') {
       next(PageEnum.BASE_HOME);
@@ -78,10 +63,8 @@ export function createRouterGuards(router: Router) {
     }
 
     // 动态路由是否添加成功？
-    // BUG 似乎是这里导致首屏加载2次
     if (asyncRouteStore.getIsDynamicRouteAdded) {
       // 这里没有处理好路由重定向
-      await switchMainView(to, from)
       console.log('添加过动态路由了');
       // console.log(router.getRoutes());
       // console.log(router.hasRoute("fileLibrary"));

@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 // TODO keepLive
-// BUG 两个路由同一个组件不会触发 transition
+// BUG 两个路由同一个组件不会触发 transition,这个可能不算bug，应为在开发完毕后，不存在两个相同的路由组件
 import router from '@/router';
 console.log(router.currentRoute.value.meta.title);
 
