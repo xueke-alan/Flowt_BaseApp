@@ -14,22 +14,44 @@
 
     <n-form ref="formRef" :model="model" :rules="rules" class="loginForm">
       <n-form-item path="username" label="账号">
-        <n-input size="large" v-model:value="model.username" @keydown.enter.prevent />
+        <n-input size="large" v-model:value="model.username" @keydown.enter.prevent>
+          <template #suffix>
+            <n-icon :size="20" :component="Person24Regular" />
+          </template>
+        </n-input>
       </n-form-item>
       <transition name="slide-up" mode="out-in">
         <n-form-item path="password" label="密码" v-if="pagename == 'login'">
-          <n-input size="large" v-model:value="model.password" type="password" @keydown.enter.prevent />
+          <n-input size="large" v-model:value="model.password" type="password" @keydown.enter.prevent
+            show-password-on="mousedown">
+            <template #password-invisible-icon>
+              <n-icon :size="20" :component="EyeOff24Regular" />
+            </template>
+            <template #password-visible-icon>
+              <n-icon :size="20" :component="Eye24Filled" />
+            </template>
+          </n-input>
         </n-form-item>
         <n-form-item path="captcha" label="验证码" v-else>
           <n-input-group>
-            <n-input size="large" v-model:value="model.captcha" @keydown.enter.prevent />
-            <n-button size="large" @click="sendCaptcha" class='captchaBtn' :disabled="waitCaptcha > 0">
+            <n-input-group-label size="large">
+              <div class="captchaPrefix">
+                <div>HW</div>
+                <div style="font-size: 20px;line-height: 36px;margin-left: 2px;">-</div>
+              </div>
+            </n-input-group-label>
+            <n-input size="large" ref="captchaInputRef" v-model:value="model.captcha" @keydown.enter.prevent>
+            </n-input>
+            <n-button size="large" @click="sendCaptcha" class='captchaBtn' :class="{ forbid: waitCaptcha > 0 }">
               <transition name="fade" mode="out-in">
                 <div v-if="waitCaptcha">
-                  <span>已发送验证码</span>
-                  <transition name="slide-up" mode="out-in">
-                    <span class="waitCaptcha" :key="waitCaptcha">{{ waitCaptcha }}</span>
-                  </transition>
+                  <span style="margin-right: 5px;">已发送</span>
+                  <span class="waitCaptcha">
+                    <transition name="slide-up" mode="out-in">
+                      <span class="waitCaptcha" :key="waitCaptcha">{{ waitCaptcha }}</span>
+                    </transition>
+                  </span>
+
                 </div>
                 <div v-else>
                   <span>发送验证码</span>
@@ -47,23 +69,18 @@
           </transition>
         </n-button>
 
-        <div class="LoginBtnAff">
-          <div>
-            <transition name="fade" mode="out-in">
-              <n-checkbox size="small" label="记住我" v-if="pagename == 'login'" />
-            </transition>
-          </div>
-          <n-button quaternary size="small" text-color="#aaa" @click="switchPageName">
+        <n-divider />
+        <n-space justify="space-between">
+          <n-space justify="space-between">
+            <n-button type="primary" secondary size="small">IP 登录</n-button>
+            <n-button strong secondary size="small">访客登录</n-button>
+          </n-space>
+          <n-button strong secondary size="small" @click="switchPageName">
             <transition name="fade" mode="out-in">
               <span v-if="pagename == 'login'">忘记密码</span>
               <span v-else>账密登录</span>
             </transition>
           </n-button>
-        </div>
-        <n-divider />
-        <n-space justify="end">
-          <n-button secondary size="small">访客登录</n-button>
-          <n-button type="primary" secondary size="small">Host 登录</n-button>
         </n-space>
       </div>
     </n-form>
@@ -78,12 +95,14 @@ import {
   FormItemRule,
   useMessage,
   FormRules,
+  InputInst,
 } from 'naive-ui'
 import { useUserStore } from '@/store/modules/user';
 import { ResultEnum } from '@/enums/httpEnum';
 import { PageEnum } from '@/enums/pageEnum';
 import { useRoute, useRouter } from 'vue-router';
 import { computed } from 'vue';
+import { EyeOff24Regular, Person24Regular, Eye24Filled, Diversity24Regular } from "@vicons/fluent";
 const userStore = useUserStore();
 interface ModelType {
   username: string | null
@@ -91,6 +110,7 @@ interface ModelType {
   captcha: string | null
 }
 const pagename = ref('login')
+
 const router = useRouter();
 const route = useRoute();
 console.log(route);
@@ -166,7 +186,7 @@ const rules: FormRules = {
 
 const model = modelRef
 const waitCaptcha = ref(0)
-
+const captchaInputRef = ref<InputInst | null>(null)
 const handleValidateButtonClick = (e) => {
   e.preventDefault()
 
@@ -230,6 +250,10 @@ const sendCaptcha = () => {
       clearInterval(waitCaptchaTimer)
     }
   }, 1000)
+
+  setTimeout(() => {
+    captchaInputRef.value?.focus()
+  }, 200);
 }
 const switchPageName = () => {
   pagename.value = pagename.value == 'reset' ? 'login' : 'reset'
@@ -300,6 +324,21 @@ const keyDown = (e: { keyCode?: any; preventDefault?: () => void; }) => {
   }
 }
 
+.captchaPrefix {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  color: #aaa;
+  display: flex;
+
+  justify-content: center;
+
+
+  span {
+    // display: inline-block;
+    // height: 10px;
+  }
+}
+
 .loginForm {
   max-width: 400px;
   width: 100%;
@@ -311,20 +350,25 @@ const keyDown = (e: { keyCode?: any; preventDefault?: () => void; }) => {
 
   .LoginBtnAff {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     margin-top: 10px;
   }
 
   .captchaBtn {
     color: #aaa;
-    width: 150px;
+    width: 120px;
+
+    &.forbid {
+      // user-select: none;
+      pointer-events: none;
+
+    }
 
 
 
     .waitCaptcha {
       width: 24px;
-      margin-left: 5px;
       text-align: center;
       display: inline-block;
     }
