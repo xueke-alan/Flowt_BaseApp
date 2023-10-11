@@ -3,7 +3,11 @@
     <div class="title">
       <div class="sysName">
         <span class="highLine">Flowt.</span>
-        <span class="noraml">System</span>
+        <span class="noraml">
+          LIMS
+
+        </span>
+
       </div>
       <!-- <div class="pageName">Login .</div> -->
     </div>
@@ -270,12 +274,13 @@ const keyDown = (e: { keyCode?: any; preventDefault?: () => void; }) => {
       display: flex;
       gap: 10px;
       font-family: Tahoma, Verdana, STHeiTi, simsun, sans-serif;
-      align-items: flex-end;
+      align-items: baseline;
 
       .noraml {
         background-image: -webkit-linear-gradient(13deg, rgb(75, 75, 75), #696969);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+
       }
 
       .highLine {

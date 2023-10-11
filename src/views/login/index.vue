@@ -60,7 +60,7 @@ import rightSwip from "./rightSwip.vue";
       transition: all .3s ease;
 
       .bg {
-        background: url(https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1);
+        background: url(https://sgs.gzmr.team/static/img/sgsBG.c1f9a0aa.jpg);
         background-position: center;
         width: 100%;
         height: 100%;
