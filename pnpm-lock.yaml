@@ -1,10 +1,13 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@cmss/check-password-strength':
+    specifier: ^2.1.6
+    version: 2.1.6
   '@vicons/antd':
     specifier: ^0.12.0
     version: 0.12.0
@@ -1469,6 +1472,10 @@ packages:
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
+
+  /@cmss/check-password-strength@2.1.6:
+    resolution: {integrity: sha512-VFOIEEozw3gEZxMPqZB3+hYqnpZ/RiVbxZvXbqgk7GlCtdqagJe8TQQEJbU0zJAwsbO8Tji3zJ/Gqw2HeKjPPw==}
+    dev: false
 
   /@commitlint/cli@17.7.2:
     resolution: {integrity: sha512-t3N7TZq7lOeqTOyEgfGcaltHqEJf7YDlPg75MldeVPPyz14jZq/+mbGF9tueDLFX8R6RwdymrN6D+U5XwZ8Iwg==}

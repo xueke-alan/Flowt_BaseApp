@@ -1,0 +1,134 @@
+{
+    "fullPath": "/personal/securit",
+    "hash": "",
+    "query": {},
+    "name": "personal_other",
+    "path": "/personal/securit",
+    "params": {
+        "pra": "securit"
+    },
+    "matched": [
+        {
+            "path": "/personal",
+            "redirect": "/personal/security",
+            "name": "personal",
+            "meta": {
+                "title": "个人中心",
+                "sort": 5,
+                "hidden": true
+            },
+            "props": {
+                "default": false
+            },
+            "children": [
+                {
+                    "path": "security",
+                    "name": "personal_security",
+                    "component": {
+                        "__name": "index",
+                        "__hmrId": "d7b36008",
+                        "__file": "D:/Code/Flowt/Flowt_BaseApp/src/views/baseApp/personal/index.vue"
+                    },
+                    "meta": {
+                        "title": "账号安全",
+                        "default": true,
+                        "breadcrumb": false
+                    }
+                },
+                {
+                    "path": "/personal/:pra(.*)?",
+                    "name": "personal_other",
+                    "component": {
+                        "__name": "index",
+                        "__hmrId": "820c16a7",
+                        "__file": "D:/Code/Flowt/Flowt_BaseApp/src/views/micoApp/index.vue"
+                    },
+                    "meta": {
+                        "title": "其他",
+                        "breadcrumb": false
+                    }
+                }
+            ],
+            "instances": {},
+            "leaveGuards": {
+                "Set(0)": []
+            },
+            "updateGuards": {
+                "Set(0)": []
+            },
+            "enterCallbacks": {},
+            "components": {
+                "default": {
+                    "__name": "index",
+                    "__hmrId": "051739fd",
+                    "__scopeId": "data-v-051739fd",
+                    "__file": "D:/Code/Flowt/Flowt_BaseApp/src/layout/index.vue"
+                }
+            }
+        },
+        {
+            "path": "/personal/:pra(.*)?",
+            "name": "personal_other",
+            "meta": {
+                "title": "其他",
+                "breadcrumb": false
+            },
+            "props": {
+                "default": false
+            },
+            "children": [],
+            "instances": {},
+            "leaveGuards": {
+                "Set(0)": []
+            },
+            "updateGuards": {
+                "Set(0)": []
+            },
+            "enterCallbacks": {},
+            "components": {
+                "default": {
+                    "__name": "index",
+                    "__hmrId": "820c16a7",
+                    "__file": "D:/Code/Flowt/Flowt_BaseApp/src/views/micoApp/index.vue"
+                }
+            }
+        }
+    ],
+    "meta": {
+        "title": "其他",
+        "sort": 5,
+        "hidden": true,
+        "breadcrumb": false
+    },
+    "redirectedFrom": {
+        "fullPath": "/personal/securit",
+        "path": "/personal/securit",
+        "query": {},
+        "hash": "",
+        "name": "TempRoute",
+        "params": {},
+        "matched": [
+            {
+                "path": "/personal/securit",
+                "name": "TempRoute",
+                "meta": {},
+                "props": {
+                    "default": false
+                },
+                "children": [],
+                "instances": {},
+                "leaveGuards": {
+                    "Set(0)": []
+                },
+                "updateGuards": {
+                    "Set(0)": []
+                },
+                "enterCallbacks": {},
+                "components": {}
+            }
+        ],
+        "meta": {},
+        "href": "/personal/securit"
+    },
+    "href": "/personal/securit"
+}

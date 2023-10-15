@@ -65,7 +65,7 @@
         <n-button size="large" block :disabled="submitBtnDisable" type="primary" @click="handleValidateButtonClick">
           <transition name="fade" mode="out-in">
             <span v-if="pagename == 'login'">登录</span>
-            <span v-else>重置</span>
+            <span v-else>重置密码</span>
           </transition>
         </n-button>
 
@@ -360,15 +360,10 @@ const keyDown = (e: { keyCode?: any; preventDefault?: () => void; }) => {
     width: 120px;
 
     &.forbid {
-      // user-select: none;
       pointer-events: none;
-
     }
 
-
-
     .waitCaptcha {
-      width: 24px;
       text-align: center;
       display: inline-block;
     }
