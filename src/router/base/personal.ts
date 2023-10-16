@@ -1,10 +1,10 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { renderIcon } from '@/utils/index';
-import setting from '@/views/baseApp/personal/index.vue';
+import personal from '@/views/baseApp/personal/index.vue';
 const routeName = 'personal';
 
-import { TableEdit24Regular, PersonNote24Regular } from '@vicons/fluent';
+import { PersonNote24Regular } from '@vicons/fluent';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -15,36 +15,24 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '个人中心',
       icon: renderIcon(PersonNote24Regular),
-      sort: 5,
       hidden: true,
-
+      isMicoAppRouter: {
+        name: '其他',
+        entry: `http://localhost:5173/${routeName}`
+      },
     },
-
     children: [
       {
-        path: 'security',
-        name: `${routeName}_security`,
-        component: setting,
-        meta: {
-          title: '账号安全',
-          default: true,
-          icon: renderIcon(TableEdit24Regular),
-          breadcrumb: false
-
-        },
-      },
-      {
-        // 这里的 path 加上 '/:pra(.*)?' 后缀表示往后的'任意'参数都匹配，最后的 '?' 表示没有参数也匹配
         path: `/${routeName}/:pra(.*)?`,
         name: `${routeName}_other`,
-        component: setting,
-
+        component: personal,
         meta: {
           title: '其他',
           breadcrumb: false,
           isMicoAppRouter: {
             name: '其他',
-            entry: `https://microapp.flowt.work/${routeName}`
+            entry: `http://localhost:5173/${routeName}`
+
           },
         },
       },

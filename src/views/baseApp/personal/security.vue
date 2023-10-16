@@ -45,7 +45,8 @@
       </n-space>
 
 
-      <n-input placeholder="输入新密码" type="password" v-model:value="newPsw" />
+      <n-input placeholder="输入新密码" type="password" v-model:value="newPsw"
+        :input-props="{ autocomplete: 'new-password' }" />
 
     </div>
     <div class="mainInput">
@@ -139,6 +140,7 @@ const newPswStrength = computed(() => {
 
 })
 
+
 const pswState = computed(() => {
   if (newPsw.value == '') {
     return { code: 0, btnLable: '请输入新密码' }
@@ -160,7 +162,7 @@ const pswState = computed(() => {
 
 <style lang="less" scoped>
 .securityMain {
-  padding: 0 20px;
+
   max-width: 500px;
   // color: #1e1e1e;
 

@@ -6,8 +6,10 @@
     </n-layout-sider>
 
     <n-layout content-style="padding: 24px;" :native-scrollbar="false">
-      <!-- <security /> -->
-      <micoApp />
+      <!-- <transition name="fade" mode="out-in">
+        <security v-if="MenuVal == 'security'" /> -->
+      <micoApp :meta="{ name: 'personal', entry: 'http://localhost:5173/personal' }" />
+      <!-- </transition> -->
     </n-layout>
   </n-layout>
 </template>
@@ -30,7 +32,6 @@ const menuOptions: MenuOption[] = [
     label: '账号安全',
     key: 'security',
     icon: renderIcon(TabInprivateAccount24Regular)
-
   },
   {
     key: 'divider-1',
@@ -43,7 +44,7 @@ const menuOptions: MenuOption[] = [
   },
   {
     label: '设备',
-    key: 'pequip',
+    key: 'equip',
     icon: renderIcon(ShieldKeyhole24Regular)
   },
   {
@@ -54,9 +55,20 @@ const menuOptions: MenuOption[] = [
 ]
 
 const MenuVal = ref('security')
-
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const message = useMessage()
 const handleUpdateValue = (key: string, item: MenuOption) => {
+  console.log(key);
+  console.log(item);
 
+  console.log(router);
+
+  router.push({
+    name: 'personal_other',
+    params: { pra: key }
+
+
+  })
 }
 </script>

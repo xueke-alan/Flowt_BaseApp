@@ -14,7 +14,7 @@ import { MicroAppRouterItem } from '@/micoApp/interface';
 import { devApp } from './devRouter';
 import { useGlobSetting } from '@/hooks/setting';
 const { sigleMicroAppContainer } = useGlobSetting();
-
+const projectName = import.meta.env.VITE_MICROAPP_URL;
 /**
  * 完善微服务路由
  * @micoAppconfig 从数据库依据权限拿到的全部路由
@@ -45,7 +45,7 @@ export const createMicoRoutes = async (micoAppconfig: MicroAppRouterItem[], micr
           if (devApp[config.baseUrl]) {
             config.entry = devApp[config.baseUrl].entry;
           } else {
-            config.entry = `https://microapp.flowt.work/${configItem.path}`;
+            config.entry = `${projectName}/${configItem.path}`;
           }
 
           // 得到的配置文件可能与base配置属性不一致，需要重合，属性一样时以后端返回的的值为准; meta也要重叠

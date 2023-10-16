@@ -1,16 +1,26 @@
 <template>
-  {{ meta.entry }}
   <WujieVue width="100%" height="100%" :sync="false" v-if="meta" :name="meta.name" :url="meta.entry" :loading="loadingEl"
-    :exec="true" :alive="true" :props="{ currentRoutePath: router.currentRoute.value.fullPath }" :loadError="loadError" />
+    :exec="true" :alive="true" :props="{ currentRoutePath: router.currentRoute.value.fullPath }" :loadError="loadError"
+    :beforeUnmount="beforeUnmount" />
 </template>
   
 <script lang="ts" setup>
 
+import { onUnmounted } from 'vue';
 import { computed, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
-
 const router = useRouter();
-const meta = computed(() => router.currentRoute.value.meta.isMicoAppRouter as any || null);
+const props = defineProps(['meta'])
+const meta = computed(() => {
+  if (props.meta) {
+    return props.meta
+  } else {
+    return router.currentRoute.value.meta.isMicoAppRouter as any || null
+  }
+});
+
+
+
 
 // 如果使用wujie-vue
 import WujieVue from "wujie-vue3";
@@ -28,6 +38,11 @@ onMounted(() => {
   });
 })
 
+const beforeUnmount = () => {
+  console.log('beforeUnmount');
+
+}
+
 watch(
   () => router.currentRoute.value.fullPath,
   (newVal) => {
@@ -38,7 +53,6 @@ watch(
 )
 const loadError = () => {
   console.log('loadError');
-
 }
 </script>
   
