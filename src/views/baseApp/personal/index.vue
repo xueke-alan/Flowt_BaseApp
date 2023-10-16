@@ -6,8 +6,8 @@
     </n-layout-sider>
 
     <n-layout content-style="padding: 24px;" :native-scrollbar="false">
-      <security />
-      <!-- <micoApp /> -->
+      <!-- <security /> -->
+      <micoApp />
     </n-layout>
   </n-layout>
 </template>
@@ -28,7 +28,7 @@ function renderIcon(icon: Component) {
 const menuOptions: MenuOption[] = [
   {
     label: '账号安全',
-    key: 'go-back-home',
+    key: 'security',
     icon: renderIcon(TabInprivateAccount24Regular)
 
   },
@@ -38,17 +38,22 @@ const menuOptions: MenuOption[] = [
   },
   {
     label: '个人信息',
-    key: 'pinball-1973',
+    key: 'info',
+    icon: renderIcon(ShieldKeyhole24Regular)
+  },
+  {
+    label: '设备',
+    key: 'pequip',
     icon: renderIcon(ShieldKeyhole24Regular)
   },
   {
     label: 'Rewards',
-    key: 'a-wild-sheep-chase',
+    key: 'Rewards',
     icon: renderIcon(Reward24Regular)
   },
 ]
 
-const MenuVal = ref('go-back-home')
+const MenuVal = ref('security')
 
 const message = useMessage()
 const handleUpdateValue = (key: string, item: MenuOption) => {

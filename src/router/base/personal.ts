@@ -1,14 +1,10 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { renderIcon } from '@/utils/index';
-
 import setting from '@/views/baseApp/personal/index.vue';
-
 const routeName = 'personal';
-import micoAppBox from '@/views/micoApp/index.vue';
 
-
-import { TableEdit24Regular, DocumentTable24Regular } from '@vicons/fluent';
+import { TableEdit24Regular, PersonNote24Regular } from '@vicons/fluent';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: '个人中心',
-      icon: renderIcon(DocumentTable24Regular),
+      icon: renderIcon(PersonNote24Regular),
       sort: 5,
       hidden: true,
 

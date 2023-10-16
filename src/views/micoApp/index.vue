@@ -1,4 +1,5 @@
 <template>
+  {{ meta.entry }}
   <WujieVue width="100%" height="100%" :sync="false" v-if="meta" :name="meta.name" :url="meta.entry" :loading="loadingEl"
     :exec="true" :alive="true" :props="{ currentRoutePath: router.currentRoute.value.fullPath }" :loadError="loadError" />
 </template>

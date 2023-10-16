@@ -1,4 +1,4 @@
-const devAppName = 'fileLibrary';
+const devAppName = 'personal';
 const port = 5173;
 
 export const devApp = {
