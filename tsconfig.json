@@ -49,7 +49,7 @@
     "mock/**/*.ts",
     "components.d.ts",
     "vite.config.ts"
-  ],
+, "src/router/base/personal"  ],
   "exclude": [
     "node_modules",
     "dist",
