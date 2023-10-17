@@ -45,6 +45,7 @@ const generator: any = (routerMap) => {
 const breadcrumbList = computed(() => {
 
   const matched = generator(route.matched)
+  console.log(matched);
 
   const list = matched.map((r) => {
     const item = {
@@ -70,7 +71,7 @@ const breadcrumbList = computed(() => {
   return list.filter((i) => {
     // 当option只有一个，说明是一个父路由，并且子路由只有唯一的一个，没有展示该父路由的必要。
     if (
-      (i.option.filter((cc) => cc.show).length != 1 )
+      (i.option.filter((cc) => cc.show).length != 1)
       && i.show
     ) {
       return true

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { store } from '@/store';
 import designSetting from '@/settings/designSetting';
+import { lighten } from '@/utils';
 
 const { darkTheme, appTheme, appThemeList } = designSetting;
 
@@ -30,6 +31,21 @@ export const useDesignSettingStore = defineStore({
     getAppThemeList(): string[] {
       return this.appThemeList;
     },
+    getThemeOverrides(): any {
+      // const appTheme = this.appTheme;
+      const lightenStr = lighten(this.appTheme, 6);
+      return {
+        common: {
+          primaryColor: this.appTheme,
+          primaryColorHover: lightenStr,
+          primaryColorPressed: lightenStr,
+          primaryColorSuppl: appTheme,
+        },
+        LoadingBar: {
+          colorLoading: appTheme,
+        },
+      };
+    }
   },
   actions: {},
 });

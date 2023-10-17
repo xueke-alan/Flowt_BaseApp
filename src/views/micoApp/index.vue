@@ -1,7 +1,6 @@
 <template>
   <WujieVue width="100%" height="100%" :sync="false" v-if="meta" :name="meta.name" :url="meta.entry" :loading="loadingEl"
-    :exec="true" :alive="true" :props="{ currentRoutePath: router.currentRoute.value.fullPath }" :loadError="loadError"
-    :beforeUnmount="beforeUnmount" />
+    :exec="true" :alive="true" :props="wujieprops" :loadError="loadError" :beforeUnmount="beforeUnmount" />
 </template>
   
 <script lang="ts" setup>
@@ -10,6 +9,14 @@ import { onUnmounted } from 'vue';
 import { computed, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
+import { useDesignSettingStore } from '@/store/modules/designSetting';
+const designStore = useDesignSettingStore();
+
+const wujieprops = {
+  currentRoutePath: router.currentRoute.value.fullPath,
+  designStore,
+  darkTheme: designStore.darkTheme
+}
 const props = defineProps(['meta'])
 const meta = computed(() => {
   if (props.meta) {

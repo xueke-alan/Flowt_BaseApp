@@ -202,7 +202,8 @@ import { CheckOutlined } from '@vicons/antd';
 import { Moon, SunnySharp } from '@vicons/ionicons5';
 import { darkTheme } from 'naive-ui';
 import { animates as animateOptions } from '@/settings/animateSetting';
-
+import WujieVue from "wujie-vue3";
+const { bus } = WujieVue;
 export default defineComponent({
   name: 'ProjectSetting',
   components: { CheckOutlined, Moon, SunnySharp },
@@ -231,8 +232,9 @@ export default defineComponent({
 
     watch(
       () => designStore.darkTheme,
-      (to) => {
-        settingStore.navTheme = to ? 'header-dark' : 'dark';
+      (isDarkTheme) => {
+        settingStore.navTheme = isDarkTheme ? 'header-dark' : 'dark';
+        bus.$emit("changeTheme", isDarkTheme ? darkTheme : undefined);
       }
     );
 

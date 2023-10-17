@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <NConfigProvider v-if="!isLock" :locale="zhCN" :theme="getDarkTheme" :theme-overrides="getThemeOverrides"
+    <NConfigProvider v-if="!isLock" :locale="zhCN" :theme="getDarkTheme" :theme-overrides="designStore.getThemeOverrides"
       :date-locale="dateZhCN">
 
       <AppProvider>
@@ -34,24 +34,7 @@ const designStore = useDesignSettingStore();
 const isLock = computed(() => useScreenLock.isLocked);
 const lockTime = computed(() => useScreenLock.lockTime);
 
-/**
- * @type import('naive-ui').GlobalThemeOverrides
- */
-const getThemeOverrides = computed(() => {
-  const appTheme = designStore.appTheme;
-  const lightenStr = lighten(designStore.appTheme, 6);
-  return {
-    common: {
-      primaryColor: appTheme,
-      primaryColorHover: lightenStr,
-      primaryColorPressed: lightenStr,
-      primaryColorSuppl: appTheme,
-    },
-    LoadingBar: {
-      colorLoading: appTheme,
-    },
-  };
-});
+
 
 const getDarkTheme = computed(() => (designStore.darkTheme ? darkTheme : undefined));
 
@@ -119,6 +102,4 @@ onUnmounted(() => {
 .fade-leave-to {
   opacity: 0;
 }
-
-
 </style>
