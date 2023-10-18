@@ -1,4 +1,4 @@
-const devAppName = 'personal';
+const devAppName = 'fileLibrary';
 const port = 5173;
 
 let devApp = {}

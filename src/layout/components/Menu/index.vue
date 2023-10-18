@@ -108,7 +108,11 @@ export default defineComponent({
     });
 
     const selectedRouterGroup = computed(() => {
-      return currentRoute.meta.group
+      if (currentRoute.meta.hidden) {
+        return undefined
+      } else {
+        return currentRoute.meta.group
+      }
     });
 
     const { getDarkTheme } = useDesignSetting();
@@ -270,7 +274,7 @@ export default defineComponent({
     onMounted(() => {
       updateMenu();
       console.log(menus);
-      
+
       expandedNames.value = menus.value.map((m) => m.group)
     });
     const expandIcon = renderIcon(CaretDown20Filled)
