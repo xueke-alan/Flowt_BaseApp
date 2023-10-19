@@ -1,4 +1,4 @@
-const devAppName = 'fileLibrary';
+const devAppName = 'microapps';
 const port = 5173;
 
 let devApp = {}

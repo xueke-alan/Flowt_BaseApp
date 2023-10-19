@@ -66,10 +66,17 @@ export function generatorMenu(routerMap: Array<any>) {
       icon: isRoot ? item.meta?.icon : info.meta?.icon,
     };
     // 是否有子菜单，并递归处理
-    if (info.children && info.children.length > 0) {
+    if (info.children && info.children.length > 1) {
       // Recursion
+      console.log("========");
+      console.log(info.children);
+
       currentMenu.children = generatorMenu(info.children);
+    } else {
+      currentMenu.children = undefined
     }
+    console.log(currentMenu);
+
     return currentMenu;
   });
 }
