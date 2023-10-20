@@ -108,7 +108,9 @@ export default defineComponent({
     });
 
     const selectedRouterGroup = computed(() => {
-      if (currentRoute.meta.hidden) {
+      // 这里有问题：子路由与父路由都隐藏的返回undefined，但是父路由显示，子路由隐藏，但是只有一个子路由的情况需要展示group
+      // BUG 上述问题未验证
+      if (currentRoute.matched[0].meta.hidden) {
         return undefined
       } else {
         return currentRoute.meta.group
